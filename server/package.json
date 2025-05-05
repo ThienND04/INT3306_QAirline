@@ -4,8 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "node server.js",
-        "watch": "nodemon server.js",
+        "start": "nodemon --inspect --env-file=.env app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -18,9 +17,11 @@
         "dotenv": "^16.5.0",
         "express": "^5.1.0",
         "jsonwebtoken": "^9.0.2",
-        "mongoose": "^8.14.1"
+        "mongoose": "^8.14.1",
+        "mongoose-slug-generator": "^1.0.4"
     },
     "devDependencies": {
+        "morgan": "^1.10.0",
         "nodemon": "^3.1.10"
     }
 }
