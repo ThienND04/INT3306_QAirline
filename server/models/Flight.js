@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 
 const flightSchema = new mongoose.Schema({
     code: String,
@@ -6,7 +7,16 @@ const flightSchema = new mongoose.Schema({
     from: String,
     to: String,
     departureTime: Date,
-    seats: [{ seatNo: String, isBooked: Boolean }]
+    seats: [{ 
+        seatNo: String, 
+        isBooked: { type: Boolean, default: false } 
+    }]
 });
+
+flightSchema.plugin(mongooseDelete, 
+    { 
+        overrideMethods: 'all',
+        deletedAt: true,
+    });
 
 module.exports = mongoose.model('Flight', flightSchema);

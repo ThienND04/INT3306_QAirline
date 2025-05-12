@@ -1,19 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const ticketController = require('../controllers/TicketController');
-const authMiddleware = require('../middlewares/AuthMiddleware');
+const authenticateToken = require('../middlewares/auth/authToken');
+const authorizeRoles = require('../middlewares/auth/authRoles');
+const authorizeTicketOwner = require('../middlewares/ownership/authorizeTicketOwner');
 
-router.use(authMiddleware); // Apply auth middleware to all routes
+router.use(authenticateToken);
 
-// Get all tickets
-router.get('/', ticketController.getAllTickets);
-// Get ticket by ID
-router.get('/:id', ticketController.getTicketById);
-// Create a new ticket
+router.get('/', authorizeRoles('admin'), ticketController.getAllTickets);
+router.get('/:id', authorizeTicketOwner, ticketController.getTicketById);
 router.post('/', ticketController.createTicket);
-// Update ticket information
-router.put('/:id', ticketController.updateTicket);
-// Delete ticket by ID
-router.delete('/:id', ticketController.deleteTicket);
+router.put('/:id', authorizeTicketOwner, ticketController.updateTicket);
+router.delete('/:id', authorizeTicketOwner, ticketController.deleteTicket);
 
 module.exports = router;
