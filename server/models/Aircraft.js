@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 
 const aircraftSchema = new mongoose.Schema({
-    AircraftID: { type: String, required: true, unique: true },
-    Model: { type: String, required: true },
-    Manufacturer: { type: String, required: true },
-    EconomyClassSeats: { type: Number, default: 0 },
-    BusinessClassSeats: { type: Number, default: 0 },
-    FirstClassSeats: { type: Number, default: 0 },
-    PremiumClassSeats: { type: Number, default: 0 },
-    TotalSeats: { type: Number, required: true },
-    RangeInKm: Number,
-    Description: String
+    aircraftID: { type: String, required: true, unique: true },
+    model: { type: String, required: true },
+    manufacturer: { type: String, required: true },
+    economyClassSeats: { type: Number, default: 0 },
+    businessClassSeats: { type: Number, default: 0 },
+    firstClassSeats: { type: Number, default: 0 },
+    premiumClassSeats: { type: Number, default: 0 },
+    totalSeats: { type: Number, required: true },
+    rangeInKm: Number,
+    description: String
 });
 
 aircraftSchema.plugin(mongooseDelete, 

@@ -1,17 +1,24 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 
 const ticketSchema = new mongoose.Schema({
-    TicketID: { type: String, required: true, unique: true },
-    FlightID: { type: String, ref: 'Flight', required: true },
-    Email: { type: String, required: true },
-    IdentityNo: { type: String, required: true }, // Passport number or National ID
-    SeatNumber: { type: String, required: true },
-    Price: { type: Number, required: true },
-    Departure: { type: String, required: true }, // Departure airport IATACode
-    Arrival: { type: String, required: true }, // Arrival airport IATACode
-    DepartureTime: { type: Date, required: true },
-    ArrivalTime: { type: Date, required: true },
-    BookedAt: { type: Date, default: Date.now }
+    ticketId: { type: String, required: true, unique: true },
+    flightId: { type: mongoose.Schema.Types.ObjectId, ref: 'Flight', required: true },
+    userId: { type: String, ref: 'User', required: true },
+    identityNo: { type: String, required: true }, // Passport number or National ID
+    seatNumber: { type: String, required: true },
+    price: { type: Number, required: true },
+    departure: { type: String, required: true }, // Departure airport IATACode
+    arrival: { type: String, required: true }, // Arrival airport IATACode
+    departureTime: { type: Date, required: true },
+    arrivalTime: { type: Date, required: true },
+    bookedAt: { type: Date, default: Date.now }
 });
+
+ticketSchema.plugin(mongooseDelete, 
+    { 
+        overrideMethods: 'all',
+        deletedAt: true,
+    });
 
 module.exports = mongoose.model('Ticket', ticketSchema);

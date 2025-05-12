@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
 
     nationality: { type: String, required: true }, // Quốc tịch
     language: { type: String, required: true }, // Ngôn ngữ
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

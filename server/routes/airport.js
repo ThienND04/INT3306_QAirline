@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const airportController = require('../controllers/AirportController');
-const authMiddleware = require('../middlewares/AuthMiddleware');
+const authenticateToken = require('../middlewares/auth/authToken');
+const authorizeRoles = require('../middlewares/auth/authRoles');
 
-router.use(authMiddleware); // Apply auth middleware to all routes
+router.use(authenticateToken); 
+router.use(authorizeRoles('admin'));
 
 router.get('/', airportController.getAllAirports);
 router.get('/:id', airportController.getAirportById);
