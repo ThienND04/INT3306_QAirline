@@ -2,6 +2,8 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const createToken = require('../utils/createToken');
+const Otp = require('../models/Otp'); 
+const sendOtpEmail = require('../utils/sendOtpEmail'); 
 
 class UserController {
     // Đăng ký người dùng mới
@@ -236,6 +238,63 @@ class UserController {
         } catch (error) {
             console.error('Error deleting user:', error);
             return res.status(500).json({ message: 'Error deleting user', error: error.message });
+        }
+    }
+
+    // [POST] /users/forgot-password
+    async forgotPassword(req, res) {
+        try {
+            const { email } = req.body;
+            const user = await User.findOne({ email });
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            // 6 chữ số OTP
+            const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+            await Otp.create({
+                userId: user._id,
+                otpCode: otp,
+            });
+
+            // Send OTP to user's email
+            sendOtpEmail(email, otp);
+            console.log('OTP sent to email');
+            return res.status(200).json({ message: 'OTP sent to email' });
+        } catch (error) {
+            return res.status(500).json({ message: 'Error sending OTP', error: error.message });
+        }
+    }
+
+    // [POST] /users/reset-password
+    async resetPassword(req, res) {
+        try {
+            const { email, otp, newPassword } = req.body;
+            const user = await User.findOne({ email });
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            // Find latest unused OTP for this user
+            const otpDoc = await Otp.findOne({ userId: user._id, isUsed: false }).sort({ createdAt: -1 });
+            if (!otpDoc) {
+                return res.status(400).json({ message: 'OTP not found or expired' });
+            }
+
+            const isMatch = await bcrypt.compare(otp, otpDoc.otpCode);
+            if (!isMatch) {
+                return res.status(400).json({ message: 'Invalid OTP' });
+            }
+
+            otpDoc.isUsed = true;
+            await otpDoc.save();
+
+            user.password = newPassword;
+            await user.save();
+
+            return res.status(200).json({ message: 'Password reset successfully' });
+        } catch (error) {
+            return res.status(500).json({ message: 'Error resetting password', error: error.message });
         }
     }
 }
