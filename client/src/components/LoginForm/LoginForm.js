@@ -2,12 +2,14 @@ import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 import userApiService from '../../services/UserApiService'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useNavigate } from 'react-router-dom'
 
 function LoginForm() {
     const [form, setForm] = React.useState({
         email: '',
         password: '',
     })
+    const navigate = useNavigate()
     const handleChange = (e) => {
         const { name, value } = e.target
         setForm({ ...form, [name]: value })
@@ -35,6 +37,18 @@ function LoginForm() {
             <div className="col-md-6">
                 <label>Password</label>
                 <input type="password" className="form-control" name="password" value={form.password} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6 mt-2 mb-2">
+                <a
+                    href="#nothing"
+                    style={{ fontSize: '0.9rem' }}
+                    onClick={e => {
+                        e.preventDefault()
+                        navigate('/forgot-password')
+                    }}
+                >
+                    Forgot password?
+                </a>
             </div>
             <Button variant="btn btn-primary mt-4" type="submit">
                 Submit
