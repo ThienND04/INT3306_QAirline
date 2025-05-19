@@ -9,6 +9,7 @@ router.post('/login', userController.login);
 router.put('/update', authenticateToken, userController.updateUser);
 router.get('/me', authenticateToken, userController.getCurrentUser);
 router.post('/forgot-password', userController.forgotPassword);
+router.post('/verify-otp', userController.verifyOtp);
 router.put('/reset-password', userController.resetPassword);
 router.get('/all', authenticateToken, authorizeRoles('admin'), userController.getAllUsers);
 router.get('/:id', authenticateToken, authorizeRoles('admin'), userController.getUserById);

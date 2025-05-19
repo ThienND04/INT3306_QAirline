@@ -245,6 +245,7 @@ class UserController {
     async forgotPassword(req, res) {
         try {
             const { email } = req.body;
+            console.log(req.body);
             const user = await User.findOne({ email });
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
@@ -266,16 +267,14 @@ class UserController {
         }
     }
 
-    // [POST] /users/reset-password
-    async resetPassword(req, res) {
+    // [POST] /users/verify-otp
+    async verifyOtp(req, res) {
         try {
-            const { email, otp, newPassword } = req.body;
+            const { email, otp } = req.body;
             const user = await User.findOne({ email });
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-
-            // Find latest unused OTP for this user
             const otpDoc = await Otp.findOne({ userId: user._id, isUsed: false }).sort({ createdAt: -1 });
             if (!otpDoc) {
                 return res.status(400).json({ message: 'OTP not found or expired' });
@@ -286,8 +285,29 @@ class UserController {
                 return res.status(400).json({ message: 'Invalid OTP' });
             }
 
+            var resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '10m' });
             otpDoc.isUsed = true;
             await otpDoc.save();
+
+            res.status(200).json({
+                message: 'OTP verified successfully',
+                resetToken
+            });
+        }
+        catch (error) {
+            return res.status(500).json({ message: 'Error verifying OTP', error: error.message });
+        }
+    }
+
+    // [POST] /users/reset-password
+    async resetPassword(req, res) {
+        try {
+            const { resetToken, newPassword } = req.body;
+            const decoded = jwt.verify(resetToken, process.env.JWT_SECRET);
+            const user = await User.findOne({_id: decoded.id });
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
 
             user.password = newPassword;
             await user.save();

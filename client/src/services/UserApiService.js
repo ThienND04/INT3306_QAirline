@@ -38,6 +38,16 @@ class UserApiService {
         }
         return response.data;
     }
+
+    async forgotPassword(userData) {
+        const response = await axiosInstance.post(`${this.baseUrl}/forgot-password`, userData);
+        if (response.status !== 200) {
+            throw new Error('Failed to login user');
+        }
+        return response.data;
+    }
+
+    
 }
 
 const userApiService = new UserApiService();
