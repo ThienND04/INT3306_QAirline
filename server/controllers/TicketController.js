@@ -51,7 +51,6 @@ class TicketController {
 
             seatToBook.isBooked = true;
             await flight.save();
-
             const ticket = new Ticket({
                 ...ticketDetails,
                 flightId: flight._id, // Ensure flightId is stored

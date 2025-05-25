@@ -3,7 +3,7 @@ import axiosInstance from './AxiosInstance';
 
 class UserApiService {
     constructor() {
-        this.baseUrl = '/users';
+        this.baseUrl = '/auth';
     }
 
     async getAllUsers() {
@@ -36,7 +36,7 @@ class UserApiService {
         if (response.status !== 200) {
             throw new Error('Failed to login user');
         }
-        return response.data;
+        return response;
     }
 
     async forgotPassword(userData) {
@@ -46,8 +46,6 @@ class UserApiService {
         }
         return response.data;
     }
-
-    
 }
 
 const userApiService = new UserApiService();

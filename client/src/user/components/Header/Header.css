@@ -1,0 +1,41 @@
+.qa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  }
+  
+  .qa-logo {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  
+  .qa-nav a {
+    margin: 0 12px;
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .qa-auth {
+    display: flex;
+    align-items: center;
+  }
+  
+  .qa-btn {
+    margin-left: 10px;
+    background: black;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .qa-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+  }
+  
