@@ -7,7 +7,10 @@ const authorizeRoles = require('../middlewares/auth/authRoles');
 router.use(authenticateToken); 
 router.use(authorizeRoles('admin'));
 
-router.get('/', flightController.searchFlights);      // /api/flights
-router.post('/', flightController.createFlight);      // Thêm chuyến bay mới
+router.get('/', flightController.getAllFlights);
+router.get('/search', flightController.searchFlights);
+router.post('/', flightController.createFlight);     
+router.put('/:id', flightController.updateFlight);
+router.delete('/:id', flightController.deleteFlight); 
 
 module.exports = router;
