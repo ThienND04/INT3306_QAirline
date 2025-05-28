@@ -16,7 +16,7 @@ const Header = () => {
 		<header className="header">
 			<div className="header-container">
 				<div className="header-left">
-					<Link to="/" className="logo">QAirline</Link>
+					<Link to="/admin" className="logo">QAirline</Link>
 					<nav className="admin-nav">
 						<Link to="/admin/flights" className="nav-item">Quản lý chuyến bay</Link>
 						<Link to="/admin/airports" className="nav-item">Quản lý sân bay</Link>

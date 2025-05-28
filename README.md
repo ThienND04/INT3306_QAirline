@@ -45,3 +45,13 @@ npm install
 npm start
 ```
 Frontend được chạy ở port 5001.
+
+Giao diện người dùng
+```bash
+http://localhost:5001/
+```
+
+Giao diện admin
+```bash
+http://localhost:5001/admin
+```

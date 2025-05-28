@@ -6,7 +6,12 @@ import Login from './user/views/pages/Login';
 import ForgotPassword from './user/views/pages/ForgotPassword';
 import Register from './user/views/pages/Register';
 import AdminHome from './admin/components/views/pages/AdminHome';
-import FlightsManager from './admin/components/views/pages/FlightsManager';
+import FlightsManager from './admin/components/views/pages/FlightManager/FlightsManager';
+import CreateFlight from './admin/components/views/pages/FlightManager/CreateFlight';
+import EditFlight from './admin/components/views/pages/FlightManager/EditFlight';
+import AirportManager from './admin/components/views/pages/AirportManager/AirportsManager';
+import CreateAirport from './admin/components/views/pages/AirportManager/CreateAirport';
+import EditAirport from './admin/components/views/pages/AirportManager/EditAirport';
 
 
 function App() {
@@ -23,6 +28,11 @@ function App() {
 				{/* Routes for admin */}
 				<Route path="/admin" element={<AdminHome />} />
 				<Route path="/admin/flights" element={<FlightsManager />} />
+				<Route path="/admin/add-flight" element={<CreateFlight />} />
+				<Route path="/admin/edit-flight/:id" element={< EditFlight />} />
+				<Route path="/admin/airports" element={< AirportManager />} />
+				<Route path="/admin/add-airport" element={< CreateAirport />} />
+				<Route path="/admin/edit-airport/:id" element={< EditAirport />} />
 			</Routes>
 		</Router>
 	);
