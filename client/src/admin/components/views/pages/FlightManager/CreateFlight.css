@@ -1,0 +1,23 @@
+body {
+    background-color: #f0f2f5;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.form-title {
+    font-weight: bold;
+    font-size: 1.9rem;
+    color: #222;
+}
+
+.form-subtitle {
+    font-size: 1rem;
+    color: #666;
+}

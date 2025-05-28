@@ -289,5 +289,7 @@ router.put('/:id', aircraftController.updateAircraft);
  *         description: Aircraft not found
  */
 router.delete('/:id', aircraftController.deleteAircraft);
+router.get('/deleted', aircraftController.getDeletedAircrafts);
+router.patch('/:id/restore', aircraftController.restoreAircraft);
 
 module.exports = router;

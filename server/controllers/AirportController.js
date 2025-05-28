@@ -52,13 +52,41 @@ class AirportController {
     // Delete airport
     async deleteAirport(req, res) {
         try {
-            const airport = await Airport.findByIdAndDelete(req.params.id);
+            const airport = await Airport.findById(req.params.id); 
             if (!airport) {
                 return res.status(404).json({ message: 'Airport not found' });
             }
+            airport.delete(); 
             res.status(200).json({ message: 'Airport deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Error deleting airport', error });
+        }
+    }
+
+    // [GET] /airports/deleted
+    async getDeletedAirports(req, res) {
+        try {
+            const deletedAirports = await Airport.findDeleted({});
+            res.status(200).json(deletedAirports);
+        } catch (error) {
+            res.status(500).json({ message: 'Error getting deleted airports', error: error.message });
+        }
+    }
+
+    // [PATCH] /airports/:id/restore
+    async restoreAirport(req, res) {
+        try {
+            const result = await Airport.restore({ _id: req.params.id });
+            if (result.restored === 0 || (result.modifiedCount === 0 && result.matchedCount === 0)) {
+                return res.status(404).json({ message: 'Airport not found or not deleted' });
+            }
+            const restoredAirport = await Airport.findById(req.params.id);
+            if (!restoredAirport) {
+                 return res.status(404).json({ message: 'Airport not found after attempting restore.' });
+            }
+            res.status(200).json({ message: 'Airport restored successfully', airport: restoredAirport });
+        } catch (error) {
+            res.status(500).json({ message: 'Error restoring airport', error: error.message });
         }
     }
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import flightApiService from '../../services/FlightApiService';
+import flightApiService from '../../../services/FlightApiService';
 import './FlightsManager.css';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import Header from '../../../components/Header/Header';
+import Footer from '../../../components/Footer/Footer';
 
 function FlightsManager() {
     const [flights, setFlights] = useState([]);
@@ -31,8 +31,7 @@ function FlightsManager() {
                     <h1>Quản lý chuyến bay</h1>
                     <p>Theo dõi – chỉnh sửa dễ dàng.</p>
                     <div className="actions">
-                        <button onClick={() => window.location.href = '/add-flight'}>Thêm chuyến bay</button>
-                        <button onClick={() => window.location.href = '/reports'}>Xem báo cáo</button>
+                        <button onClick={() => window.location.href = 'add-flight'}>Thêm chuyến bay</button>
                     </div>
 
                     <table className="flights-table">
@@ -43,7 +42,7 @@ function FlightsManager() {
                                 <th>Điểm đến</th>
                                 <th>Khởi hành</th>
                                 <th>Đến nơi</th>
-                                <th>Giá vé</th>
+                                {/* <th>Giá vé</th> */}
                                 <th>Hãng bay</th>
                                 <th>Hành động</th>
                             </tr>
@@ -51,15 +50,15 @@ function FlightsManager() {
                         <tbody>
                             {flights.map(flight => (
                                 <tr key={flight._id}>
-                                    <td>{flight.flightNumber}</td>
+                                    <td>{flight.code}</td>
                                     <td>{flight.from}</td>
                                     <td>{flight.to}</td>
                                     <td>{new Date(flight.departureTime).toLocaleString()}</td>
                                     <td>{new Date(flight.arrivalTime).toLocaleString()}</td>
-                                    <td>{flight.price.toLocaleString()} VND</td>
+                                    {/* <td>{flight.price.toLocaleString()} VND</td> */}
                                     <td>{flight.airline}</td>
                                     <td>
-                                        <button onClick={() => window.location.href = `/edit-flight/${flight._id}`}>Sửa</button>
+                                        <button onClick={() => window.location.href = `edit-flight/${flight._id}`}>Sửa</button>
                                         <button onClick={() => handleDelete(flight._id)} className="danger">Xóa</button>
                                     </td>
                                 </tr>

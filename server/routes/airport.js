@@ -12,5 +12,7 @@ router.get('/:id', airportController.getAirportById);
 router.post('/', airportController.createAirport);
 router.put('/:id', airportController.updateAirport);
 router.delete('/:id', airportController.deleteAirport);
+router.get('/deleted', airportController.getDeletedAirports);
+router.patch('/restore/:id', airportController.restoreAirport);
 
 module.exports = router;

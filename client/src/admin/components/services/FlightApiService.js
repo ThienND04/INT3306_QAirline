@@ -41,6 +41,7 @@ class FlightApiService {
     async createFlight(flightData) {
         try {
             const token = this.getToken();
+            console.log('Creating flight with data:', flightData);
             const response = await axiosInstance.post(this.API_URL, flightData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
