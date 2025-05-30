@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import airportApiService from '../../../services/AirportApiService'; // bạn cần tạo service này
-import './AirportManager.css'; // bạn có thể dùng chung style với FlightsManager nếu giống nhau
+import airportApiService from '../../../../services/AirportApiService';
+import './AirportManager.css'; 
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
 function AirportManager() {
     const [airports, setAirports] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchAirports();
@@ -39,7 +41,8 @@ function AirportManager() {
                     <h1>Quản lý sân bay</h1>
                     <p>Thêm, sửa, xóa sân bay trong hệ thống.</p>
                     <div className="actions">
-                        <button onClick={() => window.location.href = 'add-airport'}>Thêm sân bay</button>
+                        <button onClick={() => navigate("add-airport")}>Thêm sân bay</button>
+                        <button onClick={() => navigate("deleted")}>Thùng rác</button>
                     </div>
 
                     <table className="airports-table">
@@ -54,19 +57,27 @@ function AirportManager() {
                             </tr>
                         </thead>
                         <tbody>
-                            {airports.map((airport) => (
-                                <tr key={airport._id}>
-                                    <td>{airport.airportID}</td>
-                                    <td>{airport.name}</td>
-                                    <td>{airport.city}</td>
-                                    <td>{airport.country}</td>
-                                    <td>{airport.IATACode}</td>
-                                    <td>
-                                        <button onClick={() => window.location.href = `edit-airport/${airport._id}`}>Sửa</button>
-                                        <button onClick={() => handleDelete(airport._id)} className="danger">Xóa</button>
+                            {airports.length > 0 ? (
+                                airports.map((airport) => (
+                                    <tr key={airport._id}>
+                                        <td>{airport.airportID}</td>
+                                        <td>{airport.name}</td>
+                                        <td>{airport.city}</td>
+                                        <td>{airport.country}</td>
+                                        <td>{airport.IATACode}</td>
+                                        <td>
+                                            <button onClick={() => window.location.href = `edit-airport/${airport._id}`}>Sửa</button>
+                                            <button onClick={() => handleDelete(airport._id)} className="danger">Xóa</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6" style={{ textAlign: 'center', padding: '20px', color: '#888' }}>
+                                        Không có sân bay nào trong danh sách.
                                     </td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </section>

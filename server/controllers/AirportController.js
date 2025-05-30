@@ -66,16 +66,17 @@ class AirportController {
     // [GET] /airports/deleted
     async getDeletedAirports(req, res) {
         try {
-            const deletedAirports = await Airport.findDeleted({});
+            const deletedAirports = await Airport.findWithDeleted({deleted:true});
             res.status(200).json(deletedAirports);
         } catch (error) {
             res.status(500).json({ message: 'Error getting deleted airports', error: error.message });
         }
     }
 
-    // [PATCH] /airports/:id/restore
+    // [PATCH] /airports/restore/:id
     async restoreAirport(req, res) {
         try {
+            console.log(`Attempting to restore airport with ID: ${req.params.id}`);
             const result = await Airport.restore({ _id: req.params.id });
             if (result.restored === 0 || (result.modifiedCount === 0 && result.matchedCount === 0)) {
                 return res.status(404).json({ message: 'Airport not found or not deleted' });

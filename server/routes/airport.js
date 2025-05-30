@@ -7,12 +7,12 @@ const authorizeRoles = require('../middlewares/auth/authRoles');
 router.use(authenticateToken); 
 router.use(authorizeRoles('admin'));
 
-router.get('/', airportController.getAllAirports);
+router.get('/deleted', airportController.getDeletedAirports);
 router.get('/:id', airportController.getAirportById);
+router.get('/', airportController.getAllAirports);
 router.post('/', airportController.createAirport);
 router.put('/:id', airportController.updateAirport);
 router.delete('/:id', airportController.deleteAirport);
-router.get('/deleted', airportController.getDeletedAirports);
 router.patch('/restore/:id', airportController.restoreAirport);
 
 module.exports = router;

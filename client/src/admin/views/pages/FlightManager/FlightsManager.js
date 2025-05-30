@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import flightApiService from '../../../services/FlightApiService';
+import flightApiService from '../../../../services/FlightApiService';
 import './FlightsManager.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';

@@ -20,6 +20,7 @@ const Header = () => {
 					<nav className="admin-nav">
 						<Link to="/admin/flights" className="nav-item">Quản lý chuyến bay</Link>
 						<Link to="/admin/airports" className="nav-item">Quản lý sân bay</Link>
+						<Link to="/admin/aircrafts" className="nav-item">Quản lý máy bay</Link>
 						<Link to="/admin/stats" className="nav-item">Thống kê</Link>
 					</nav>
 				</div>

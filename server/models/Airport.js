@@ -13,6 +13,7 @@ airportSchema.plugin(mongooseDelete,
     { 
         overrideMethods: 'all',
         deletedAt: true,
+        deleted: true
     });
 
 module.exports = mongoose.model('Airport', airportSchema);

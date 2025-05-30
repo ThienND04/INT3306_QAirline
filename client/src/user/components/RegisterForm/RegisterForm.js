@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import userApiService from '../../services/UserApiService';
+import userApiService from '../../../services/UserApiService';
 import './RegisterForm.css';
 
 function RegisterForm() {

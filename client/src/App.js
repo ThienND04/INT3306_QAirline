@@ -5,13 +5,14 @@ import FlightSearch from './user/views/pages/FlightSearch';
 import Login from './user/views/pages/Login';
 import ForgotPassword from './user/views/pages/ForgotPassword';
 import Register from './user/views/pages/Register';
-import AdminHome from './admin/components/views/pages/AdminHome';
-import FlightsManager from './admin/components/views/pages/FlightManager/FlightsManager';
-import CreateFlight from './admin/components/views/pages/FlightManager/CreateFlight';
-import EditFlight from './admin/components/views/pages/FlightManager/EditFlight';
-import AirportManager from './admin/components/views/pages/AirportManager/AirportsManager';
-import CreateAirport from './admin/components/views/pages/AirportManager/CreateAirport';
-import EditAirport from './admin/components/views/pages/AirportManager/EditAirport';
+import AdminHome from './admin/views/pages/AdminHome';
+import FlightsManager from './admin/views/pages/FlightManager/FlightsManager';
+import CreateFlight from './admin/views/pages/FlightManager/CreateFlight';
+import EditFlight from './admin/views/pages/FlightManager/EditFlight';
+import AirportManager from './admin/views/pages/AirportManager/AirportsManager';
+import CreateAirport from './admin/views/pages/AirportManager/CreateAirport';
+import EditAirport from './admin/views/pages/AirportManager/EditAirport';
+import DeletedAirportsManager from './admin/views/pages/AirportManager/DeletedAirportsManager';
 
 
 function App() {
@@ -31,8 +32,9 @@ function App() {
 				<Route path="/admin/add-flight" element={<CreateFlight />} />
 				<Route path="/admin/edit-flight/:id" element={< EditFlight />} />
 				<Route path="/admin/airports" element={< AirportManager />} />
-				<Route path="/admin/add-airport" element={< CreateAirport />} />
-				<Route path="/admin/edit-airport/:id" element={< EditAirport />} />
+				<Route path="/admin/airports/add-airport" element={< CreateAirport />} />
+				<Route path="/admin/airports/edit-airport/:id" element={< EditAirport />} />
+				<Route path="/admin/airports/deleted" element={< DeletedAirportsManager />} />
 			</Routes>
 		</Router>
 	);

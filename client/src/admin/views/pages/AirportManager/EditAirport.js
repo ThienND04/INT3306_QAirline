@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import './CreateAirport.css';
+import React, { useState, useEffect } from 'react';
+import './EditAirport.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
-import airportApiService from '../../../services/AirportApiService'; // bạn cần tạo file này
+import airportApiService from '../../../../services/AirportApiService';
+import { useParams } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-const CreateAirport = () => {
+const EditAirport = () => {
+    const { id } = useParams(); // ID sân bay truyền qua URL
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         airportID: '',
         name: '',
@@ -16,6 +20,19 @@ const CreateAirport = () => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        const fetchAirport = async () => {
+            try {
+                const airport = await airportApiService.getAirportById(id);
+                setFormData(airport);
+            } catch (error) {
+                console.error(error);
+                setErrorMessage('Không thể tải dữ liệu sân bay.');
+            }
+        };
+        fetchAirport();
+    }, [id]);
 
     const handleChange = (e) => {
         setFormData(prev => ({
@@ -30,19 +47,12 @@ const CreateAirport = () => {
         setErrorMessage('');
 
         try {
-            await airportApiService.createAirport(formData);
-            setSuccessMessage('Tạo sân bay thành công!');
-            setFormData({
-                airportID: '',
-                name: '',
-                city: '',
-                country: '',
-                IATACode: ''
-            });
-            window.location.href = 'airports';
+            await airportApiService.updateAirport(id, formData);
+            setSuccessMessage('Cập nhật sân bay thành công!');
+            setTimeout(() => navigate('/admin/airports'), 1500); 
         } catch (error) {
             console.error(error);
-            setErrorMessage('Tạo sân bay thất bại. Vui lòng thử lại.');
+            setErrorMessage('Cập nhật sân bay thất bại. Vui lòng thử lại.');
         }
     };
 
@@ -52,7 +62,7 @@ const CreateAirport = () => {
             <div className="form-container">
                 <div className="text-center mb-4">
                     <h2 className="form-title">QAirline</h2>
-                    <p className="form-subtitle">Tạo sân bay mới</p>
+                    <p className="form-subtitle">Chỉnh sửa sân bay</p>
                 </div>
 
                 {successMessage && <Alert variant="success">{successMessage}</Alert>}
@@ -60,14 +70,13 @@ const CreateAirport = () => {
 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <label className="form-label">Mã sân bay</label>
+                        <label className="form-label">Mã sân bay (không thể thay đổi)</label>
                         <input
                             type="text"
                             name="airportID"
                             className="form-control"
                             value={formData.airportID}
-                            onChange={handleChange}
-                            required
+                            disabled
                         />
                     </div>
 
@@ -119,8 +128,8 @@ const CreateAirport = () => {
                         />
                     </div>
 
-                    <button type="submit" className="btn btn-dark w-100">
-                        Tạo sân bay
+                    <button type="submit" className="btn btn-primary w-100">
+                        Cập nhật sân bay
                     </button>
                 </form>
             </div>
@@ -129,4 +138,4 @@ const CreateAirport = () => {
     );
 };
 
-export default CreateAirport;
+export default EditAirport;
