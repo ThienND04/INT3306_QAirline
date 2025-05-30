@@ -88,6 +88,38 @@ class AirportApiService {
             throw error;
         }
     }
+
+    // Get all deleted airports
+    async getDeletedAirports() {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.get(`${API_URL}/deleted`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error getting deleted airports:', error);
+            throw error;
+        }
+    }
+
+    // Restore airport
+    async restoreAirport(id) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.patch(`${API_URL}/restore/${id}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error restoring airport with ID ${id}:`, error);
+            throw error;
+        }
+    }
 }
 
 const airportApiService = new AirportApiService();

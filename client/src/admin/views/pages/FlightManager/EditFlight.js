@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CreateFlight.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
-import flightApiService from '../../../services/FlightApiService';
+import flightApiService from '../../../../services/FlightApiService';
 import { Alert } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 
