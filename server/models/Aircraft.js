@@ -9,7 +9,6 @@ const aircraftSchema = new mongoose.Schema({
     businessClassSeats: { type: Number, default: 0 },
     firstClassSeats: { type: Number, default: 0 },
     premiumClassSeats: { type: Number, default: 0 },
-    totalSeats: { type: Number, required: true },
     rangeInKm: Number,
     description: String
 });

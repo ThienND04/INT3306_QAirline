@@ -5,13 +5,15 @@ const authenticateToken = require('../middlewares/auth/authToken');
 const authorizeRoles = require('../middlewares/auth/authRoles');
 
 router.use(authenticateToken); 
-router.use(authorizeRoles('admin'));
 
+router.get('/search', flightController.searchFlights);    
+router.put('/:id', authorizeRoles('admin'), flightController.updateFlight);
+router.delete('/:id', authorizeRoles('admin'), flightController.deleteFlight); 
+router.delete('/hard-delete/:id', authorizeRoles('admin'), flightController.hardDeleteFlight); 
+router.get('/deleted', authorizeRoles('admin'), flightController.getDeletedFlights);
+router.patch('/restore/:id', authorizeRoles('admin'), flightController.restoreFlight);
 router.get('/', flightController.getAllFlights);
-router.get('/search', flightController.searchFlights);
 router.get('/:id', flightController.getFlightById); 
-router.post('/', flightController.createFlight);     
-router.put('/:id', flightController.updateFlight);
-router.delete('/:id', flightController.deleteFlight); 
+router.post('/', authorizeRoles('admin'), flightController.createFlight); 
 
 module.exports = router;

@@ -4,6 +4,7 @@ import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import airportApiService from '../../../../services/AirportApiService';
 import { Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const CreateAirport = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const CreateAirport = () => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData(prev => ({
@@ -39,7 +41,7 @@ const CreateAirport = () => {
                 country: '',
                 IATACode: ''
             });
-            window.location.href = 'airports';
+            navigate('/admin/airports');
         } catch (error) {
             console.error(error);
             setErrorMessage('Tạo sân bay thất bại. Vui lòng thử lại.');

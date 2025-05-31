@@ -13,6 +13,11 @@ import AirportManager from './admin/views/pages/AirportManager/AirportsManager';
 import CreateAirport from './admin/views/pages/AirportManager/CreateAirport';
 import EditAirport from './admin/views/pages/AirportManager/EditAirport';
 import DeletedAirportsManager from './admin/views/pages/AirportManager/DeletedAirportsManager';
+import AircraftManager from './admin/views/pages/AircraftManager/AircraftManager';
+import CreateAircraft from './admin/views/pages/AircraftManager/CreateAircraft';
+import EditAircraft from './admin/views/pages/AircraftManager/EditAircraft';
+import DeletedFlightsManager from './admin/views/pages/FlightManager/DeletedFlightManager';
+import DeletedAircraftManager from './admin/views/pages/AircraftManager/DeletedAircraftManager';
 
 
 function App() {
@@ -29,12 +34,17 @@ function App() {
 				{/* Routes for admin */}
 				<Route path="/admin" element={<AdminHome />} />
 				<Route path="/admin/flights" element={<FlightsManager />} />
-				<Route path="/admin/add-flight" element={<CreateFlight />} />
-				<Route path="/admin/edit-flight/:id" element={< EditFlight />} />
+				<Route path="/admin/flights/add-flight" element={<CreateFlight />} />
+				<Route path="/admin/flights/edit-flight/:id" element={< EditFlight />} />
+				<Route path="/admin/flights/deleted" element={< DeletedFlightsManager />} />
 				<Route path="/admin/airports" element={< AirportManager />} />
 				<Route path="/admin/airports/add-airport" element={< CreateAirport />} />
 				<Route path="/admin/airports/edit-airport/:id" element={< EditAirport />} />
 				<Route path="/admin/airports/deleted" element={< DeletedAirportsManager />} />
+				<Route path="/admin/aircrafts" element={< AircraftManager />} />
+				<Route path="/admin/aircrafts/add-aircraft" element={< CreateAircraft />} />
+				<Route path="/admin/aircrafts/edit-aircraft/:id" element={< EditAircraft />} />
+				<Route path="/admin/aircrafts/deleted" element={< DeletedAircraftManager />} />
 			</Routes>
 		</Router>
 	);

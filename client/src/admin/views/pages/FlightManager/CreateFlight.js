@@ -3,7 +3,8 @@ import './CreateFlight.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import flightApiService from '../../../../services/FlightApiService';
-import { Alert } from 'react-bootstrap'; // sử dụng Alert của bootstrap
+import { Alert } from 'react-bootstrap'; 
+import { useNavigate } from 'react-router-dom';
 
 const CreateFlight = () => {
     const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const CreateFlight = () => {
         departureTime: '',
         arrivalTime: '',
     });
+    const navigate = useNavigate();
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -37,13 +39,13 @@ const CreateFlight = () => {
             setFormData({
                 code: '',
                 aircraft: '',
-                airline: '', // Reset airline
+                airline: '', 
                 from: '',
                 to: '',
                 departureTime: '',
                 arrivalTime: '',
             });
-            window.location.href = `flights`;
+            navigate('/admin/flights'); 
         } catch (error) {
             console.error(error);
             setErrorMessage('Tạo chuyến bay thất bại. Vui lòng thử lại.');

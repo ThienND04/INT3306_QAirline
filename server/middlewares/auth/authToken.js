@@ -11,7 +11,7 @@ const authenticateToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, secret);
-        req.user = decoded; 
+        req.user = decoded;
         next();
     } catch (error) {
         return res.status(401).json({ message: 'Token không hợp lệ hoặc hết hạn' });

@@ -63,6 +63,19 @@ class AirportController {
         }
     }
 
+    //[DELETE] /airports/hard-delete/:id
+    async hardDeleteAirport(req, res) {
+        try {
+            const result = await Airport.deleteOne({ _id: req.params.id });
+            if (result.deletedCount === 0) {
+                return res.status(404).json({ message: 'Airport not found' });
+            }
+            res.status(200).json({ message: 'Airport permanently deleted' });
+        } catch (error) {
+            res.status(500).json({ message: 'Error permanently deleting airport', error });
+        }
+    }
+
     // [GET] /airports/deleted
     async getDeletedAirports(req, res) {
         try {
