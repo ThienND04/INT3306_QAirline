@@ -16,7 +16,7 @@ const options = {
                 bearerAuth: {
                     type: 'http',
                     scheme: 'bearer',
-                    bearerFormat: 'JWT', // hoặc có thể bỏ nếu không dùng JWT
+                    bearerFormat: 'JWT', 
                 },
             },
         },
@@ -26,7 +26,7 @@ const options = {
             }
         ],
     },
-    apis: ['./routes/*.js'], // nơi chứa swagger comment (dùng JSDoc)
+    apis: ['./routes/*.js'], 
 };
 
 const specs = swaggerJsdoc(options);

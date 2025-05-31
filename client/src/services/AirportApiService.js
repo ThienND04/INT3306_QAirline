@@ -1,6 +1,6 @@
 import axiosInstance from "./AxiosInstance";
 
-const API_URL = '/airports'; // Assuming your backend routes are prefixed with /api
+const API_URL = '/airports'; 
 
 class AirportApiService {
     getToken = () => {
@@ -85,6 +85,21 @@ class AirportApiService {
             return response.data;
         } catch (error) {
             console.error(`Error deleting airport with ID ${id}:`, error);
+            throw error;
+        }
+    }
+
+    async hardDeleteAirport(id) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.delete(`${API_URL}/hard-delete/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error hard deleting airport with ID ${id}:`, error);
             throw error;
         }
     }

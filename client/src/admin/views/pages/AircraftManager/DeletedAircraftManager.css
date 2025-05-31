@@ -1,0 +1,55 @@
+.deleted-aircraft-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.deleted-aircraft {
+    padding: 40px;
+    flex: 1;
+}
+
+.deleted-aircraft h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.deleted-aircraft p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.aircrafts-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.aircrafts-table th,
+.aircrafts-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.aircrafts-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+.restore {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.restore:hover {
+    background-color: #218838;
+}

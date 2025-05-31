@@ -13,6 +13,7 @@ router.get('/', airportController.getAllAirports);
 router.post('/', airportController.createAirport);
 router.put('/:id', airportController.updateAirport);
 router.delete('/:id', airportController.deleteAirport);
+router.delete('/hard-delete/:id', airportController.hardDeleteAirport);
 router.patch('/restore/:id', airportController.restoreAirport);
 
 module.exports = router;

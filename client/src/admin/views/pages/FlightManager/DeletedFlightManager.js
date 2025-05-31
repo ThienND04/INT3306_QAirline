@@ -1,34 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import flightApiService from '../../../../services/FlightApiService';
-import './FlightsManager.css';
+import './FlightsManager.css'; // Reuse existing CSS
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 
-function FlightsManager() {
-    const [flights, setFlights] = useState([]);
+function DeletedFlightsManager() {
+    const [deletedFlights, setDeletedFlights] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchFlights();
+        fetchDeletedFlights();
     }, []);
 
-    const fetchFlights = async () => {
+    const fetchDeletedFlights = async () => {
         try {
-            const data = await flightApiService.getAllFlights();
-            setFlights(data);
+            const data = await flightApiService.getDeletedFlights();
+            setDeletedFlights(data);
         } catch (err) {
-            console.error("Lỗi khi tải danh sách chuyến bay:", err);
+            console.error("Lỗi khi tải chuyến bay đã xóa:", err);
         }
     };
 
-    const handleDelete = async (id) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa chuyến bay này không?')) {
+    const handleRestore = async (id) => {
+        if (window.confirm('Khôi phục chuyến bay này?')) {
             try {
-                await flightApiService.deleteFlight(id);
-                fetchFlights();
+                await flightApiService.restoreFlight(id);
+                fetchDeletedFlights();
             } catch (err) {
-                console.error("Lỗi khi xóa chuyến bay:", err);
+                console.error("Lỗi khi khôi phục chuyến bay:", err);
+            }
+        }
+    };
+
+    const handlePermanentDelete = async (id) => {
+        if (window.confirm('Xóa vĩnh viễn chuyến bay này?')) {
+            try {
+                await flightApiService.hardDeleteFlight(id);
+                fetchDeletedFlights();
+            } catch (err) {
+                console.error("Lỗi khi xóa vĩnh viễn chuyến bay:", err);
             }
         }
     };
@@ -38,11 +49,10 @@ function FlightsManager() {
             <Header />
             <main>
                 <section className="flight-manager">
-                    <h1>Quản lý chuyến bay</h1>
-                    <p>Thêm, sửa, xóa chuyến bay trong hệ thống.</p>
+                    <h1>Thùng rác chuyến bay</h1>
+                    <p>Khôi phục hoặc xóa vĩnh viễn các chuyến bay đã bị xóa.</p>
                     <div className="actions">
-                        <button onClick={() => navigate('add-flight')}>Thêm chuyến bay</button>
-                        <button onClick={() => navigate('deleted')}>Thùng rác</button>
+                        <button onClick={() => navigate(-1)}>Quay lại</button>
                     </div>
 
                     <table className="flights-table">
@@ -58,8 +68,8 @@ function FlightsManager() {
                             </tr>
                         </thead>
                         <tbody>
-                            {flights.length > 0 ? (
-                                flights.map(flight => (
+                            {deletedFlights.length > 0 ? (
+                                deletedFlights.map(flight => (
                                     <tr key={flight._id}>
                                         <td>{flight.code}</td>
                                         <td>{flight.from}</td>
@@ -68,15 +78,15 @@ function FlightsManager() {
                                         <td>{new Date(flight.arrivalTime).toLocaleString()}</td>
                                         <td>{flight.airline}</td>
                                         <td>
-                                            <button onClick={() => navigate(`edit-flight/${flight._id}`)}>Sửa</button>
-                                            <button onClick={() => handleDelete(flight._id)} className="danger">Xóa</button>
+                                            <button onClick={() => handleRestore(flight._id)}>Khôi phục</button>
+                                            <button onClick={() => handlePermanentDelete(flight._id)} className="danger">Xóa vĩnh viễn</button>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
                                     <td colSpan="7" style={{ textAlign: 'center', padding: '20px', color: '#888' }}>
-                                        Không có chuyến bay nào trong danh sách.
+                                        Không có chuyến bay nào trong thùng rác.
                                     </td>
                                 </tr>
                             )}
@@ -89,4 +99,4 @@ function FlightsManager() {
     );
 }
 
-export default FlightsManager;
+export default DeletedFlightsManager;

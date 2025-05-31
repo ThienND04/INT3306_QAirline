@@ -85,14 +85,14 @@ class FlightController {
     // [GET] /flights/deleted
     async getDeletedFlights(req, res) {
         try {
-            const deletedFlights = await Flight.findDeleted({});
+            const deletedFlights = await Flight.findWithDeleted({ deleted: true });
             res.status(200).json(deletedFlights);
         } catch (error) {
             res.status(500).json({ message: 'Error getting deleted flights', error: error.message });
         }
     }
 
-    // [PATCH] /flights/:id/restore
+    // [PATCH] /flights/restore/:id
     async restoreFlight(req, res) {
         try {
             const result = await Flight.restore({ _id: req.params.id });
@@ -107,6 +107,20 @@ class FlightController {
         } catch (error) {
             res.status(500).json({ message: 'Error restoring flight', error: error.message });
         }
+    }
+
+    // [DELETE] /flights/hard-delete/:id
+    async hardDeleteFlight(req, res) {
+        try {
+            const flightId = req.params.id;
+            const result = await Flight.deleteOne({ _id: flightId });
+            if (result.deletedCount === 0) {
+                return res.status(404).json({ message: 'Không tìm thấy chuyến bay để xóa vĩnh viễn' });
+            }
+            res.status(200).json({ message: 'Đã xóa vĩnh viễn chuyến bay thành công' });
+        } catch (error) {
+            res.status(500).json({ message: 'Lỗi khi xóa vĩnh viễn chuyến bay', error });
+        } 
     }
 }
 module.exports = new FlightController();

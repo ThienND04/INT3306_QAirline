@@ -31,10 +31,10 @@ function DeletedAirportsManager() {
         }
     };
 
-    const handleForceDelete = async (id) => {
+    const handleHardDelete = async (id) => {
         if (window.confirm('Xóa vĩnh viễn sân bay này?')) {
             try {
-                await airportApiService.forceDeleteAirport(id);
+                await airportApiService.hardDeleteAirport(id);
                 fetchDeletedAirports();
             } catch (err) {
                 console.error("Lỗi khi xóa vĩnh viễn sân bay:", err);
@@ -74,7 +74,7 @@ function DeletedAirportsManager() {
                                     <td>{airport.IATACode}</td>
                                     <td>
                                         <button onClick={() => handleRestore(airport._id)}>Khôi phục</button>
-                                        <button onClick={() => handleForceDelete(airport._id)} className="danger">Xóa vĩnh viễn</button>
+                                        <button onClick={() => handleHardDelete(airport._id)} className="danger">Xóa vĩnh viễn</button>
                                     </td>
                                 </tr>
                             ))) : (

@@ -98,6 +98,51 @@ class FlightApiService {
             throw error.response?.data || new Error(`Error deleting flight ${flightId}`);
         }
     }
+
+    async getDeletedFlights() {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.get(`${this.API_URL}/deleted`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching deleted flights:', error.response?.data || error.message);
+            throw error.response?.data || new Error('Error fetching deleted flights');
+        }
+    }
+
+    async restoreFlight(flightId) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.patch(`${this.API_URL}/restore/${flightId}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error restoring flight ${flightId}:`, error.response?.data || error.message);
+            throw error.response?.data || new Error(`Error restoring flight ${flightId}`);
+        }
+    }
+
+    async hardDeleteFlight(flightId) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.delete(`${this.API_URL}/hard-delete/${flightId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error hard deleting flight ${flightId}:`, error.response?.data || error.message);
+            throw error.response?.data || new Error(`Error hard deleting flight ${flightId}`);
+        }
+    }
 }
 
 const flightApiService = new FlightApiService();
