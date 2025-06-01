@@ -35,7 +35,6 @@ const CreateAirport = () => {
             await airportApiService.createAirport(formData);
             setSuccessMessage('Tạo sân bay thành công!');
             setFormData({
-                airportID: '',
                 name: '',
                 city: '',
                 country: '',
@@ -61,13 +60,13 @@ const CreateAirport = () => {
                 {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label className="form-label">Mã sân bay</label>
+                <div className="mb-4">
+                        <label className="form-label">Mã IATA</label>
                         <input
                             type="text"
-                            name="airportID"
+                            name="IATACode"
                             className="form-control"
-                            value={formData.airportID}
+                            value={formData.IATACode}
                             onChange={handleChange}
                             required
                         />
@@ -104,18 +103,6 @@ const CreateAirport = () => {
                             name="country"
                             className="form-control"
                             value={formData.country}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-4">
-                        <label className="form-label">Mã IATA</label>
-                        <input
-                            type="text"
-                            name="IATACode"
-                            className="form-control"
-                            value={formData.IATACode}
                             onChange={handleChange}
                             required
                         />

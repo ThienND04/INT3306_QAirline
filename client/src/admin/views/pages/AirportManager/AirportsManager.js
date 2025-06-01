@@ -48,11 +48,10 @@ function AirportManager() {
                     <table className="airports-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Mã IATA</th>
                                 <th>Tên sân bay</th>
                                 <th>Thành phố</th>
                                 <th>Quốc gia</th>
-                                <th>Mã IATA</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
@@ -60,11 +59,10 @@ function AirportManager() {
                             {airports.length > 0 ? (
                                 airports.map((airport) => (
                                     <tr key={airport._id}>
-                                        <td>{airport.airportID}</td>
+                                        <td>{airport.IATACode}</td>
                                         <td>{airport.name}</td>
                                         <td>{airport.city}</td>
                                         <td>{airport.country}</td>
-                                        <td>{airport.IATACode}</td>
                                         <td>
                                             <button onClick={() => window.location.href = `edit-airport/${airport._id}`}>Sửa</button>
                                             <button onClick={() => handleDelete(airport._id)} className="danger">Xóa</button>

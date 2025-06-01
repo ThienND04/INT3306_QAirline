@@ -1,5 +1,24 @@
 // controllers/flightController.js
 const Flight = require('../models/Flight');
+const Aircraft = require('../models/Aircraft');
+
+const generateSeats = (aircraft) => {
+    const seats = [];
+    const seatClasses = [
+        { name: 'First', type: 'F', count: aircraft.firstClassSeats },
+        { name: 'Premium' ,type: 'P', count: aircraft.premiumClassSeats },
+        { name: 'Business', type: 'B', count: aircraft.businessClassSeats },
+        { name: 'Economy', type: 'E', count: aircraft.economyClassSeats }
+    ];
+
+    for (const cls of seatClasses) {
+        for (let i = 1; i <= cls.count; i++) {
+            seats.push({ seatNo: `${cls.type}${i}`, isBooked: false });
+        }
+    }
+
+    return seats;
+}
 
 class FlightController {
     async getAllFlights(req, res) {
@@ -11,9 +30,8 @@ class FlightController {
             res.status(500).json({ message: 'Error fetching flights', error });
         }
     }
-    
 
-    // Tìm kiếm chuyến bay
+    // [GET] /flights/search
     async searchFlights(req, res) {
         try {
             const { from, to, date } = req.query;
@@ -28,18 +46,23 @@ class FlightController {
         }
     }
 
-    // Thêm chuyến bay mới
+    // [POST] /flights
     async createFlight(req, res) {
         try {
             const flight = new Flight(req.body);
+            const aircraft = await Aircraft.findOne({ aircraftID: flight.aircraft });
+            if (!aircraft) {
+                return res.status(404).json({ message: 'Aircraft not found' });
+            }
+            flight.seats = generateSeats(aircraft);
             await flight.save();
             res.status(201).json(flight);
         } catch (error) {
-            res.status(500).json({ message: 'Error creating flight', error });
+            res.status(500).json({ message: 'Error creating flight', error: error.message });
         }
     }
 
-    // Lấy thông tin chuyến bay bằng ID
+    // [GET] /flights/:id
     async getFlightById(req, res) {
         try {
             const flightId = req.params.id;
@@ -53,7 +76,7 @@ class FlightController {
         }
     }
 
-    // Cập nhật chuyến bay
+    // [PUT] /flights/:id
     async updateFlight(req, res) {
         try {
             const flightId = req.params.id;
@@ -67,7 +90,7 @@ class FlightController {
         }
     }
 
-    // Xóa chuyến bay
+    // [DELETE] /flights/:id
     async deleteFlight(req, res) {
         try {
             const flightId = req.params.id;
@@ -75,7 +98,7 @@ class FlightController {
             if (!deletedFlight) {
                 return res.status(404).json({ message: 'Không tìm thấy chuyến bay để xóa' });
             }
-            deletedFlight.delete(); 
+            deletedFlight.delete();
             res.status(200).json({ message: 'Đã xóa chuyến bay thành công', flight: deletedFlight });
         } catch (error) {
             res.status(500).json({ message: 'Lỗi khi xóa chuyến bay', error });
@@ -101,7 +124,7 @@ class FlightController {
             }
             const restoredFlight = await Flight.findById(req.params.id);
             if (!restoredFlight) {
-                 return res.status(404).json({ message: 'Flight not found after attempting restore.' });
+                return res.status(404).json({ message: 'Flight not found after attempting restore.' });
             }
             res.status(200).json({ message: 'Flight restored successfully', flight: restoredFlight });
         } catch (error) {
@@ -120,7 +143,7 @@ class FlightController {
             res.status(200).json({ message: 'Đã xóa vĩnh viễn chuyến bay thành công' });
         } catch (error) {
             res.status(500).json({ message: 'Lỗi khi xóa vĩnh viễn chuyến bay', error });
-        } 
+        }
     }
 }
 module.exports = new FlightController();

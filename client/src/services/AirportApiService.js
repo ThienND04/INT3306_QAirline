@@ -135,6 +135,37 @@ class AirportApiService {
             throw error;
         }
     }
+
+    async searchAirport(keyword) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.get(`${API_URL}/search`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                params: { query: keyword },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error searching airports:', error);
+            throw error;
+        }
+    }
+
+    async getAirportByIATACode(iataCode) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.get(`${API_URL}/iata/${iataCode}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error getting airport with IATA code ${iataCode}:`, error);
+            throw error;
+        }
+    }
 }
 
 const airportApiService = new AirportApiService();

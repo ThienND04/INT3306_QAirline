@@ -8,6 +8,8 @@ router.use(authenticateToken);
 router.use(authorizeRoles('admin'));
 
 router.get('/deleted', airportController.getDeletedAirports);
+router.get('/search', airportController.searchAirports);
+router.get('/iata/:iataCode', airportController.getAirportByIATACode); // New route
 router.get('/:id', airportController.getAirportById);
 router.get('/', airportController.getAllAirports);
 router.post('/', airportController.createAirport);

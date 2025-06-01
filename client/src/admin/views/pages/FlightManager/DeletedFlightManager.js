@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import flightApiService from '../../../../services/FlightApiService';
-import './FlightsManager.css'; // Reuse existing CSS
+import airportApiService from '../../../../services/AirportApiService';
+import './FlightsManager.css'; 
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 
 function DeletedFlightsManager() {
     const [deletedFlights, setDeletedFlights] = useState([]);
+    const [airportMap, setAirportMap] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,10 +17,20 @@ function DeletedFlightsManager() {
 
     const fetchDeletedFlights = async () => {
         try {
-            const data = await flightApiService.getDeletedFlights();
-            setDeletedFlights(data);
+            const [deletedFlightsData, airportsData] = await Promise.all([
+                flightApiService.getDeletedFlights(),
+                airportApiService.getAllAirports() // Fetch airports
+            ]);
+
+            const map = {};
+            airportsData.forEach((airport) => {
+                map[airport.IATACode] = airport.name;
+            });
+
+            setDeletedFlights(deletedFlightsData);
+            setAirportMap(map); // Set airportMap
         } catch (err) {
-            console.error("Lỗi khi tải chuyến bay đã xóa:", err);
+            console.error("Lỗi khi tải dữ liệu:", err);
         }
     };
 
@@ -72,8 +84,8 @@ function DeletedFlightsManager() {
                                 deletedFlights.map(flight => (
                                     <tr key={flight._id}>
                                         <td>{flight.code}</td>
-                                        <td>{flight.from}</td>
-                                        <td>{flight.to}</td>
+                                        <td>{airportMap[flight.from] || flight.from}</td>
+                                        <td>{airportMap[flight.to] || flight.to}</td>
                                         <td>{new Date(flight.departureTime).toLocaleString()}</td>
                                         <td>{new Date(flight.arrivalTime).toLocaleString()}</td>
                                         <td>{flight.airline}</td>

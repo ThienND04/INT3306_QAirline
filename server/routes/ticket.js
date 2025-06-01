@@ -7,10 +7,10 @@ const authorizeTicketOwner = require('../middlewares/ownership/authorizeTicketOw
 
 router.use(authenticateToken);
 
-router.get('/', authorizeRoles('admin'), ticketController.getAllTickets);
 router.get('/:id', authorizeTicketOwner, ticketController.getTicketById);
-router.post('/', ticketController.createTicket);
+router.post('/book', ticketController.bookTicket);
 router.put('/:id', authorizeTicketOwner, ticketController.updateTicket);
-router.delete('/:id', authorizeTicketOwner, ticketController.deleteTicket);
+router.delete('/cancel/:id', authorizeTicketOwner, ticketController.cancelTicket);
+router.get('/', authorizeRoles('admin'), ticketController.getAllTickets);
 
 module.exports = router;
