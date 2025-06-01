@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import flightApiService from '../../../../services/FlightApiService';
+import airportApiService from '../../../../services/AirportApiService';
 import './FlightsManager.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
@@ -7,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function FlightsManager() {
     const [flights, setFlights] = useState([]);
+    const [airportMap, setAirportMap] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,10 +17,20 @@ function FlightsManager() {
 
     const fetchFlights = async () => {
         try {
-            const data = await flightApiService.getAllFlights();
-            setFlights(data);
+            const [flightsData, airportsData] = await Promise.all([
+                flightApiService.getAllFlights(),
+                airportApiService.getAllAirports()
+            ]);
+
+            const map = {};
+            airportsData.forEach((airport) => {
+                map[airport.IATACode] = airport.name;
+            });
+
+            setFlights(flightsData);
+            setAirportMap(map);
         } catch (err) {
-            console.error("Lỗi khi tải danh sách chuyến bay:", err);
+            console.error("Lỗi khi tải dữ liệu:", err);
         }
     };
 
@@ -62,8 +74,8 @@ function FlightsManager() {
                                 flights.map(flight => (
                                     <tr key={flight._id}>
                                         <td>{flight.code}</td>
-                                        <td>{flight.from}</td>
-                                        <td>{flight.to}</td>
+                                        <td>{airportMap[flight.from] || flight.from}</td>
+                                        <td>{airportMap[flight.to] || flight.to}</td>
                                         <td>{new Date(flight.departureTime).toLocaleString()}</td>
                                         <td>{new Date(flight.arrivalTime).toLocaleString()}</td>
                                         <td>{flight.airline}</td>

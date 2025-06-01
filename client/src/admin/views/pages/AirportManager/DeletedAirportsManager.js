@@ -56,22 +56,20 @@ function DeletedAirportsManager() {
                     <table className="airports-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Mã IATA</th>
                                 <th>Tên sân bay</th>
                                 <th>Thành phố</th>
                                 <th>Quốc gia</th>
-                                <th>Mã IATA</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             {deletedAirports.length > 0 ? (deletedAirports.map((airport) => (
                                 <tr key={airport._id}>
-                                    <td>{airport.airportID}</td>
+                                    <td>{airport.IATACode}</td>
                                     <td>{airport.name}</td>
                                     <td>{airport.city}</td>
                                     <td>{airport.country}</td>
-                                    <td>{airport.IATACode}</td>
                                     <td>
                                         <button onClick={() => handleRestore(airport._id)}>Khôi phục</button>
                                         <button onClick={() => handleHardDelete(airport._id)} className="danger">Xóa vĩnh viễn</button>

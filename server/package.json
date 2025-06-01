@@ -24,7 +24,8 @@
         "mongoose-slug-generator": "^1.0.4",
         "nodemailer": "^7.0.3",
         "swagger-jsdoc": "^6.2.8",
-        "swagger-ui-express": "^5.0.1"
+        "swagger-ui-express": "^5.0.1",
+        "uuidv4": "^6.2.13"
     },
     "devDependencies": {
         "chai": "^5.2.0",
