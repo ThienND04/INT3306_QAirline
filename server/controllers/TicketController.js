@@ -3,7 +3,7 @@ const Ticket = require('../models/Ticket');
 const Flight = require('../models/Flight');
 
 class TicketController {
-    // Get all tickets
+    // [GET] /tickets
     async getAllTickets(req, res) {
         try {
             const tickets = await Ticket.find().populate('flightInfo userInfo');
@@ -13,7 +13,7 @@ class TicketController {
         }
     }
 
-    // Get ticket by ID
+    // [GET] /tickets/:id
     async getTicketById(req, res) {
         try {
             const ticket = await Ticket.findById(req.params.id).populate('flightInfo userInfo');
@@ -23,6 +23,22 @@ class TicketController {
             res.status(200).json(ticket);
         } catch (error) {
             res.status(500).json({ message: 'Error getting ticket', error: error.message });
+        }
+    }
+
+    // [GET] /tickets/flight/:flightCode
+    async getTicketsByFlightCode(req, res) {
+        try {
+            const { flightCode } = req.params;
+            const tickets = await Ticket.find({ flightCode: flightCode }).populate('flightInfo userInfo');
+
+            if (!tickets || tickets.length === 0) {
+                return res.status(404).json({ message: 'No tickets found for this flight code' });
+            }
+
+            res.status(200).json(tickets);
+        } catch (error) {
+            res.status(500).json({ message: 'Error getting tickets by flight code', error: error.message });
         }
     }
 

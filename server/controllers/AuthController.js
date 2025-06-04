@@ -21,7 +21,6 @@ class AuthController {
                 birthDate,
                 nationality,
                 language } = req.body;
-            // Kiểm tra xem người dùng đã tồn tại chưa
             const existingUser = await User.find({ email });
             if (existingUser.length > 0) {
                 return res.status(400).json({ message: 'Username already exists' });
