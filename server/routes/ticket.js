@@ -8,6 +8,7 @@ const authorizeTicketOwner = require('../middlewares/ownership/authorizeTicketOw
 router.use(authenticateToken);
 
 router.get('/:id', authorizeTicketOwner, ticketController.getTicketById);
+router.get('/flight/:flightCode', ticketController.getTicketsByFlightCode);
 router.post('/book', ticketController.bookTicket);
 router.put('/:id', authorizeTicketOwner, ticketController.updateTicket);
 router.delete('/cancel/:id', authorizeTicketOwner, ticketController.cancelTicket);

@@ -1,55 +1,92 @@
-import apiService from './apiService'; // Assuming apiService is configured for API calls
+import axiosInstance from "./AxiosInstance";
 
-const TicketApiService = {
-    /**
-     * Get all tickets (Admin only)
-     * @returns {Promise<AxiosResponse<any>>}
-     */
-    getAllTickets: () => {
-        return apiService.get('/tickets');
-    },
+const API_URL = '/tickets';
 
-    /**
-     * Get a ticket by its ID
-     * @param {string} id - The ID of the ticket
-     * @returns {Promise<AxiosResponse<any>>}
-     */
-    getTicketById: (id) => {
-        return apiService.get(`/tickets/${id}`);
-    },
+class TicketApiService {
+    getToken = () => {
+        return localStorage.getItem('token');
+    };
 
-    /**
-     * Book a new ticket
-     * @param {object} ticketData - Data for the new ticket
-     * @param {string} ticketData.flightCode
-     * @param {string} ticketData.userId
-     * @param {string} ticketData.identityNo
-     * @param {string} ticketData.seatNo
-     * @param {number} ticketData.price
-     * @returns {Promise<AxiosResponse<any>>}
-     */
-    bookTicket: (ticketData) => {
-        return apiService.post('/tickets/book', ticketData);
-    },
+    // Get all tickets (Admin)
+    async getAllTickets() {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.get(API_URL, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error getting all tickets:', error);
+            throw error;
+        }
+    }
 
-    /**
-     * Update an existing ticket
-     * @param {string} id - The ID of the ticket to update
-     * @param {object} ticketData - Updated data for the ticket
-     * @returns {Promise<AxiosResponse<any>>}
-     */
-    updateTicket: (id, ticketData) => {
-        return apiService.put(`/tickets/${id}`, ticketData);
-    },
+    // Get ticket by ID
+    async getTicketById(id) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.get(`${API_URL}/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error getting ticket with ID ${id}:`, error);
+            throw error;
+        }
+    }
 
-    /**
-     * Cancel a ticket
-     * @param {string} id - The ID of the ticket to cancel
-     * @returns {Promise<AxiosResponse<any>>}
-     */
-    cancelTicket: (id) => {
-        return apiService.delete(`/tickets/cancel/${id}`);
-    },
-};
+    // Book a new ticket
+    async bookTicket(ticketData) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.post(`${API_URL}/book`, ticketData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error booking ticket:', error);
+            throw error;
+        }
+    }
 
-export default TicketApiService;
+    // Update ticket
+    async updateTicket(id, ticketData) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.put(`${API_URL}/${id}`, ticketData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error updating ticket with ID ${id}:`, error);
+            throw error;
+        }
+    }
+
+    // Cancel ticket
+    async cancelTicket(id) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.delete(`${API_URL}/cancel/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error cancelling ticket with ID ${id}:`, error);
+            throw error;
+        }
+    }
+}
+
+const ticketApiService = new TicketApiService();
+export default ticketApiService;

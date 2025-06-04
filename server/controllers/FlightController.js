@@ -1,6 +1,6 @@
-// controllers/flightController.js
 const Flight = require('../models/Flight');
 const Aircraft = require('../models/Aircraft');
+const Notification = require('../models/Notification');
 
 const generateSeats = (aircraft) => {
     const seats = [];
@@ -35,10 +35,20 @@ class FlightController {
     async searchFlights(req, res) {
         try {
             const { from, to, date } = req.query;
+
+            const startDate = new Date(date);
+            startDate.setHours(0, 0, 0, 0);
+
+            const endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + 1);
+
             const flights = await Flight.find({
                 from,
                 to,
-                departureTime: { $gte: new Date(date) }
+                departureTime: { 
+                    $gte: startDate,
+                    $lt: endDate 
+                }
             });
             res.status(200).json(flights);
         } catch (error) {
@@ -143,6 +153,34 @@ class FlightController {
             res.status(200).json({ message: 'Đã xóa vĩnh viễn chuyến bay thành công' });
         } catch (error) {
             res.status(500).json({ message: 'Lỗi khi xóa vĩnh viễn chuyến bay', error });
+        }
+    }
+
+    // [PUT] /flights/notify-delay
+    async notifyFlightDelay (req, res) {
+        try {
+            const { flightId, newDepartureTime, arrivalTime, delayReason } = req.body;
+            const flight = await Flight.findById(flightId);
+            if (!flight) {
+                return res.status(404).json({ message: 'Chuyến bay không tồn tại' });
+            }
+            flight.departureTime = new Date(newDepartureTime);
+            flight.arrivalTime = new Date(arrivalTime);
+
+            const notification = new Notification({
+                user: flight.user, 
+                title: 'Chuyến bay bị hoãn',
+                message: `Chuyến bay ${flight.flightNo} từ ${flight.from} đến ${flight.to} đã bị hoãn. Lý do: ${delayReason}. Thời gian khởi hành mới: ${new Date(newDepartureTime).toLocaleString()}.`,
+                isRead: false,
+                createdAt: new Date()
+            });
+
+            await notification.save(); 
+            await flight.save();
+            res.status(200).json({ message: 'Thông báo chuyến bay bị hoãn thành công', flight });
+        } catch (error) {
+            console.error('Error notifying flight delay:', error);
+            res.status(500).json({ message: 'Lỗi khi thông báo chuyến bay bị hoãn', error });
         }
     }
 }

@@ -2,7 +2,7 @@
 const Airport = require('../models/Airport');
 
 class AirportController {
-    // Get all airports
+    // [GET] /airports
     async getAllAirports(req, res) {
         try {
             const airports = await Airport.find();
@@ -12,7 +12,7 @@ class AirportController {
         }
     }
 
-    // Get airport by ID
+    // [GET] /airports/:id
     async getAirportById(req, res) {
         try {
             const airport = await Airport.findById(req.params.id);
@@ -25,7 +25,7 @@ class AirportController {
         }
     }
 
-    // Create new airport
+    // [POST] /airports
     async createAirport(req, res) {
         try {
             const airport = new Airport(req.body);
@@ -36,7 +36,7 @@ class AirportController {
         }
     }
 
-    // Update airport
+    // [PUT] /airports/:id
     async updateAirport(req, res) {
         try {
             const airport = await Airport.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -49,7 +49,7 @@ class AirportController {
         }
     }
 
-    // Delete airport
+    // [DELETE] /airports/:id
     async deleteAirport(req, res) {
         try {
             const airport = await Airport.findById(req.params.id);
