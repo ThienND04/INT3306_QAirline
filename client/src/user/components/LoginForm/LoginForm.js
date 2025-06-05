@@ -19,13 +19,13 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await userApiService.loginUser(form)
-            alert('Đăng nhập thành công!')
-            localStorage.setItem('token', response.data.token)
-            localStorage.setItem('user', JSON.stringify(response.data.user))
+            const response = await userApiService.loginUser(form);
+            alert('Đăng nhập thành công!');
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
         } catch (error) {
-            alert('Đăng nhập thất bại!')
-            console.error('Lỗi đăng nhập:', error)
+            alert('Đăng nhập thất bại!');
+            console.error('Lỗi đăng nhập:', error);
         }
     }
 

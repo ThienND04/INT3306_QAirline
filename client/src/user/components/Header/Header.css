@@ -1,41 +1,61 @@
 .qa-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 32px;
-    background-color: #fff;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-  }
-  
-  .qa-logo {
-    font-weight: bold;
-    font-size: 24px;
-  }
-  
-  .qa-nav a {
-    margin: 0 12px;
-    text-decoration: none;
-    color: #000;
-  }
-  
-  .qa-auth {
-    display: flex;
-    align-items: center;
-  }
-  
-  .qa-btn {
-    margin-left: 10px;
-    background: black;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 16px;
-    text-decoration: none;
-    font-size: 14px;
-  }
-  
-  .qa-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-  }
-  
+	background: linear-gradient(to right, #fdf6f9, #e2f0ff);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px 40px;
+	box-shadow: 0 4px 12px rgba(236, 106, 165, 0.1);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	font-family: 'Segoe UI', sans-serif;
+}
+
+.qa-logo {
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: #ec6aa5;
+	letter-spacing: 1px;
+}
+
+.qa-nav a {
+	margin: 0 15px;
+	text-decoration: none;
+	color: #333;
+	font-weight: 500;
+	transition: color 0.2s ease;
+}
+
+.qa-nav a:hover {
+	color: #ec6aa5;
+}
+
+.qa-auth {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.qa-btn {
+	background-color: transparent;
+	border: 1px solid #ec6aa5;
+	color: #ec6aa5;
+	padding: 6px 14px;
+	border-radius: 20px;
+	text-decoration: none;
+	font-weight: 500;
+	transition: all 0.3s ease;
+}
+
+.qa-btn:hover {
+	background-color: #ec6aa5;
+	color: #fff;
+}
+
+.qa-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #ec6aa5;
+}

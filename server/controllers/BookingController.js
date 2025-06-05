@@ -1,22 +1,22 @@
 // controllers/TicketController.js
-const Ticket = require('../models/Ticket');
+const Booking = require('../models/Booking');
 const Flight = require('../models/Flight');
 
-class TicketController {
-    // [GET] /tickets
-    async getAllTickets(req, res) {
+class BookingController {
+    // [GET] /booking
+    async getAllBookings(req, res) {
         try {
-            const tickets = await Ticket.find().populate('flightInfo userInfo');
+            const tickets = await Booking.find().populate('flightInfo userInfo');
             res.status(200).json(tickets);
         } catch (error) {
             res.status(500).json({ message: 'Error getting tickets', error });
         }
     }
 
-    // [GET] /tickets/:id
-    async getTicketById(req, res) {
+    // [GET] /bookings/:id
+    async getBookingById(req, res) {
         try {
-            const ticket = await Ticket.findById(req.params.id).populate('flightInfo userInfo');
+            const ticket = await Booking.findById(req.params.id).populate('flightInfo userInfo');
             if (!ticket) {
                 return res.status(404).json({ message: 'Ticket not found' });
             }
@@ -26,11 +26,11 @@ class TicketController {
         }
     }
 
-    // [GET] /tickets/flight/:flightCode
-    async getTicketsByFlightCode(req, res) {
+    // [GET] /bookings/flight/:flightCode
+    async getBookingsByFlightCode(req, res) {
         try {
             const { flightCode } = req.params;
-            const tickets = await Ticket.find({ flightCode: flightCode }).populate('flightInfo userInfo');
+            const tickets = await Booking.find({ flightCode: flightCode }).populate('flightInfo userInfo');
 
             if (!tickets || tickets.length === 0) {
                 return res.status(404).json({ message: 'No tickets found for this flight code' });
@@ -42,10 +42,10 @@ class TicketController {
         }
     }
 
-    // [PUT] /tickets/:id
-    async updateTicket(req, res) {
+    // [PUT] /bookings/:id
+    async updateBooking(req, res) {
         try {
-            const ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            const ticket = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (!ticket) {
                 return res.status(404).json({ message: 'Ticket not found' });
             }
@@ -55,8 +55,8 @@ class TicketController {
         }
     }
 
-    // [POST] /tickets/book
-    async bookTicket(req, res) {
+    // [POST] /bookings/book
+    async bookTickets(req, res) {
         try {
             const { flightCode, userId, identityNo, seatNo, price } = req.body;
 
@@ -80,7 +80,7 @@ class TicketController {
 
             seat.isBooked = true;
 
-            const newTicket = new Ticket({
+            const newTicket = new Booking({
                 flightCode,
                 userId,
                 identityNo,
@@ -106,18 +106,16 @@ class TicketController {
         }
     }
 
-    // [DELETE] /tickets/:id
-    async cancelTicket(req, res) {
+    // [DELETE] /bookings/:id
+    async cancelBooking(req, res) {
         try {
             const id = req.params.id;
 
-            const ticket = await Ticket.findById(id).populate('flightInfo');
+            const ticket = await Booking.findById(id).populate('flightInfo');
             if (!ticket) {
                 return res.status(404).json({ message: 'Ticket not found.' });
             }
 
-            // Unbook the seat in the flight
-            // Ensure flightInfo is populated and exists
             if (ticket.flightInfo && ticket.flightInfo.seats) {
                 const seatToUnbook = ticket.flightInfo.seats.find(seat => seat.seatNo === ticket.seatNo);
                 if (seatToUnbook) {
@@ -125,12 +123,10 @@ class TicketController {
                     await ticket.flightInfo.save();
                 }
             } else {
-                // Handle case where flightInfo might not be populated or flight was deleted
                 console.warn(`Flight info for ticket ${id} not found or flight was deleted. Seat status not changed.`);
             }
 
-
-            await ticket.delete(); // This will now use mongoose-delete for soft delete
+            await ticket.delete(); 
 
             res.status(200).json({ message: 'Ticket cancelled successfully.' });
         } catch (error) {
@@ -140,4 +136,4 @@ class TicketController {
     }
 }
 
-module.exports = new TicketController();
+module.exports = new BookingController();
