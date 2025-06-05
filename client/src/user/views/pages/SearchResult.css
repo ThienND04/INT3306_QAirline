@@ -1,0 +1,84 @@
+.search-result-container {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #fdf6f8;
+    /* Sakura pink background */
+    padding: 20px;
+    color: #333;
+}
+
+.date-bar {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.date-item {
+    min-width: 100px;
+    background-color: #e0f0ff;
+    /* Sky blue */
+    border: 2px solid #d9eaff;
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 10px;
+    padding: 10px;
+    color: #003366;
+    transition: 0.3s ease;
+}
+
+.date-item.active {
+    background-color: #ffcad4;
+    /* Sakura highlight */
+    color: #7a003d;
+    border-color: #ffa3b1;
+    font-weight: bold;
+}
+
+.flight-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.flight-info {
+    margin-bottom: 16px;
+}
+
+.fare-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.fare {
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+}
+
+.fare.economy {
+    background-color: #2a9d8f;
+    /* Soft green */
+}
+
+.fare.premium {
+    background-color: #6c5ce7;
+    /* Violet */
+}
+
+.fare.business {
+    background-color: #0077b6;
+    /* Sky blue */
+}
+
+.fare.first {
+    background-color: #ef476f;
+    /* Rose red */
+}
+
+.fare div {
+    margin: 4px 0;
+}

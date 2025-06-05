@@ -1,0 +1,23 @@
+.flight-search-form {
+    background-color: #ffffffee;
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    border: 1px solid #ddd;
+}
+
+.flight-search-form > * {
+    padding-left: 10px;;
+}
+
+.flight-search-form .form-control,
+.flight-search-form .form-select {
+    border-radius: 12px;
+    border: 1px solid #ccc;
+}
+
+.flight-search-form .btn-primary {
+    background-color: #59a6e0;
+    border-color: #59a6e0;
+    border-radius: 12px;
+    margin: 20px;
+}

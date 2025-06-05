@@ -1,81 +1,154 @@
-.home-container {
-    padding: 40px 20px;
+.home-wrapper {
+    background: linear-gradient(to bottom, #fdf6f9 0%, #e2f0ff 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+}
+
+.hero-section {
+    background: url('../../assets/images/plane-bg-light.png') no-repeat center bottom;
+    background-size: cover;
+    padding: 60px 0;
     text-align: center;
 }
 
-.hero h1 {
-    font-size: 32px;
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.hero-title .brand {
+    color: #ec6aa5;
     font-weight: bold;
 }
 
-.hero h2 {
-    color: #888;
-    font-size: 20px;
-    margin-top: 8px;
+.hero-buttons button {
+    font-weight: 500;
+    border-radius: 20px;
 }
 
-.homepage-hero-image {
-    margin: 40px auto;
+.hero-buttons .btn-success {
+    background-color: #ec6aa5;
+    border-color: #ec6aa5;
+}
+
+.hero-buttons .btn-outline-primary {
+    color: #ec6aa5;
+    border-color: #ec6aa5;
+}
+
+.hero-buttons .btn-outline-secondary {
+    color: #59a6e0;
+    border-color: #59a6e0;
+}
+
+.flight-search-form {
+    background-color: #ffffffee;
+    backdrop-filter: blur(6px);
     border-radius: 16px;
-    width: 80%;
-    max-width: 800px;
-    height: auto;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
 }
 
-.cta {
-    margin: 60px 0;
+.flight-search-form > * {
+    padding-left: 10px;;
 }
 
-.cta h3 {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.btn-black {
-    margin-top: 12px;
-    background-color: #000;
-    color: #fff;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-}
-
-.features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 40px;
-}
-
-.feature-card {
-    background-color: #f5f5f5;
-    padding: 24px;
+.flight-search-form .form-control,
+.flight-search-form .form-select {
     border-radius: 12px;
-    width: 280px;
-    text-align: center;
+    border: 1px solid #ccc;
 }
 
-.icon.placeholder {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 16px;
-    background-color: #e0e0e0;
+.flight-search-form .btn-primary {
+    background-color: #59a6e0;
+    border-color: #59a6e0;
+    border-radius: 12px;
+    margin: 20px;
 }
 
-.square {
-    /* hình vuông */
+.featured-destinations {
+    background-color: #fff8fc;
 }
 
-.circle {
-    border-radius: 50%;
+.featured-destinations h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
 }
 
-.triangle {
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    background-color: #e0e0e0;
-    width: 60px;
-    height: 60px;
+.featured-destinations a {
+    font-weight: 500;
+    color: #ec6aa5;
+    text-decoration: none;
+}
+
+.card-destination {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.card-destination:hover {
+    transform: translateY(-5px);
+}
+
+.card-destination img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-destination .card-body {
+    padding: 15px;
+}
+
+.card-destination .title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.card-destination .desc {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.card-destination .btn {
+    margin-top: 10px;
+    background-color: #ec6aa5;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+}
+
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0;
+    margin-top: 2px;
+    list-style: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.suggestions-list li:hover {
+    background-color: #f0f8ff;
 }
