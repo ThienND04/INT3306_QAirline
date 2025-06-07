@@ -14,7 +14,6 @@ function RegisterForm() {
         lastName: '',
         middleAndFirstName: '',
         displayOrder: 1,
-        displayName: '',
         gender: 'Nam',
         birthDateStr: '',
         nationality: '',
@@ -35,6 +34,7 @@ function RegisterForm() {
             const response = await userApiService.createUser({ ...form, birthDate });
             console.log('Đăng ký thành công:', response.data);
             alert('Đăng ký thành công!');
+            navigate('/login');
         } catch (error) {
             console.error('Lỗi khi đăng ký:', error.response?.data || error.message);
             alert('Đăng ký thất bại!');
@@ -61,8 +61,6 @@ function RegisterForm() {
                     </div>
                 </div>
 
-                <input type="text" className="form-control rounded-pill mb-3" name="displayName" placeholder="Tên hiển thị" value={form.displayName} onChange={handleChange} required />
-
                 <input type="email" className="form-control rounded-pill mb-3" name="email" placeholder="name@framer.com" value={form.email} onChange={handleChange} required />
 
                 <input type="text" className="form-control rounded-pill mb-3" name="phoneNumber" placeholder="Số điện thoại" value={form.phoneNumber} onChange={handleChange} required />
@@ -77,7 +75,7 @@ function RegisterForm() {
                     <option value="Khác">Khác</option>
                 </select>
 
-                <input type="text" className="form-control rounded-pill mb-3" name="birthDateStr" placeholder="dd/mm/yyyy" value={form.birthDateStr} onChange={handleChange} pattern="\\d{2}/\\d{2}/\\d{4}" required />
+                <input type="text" className="form-control rounded-pill mb-3" name="birthDateStr" placeholder="dd/mm/yyyy" value={form.birthDateStr} onChange={handleChange} pattern="\d{2}/\d{2}/\d{4}" required />
 
                 <div className="row">
                     <div className="col-md-6 mb-3">

@@ -25,7 +25,7 @@ class UserApiService {
     async createUser(userData) {
         console.log(typeof(axiosInstance))
         const response = await axiosInstance.post(`${this.baseUrl}/register`, userData);
-        if (response.status !== 200) {
+        if (response.status !== 201) {
             throw new Error('Failed to create user');
         }
         return response.data;

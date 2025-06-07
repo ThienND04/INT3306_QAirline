@@ -23,6 +23,7 @@ function LoginForm() {
             alert('Đăng nhập thành công!');
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
+            navigate('/');
         } catch (error) {
             alert('Đăng nhập thất bại!');
             console.error('Lỗi đăng nhập:', error);
