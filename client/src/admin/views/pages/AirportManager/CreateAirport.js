@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import './CreateAirport.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import airportApiService from '../../../../services/AirportApiService';
 import { Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import AirportForm from '../../../components/Airport/AirportForm'; 
+import '../../../components/Airport/AirportForm.css'; 
 
 const CreateAirport = () => {
     const [formData, setFormData] = useState({
@@ -31,88 +32,43 @@ const CreateAirport = () => {
         setSuccessMessage('');
         setErrorMessage('');
 
+        const dataToSubmit = { ...formData };
+        delete dataToSubmit.airportID; 
+
         try {
-            await airportApiService.createAirport(formData);
+            await airportApiService.createAirport(dataToSubmit);
             setSuccessMessage('Tạo sân bay thành công!');
             setFormData({
+                airportID: '',
                 name: '',
                 city: '',
                 country: '',
                 IATACode: ''
             });
-            navigate('/admin/airports');
+            setTimeout(() => navigate('/admin/airports'), 1500);
         } catch (error) {
             console.error(error);
-            setErrorMessage('Tạo sân bay thất bại. Vui lòng thử lại.');
+            if (error.response && error.response.data && error.response.data.message) {
+                setErrorMessage(error.response.data.message);
+            } else {
+                setErrorMessage('Tạo sân bay thất bại. Mã IATA có thể đã tồn tại hoặc dữ liệu không hợp lệ.');
+            }
         }
     };
 
     return (
         <>
             <Header />
-            <div className="form-container">
-                <div className="text-center mb-4">
-                    <h2 className="form-title">QAirline</h2>
-                    <p className="form-subtitle">Tạo sân bay mới</p>
-                </div>
-
-                {successMessage && <Alert variant="success">{successMessage}</Alert>}
-                {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-
-                <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                        <label className="form-label">Mã IATA</label>
-                        <input
-                            type="text"
-                            name="IATACode"
-                            className="form-control"
-                            value={formData.IATACode}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label className="form-label">Tên sân bay</label>
-                        <input
-                            type="text"
-                            name="name"
-                            className="form-control"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label className="form-label">Thành phố</label>
-                        <input
-                            type="text"
-                            name="city"
-                            className="form-control"
-                            value={formData.city}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label className="form-label">Quốc gia</label>
-                        <input
-                            type="text"
-                            name="country"
-                            className="form-control"
-                            value={formData.country}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-
-                    <button type="submit" className="btn btn-dark w-100">
-                        Tạo sân bay
-                    </button>
-                </form>
-            </div>
+            {successMessage && <Alert variant="success" onClose={() => setSuccessMessage('')} dismissible className="mt-3 mb-0">{successMessage}</Alert>}
+            {errorMessage && <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible className="mt-3 mb-0">{errorMessage}</Alert>}
+            <AirportForm
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                submitButtonText="Tạo sân bay"
+                formTitle="QAirline"
+                formSubtitle="Tạo sân bay mới"
+            />
             <Footer />
         </>
     );

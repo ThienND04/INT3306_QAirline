@@ -5,6 +5,7 @@ import './FlightsManager.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import FlightsTable from '../../../components/Flight/FlightsTable'; // Import the new component
 
 function DeletedFlightsManager() {
     const [deletedFlights, setDeletedFlights] = useState([]);
@@ -56,6 +57,13 @@ function DeletedFlightsManager() {
         }
     };
 
+    const renderDeletedFlightActions = (flight) => (
+        <>
+            <button onClick={() => handleRestore(flight._id)}>Khôi phục</button>
+            <button onClick={() => handlePermanentDelete(flight._id)} className="danger">Xóa vĩnh viễn</button>
+        </>
+    );
+
     return (
         <div className="flight-manager-container">
             <Header />
@@ -67,43 +75,12 @@ function DeletedFlightsManager() {
                         <button onClick={() => navigate(-1)}>Quay lại</button>
                     </div>
 
-                    <table className="flights-table">
-                        <thead>
-                            <tr>
-                                <th>Mã chuyến</th>
-                                <th>Điểm đi</th>
-                                <th>Điểm đến</th>
-                                <th>Khởi hành</th>
-                                <th>Đến nơi</th>
-                                <th>Hãng bay</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {deletedFlights.length > 0 ? (
-                                deletedFlights.map(flight => (
-                                    <tr key={flight._id}>
-                                        <td>{flight.code}</td>
-                                        <td>{airportMap[flight.from] || flight.from}</td>
-                                        <td>{airportMap[flight.to] || flight.to}</td>
-                                        <td>{new Date(flight.departureTime).toLocaleString()}</td>
-                                        <td>{new Date(flight.arrivalTime).toLocaleString()}</td>
-                                        <td>{flight.airline}</td>
-                                        <td>
-                                            <button onClick={() => handleRestore(flight._id)}>Khôi phục</button>
-                                            <button onClick={() => handlePermanentDelete(flight._id)} className="danger">Xóa vĩnh viễn</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="7" style={{ textAlign: 'center', padding: '20px', color: '#888' }}>
-                                        Không có chuyến bay nào trong thùng rác.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                    <FlightsTable
+                        flights={deletedFlights}
+                        airportMap={airportMap}
+                        renderActions={renderDeletedFlightActions}
+                        noFlightsMessage="Không có chuyến bay nào trong thùng rác."
+                    />
                 </section>
             </main>
             <Footer />

@@ -3,9 +3,12 @@ import aircraftApiService from '../../../../services/AircraftApiService';
 import './DeletedAircraftManager.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import AircraftsTable from '../../../components/Aircraft/AircraftsTable'; 
+import { useNavigate } from 'react-router-dom'; 
 
 function DeletedAircraftManager() {
     const [deletedAircrafts, setDeletedAircrafts] = useState([]);
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         fetchDeletedAircrafts();
@@ -17,6 +20,7 @@ function DeletedAircraftManager() {
             setDeletedAircrafts(data);
         } catch (err) {
             console.error("Lỗi khi tải danh sách máy bay đã xóa:", err);
+            setDeletedAircrafts([]);
         }
     };
 
@@ -40,7 +44,18 @@ function DeletedAircraftManager() {
                 console.error("Lỗi khi xóa vĩnh viễn máy bay:", err);
             }
         }
-    }
+    };
+
+    const renderDeletedAircraftActions = (aircraft) => (
+        <>
+            <button onClick={() => handleRestore(aircraft._id)} className="restore">
+                Khôi phục
+            </button>
+            <button onClick={() => handleHardDelete(aircraft._id)} className="danger">
+                Xóa vĩnh viễn
+            </button>
+        </>
+    );
 
     return (
         <div className="deleted-aircraft-container">
@@ -51,56 +66,14 @@ function DeletedAircraftManager() {
                     <p>Danh sách các máy bay đã bị xóa.</p>
 
                     <div className="actions">
-                        <button onClick={() => window.location.href = '/admin/aircrafts'}>Quay lại danh sách</button>
+                        <button onClick={() => navigate('/admin/aircrafts')}>Quay lại danh sách</button>
                     </div>
 
-                    <table className="aircrafts-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Model</th>
-                                <th>Hãng SX</th>
-                                <th>Tổng ghế</th>
-                                <th>Ghế phổ thông</th>
-                                <th>Ghế thương gia</th>
-                                <th>Ghế hạng nhất</th>
-                                <th>Ghế hạng sang</th>
-                                <th>Tầm bay (km)</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {deletedAircrafts.length > 0 ? (
-                                deletedAircrafts.map(aircraft => (
-                                    <tr key={aircraft._id}>
-                                        <td>{aircraft.aircraftID}</td>
-                                        <td>{aircraft.model}</td>
-                                        <td>{aircraft.manufacturer}</td>
-                                        <td>{aircraft.economyClassSeats + aircraft.businessClassSeats + aircraft.firstClassSeats + aircraft.premiumClassSeats}</td>
-                                        <td>{aircraft.economyClassSeats}</td>
-                                        <td>{aircraft.businessClassSeats}</td>
-                                        <td>{aircraft.firstClassSeats}</td>
-                                        <td>{aircraft.premiumClassSeats}</td>
-                                        <td>{aircraft.rangeInKm ?? '—'}</td>
-                                        <td>
-                                            <button onClick={() => handleRestore(aircraft._id)} className="restore">
-                                                Khôi phục
-                                            </button>
-                                            <button onClick={() => handleHardDelete(aircraft._id)} className="danger">
-                                                Xóa vĩnh viễn
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="10" style={{ textAlign: 'center', padding: '20px', color: '#888' }}>
-                                        Không có máy bay nào đã xóa.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                    <AircraftsTable
+                        aircrafts={deletedAircrafts}
+                        renderActions={renderDeletedAircraftActions}
+                        noDataMessage="Không có máy bay nào đã xóa."
+                    />
                 </section>
             </main>
             <Footer />
