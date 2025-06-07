@@ -20,6 +20,20 @@ const generateSeats = (aircraft) => {
     return seats;
 }
 
+const preprocessFlightData = (flightDoc) => { 
+    const flight = flightDoc.toObject(); 
+    console.log('Preprocessing flight data:', flightDoc._id);
+    flight.remainingSeats = {
+        economy: flight.seats.filter(seat => seat.class === 'Economy' && !seat.isBooked).length,
+        premium: flight.seats.filter(seat => seat.class === 'Premium' && !seat.isBooked).length,
+        business: flight.seats.filter(seat => seat.class === 'Business' && !seat.isBooked).length,
+        first: flight.seats.filter(seat => seat.class === 'First' && !seat.isBooked).length
+    };
+    delete flight.seats; 
+    console.log('Processed flight data:', flightDoc._id, flightDoc.remainingSeats);
+    return flight;
+}
+
 class FlightController {
     async getAllFlights(req, res) {
         try {
@@ -34,13 +48,14 @@ class FlightController {
     // [GET] /flights/search
     async searchFlights(req, res) {
         try {
+            console.log('Searching flights with params:', req.query);
             const { from, to, date } = req.query;
 
             const startDate = new Date(date);
-            startDate.setHours(0, 0, 0, 0);
+            startDate.setUTCHours(0, 0, 0, 0);
 
-            const endDate = new Date(startDate);
-            endDate.setDate(startDate.getDate() + 1);
+            const endDate = new Date(date);
+            endDate.setUTCHours(23, 59, 59, 999);
 
             const flights = await Flight.find({
                 from,
@@ -50,7 +65,8 @@ class FlightController {
                     $lt: endDate 
                 }
             });
-            res.status(200).json(flights);
+            console.log('Found flights:', flights.map(preprocessFlightData));
+            res.status(200).json(flights.map(preprocessFlightData));
         } catch (error) {
             res.status(500).json({ message: 'Error searching flights', error });
         }
@@ -76,10 +92,23 @@ class FlightController {
     async getFlightById(req, res) {
         try {
             const flightId = req.params.id;
-            const flight = await Flight.findById(flightId);
+            // Use .lean() to get a plain JavaScript object, making it easier to modify
+            const flight = await Flight.findById(flightId).lean(); 
             if (!flight) {
                 return res.status(404).json({ message: 'Không tìm thấy chuyến bay' });
             }
+            
+            // Calculate remaining seats based on seat.class
+            flight.remainingSeats = {
+                economy: flight.seats.filter(seat => seat.class === 'Economy' && !seat.isBooked).length,
+                premium: flight.seats.filter(seat => seat.class === 'Premium' && !seat.isBooked).length,
+                business: flight.seats.filter(seat => seat.class === 'Business' && !seat.isBooked).length,
+                first: flight.seats.filter(seat => seat.class === 'First' && !seat.isBooked).length
+            };
+
+            // Remove the seats array from the response object
+            delete flight.seats;
+            
             res.status(200).json(flight);
         } catch (error) {
             res.status(500).json({ message: 'Lỗi khi lấy thông tin chuyến bay', error });

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import airportApiService from '../../../../services/AirportApiService';
-import './AirportManager.css';
+import './DeletedAirportsManager.css'; 
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import AirportsTable from '../../../components/Airport/AirportsTable';
 
 function DeletedAirportsManager() {
     const [deletedAirports, setDeletedAirports] = useState([]);
@@ -42,48 +43,32 @@ function DeletedAirportsManager() {
         }
     };
 
+    const tableHeaders = ["Mã IATA", "Tên sân bay", "Thành phố", "Quốc gia", "Hành động"];
+
+    const renderDeletedAirportActions = (airport) => (
+        <>
+            <button onClick={() => handleRestore(airport._id)}>Khôi phục</button>
+            <button onClick={() => handleHardDelete(airport._id)} className="danger">Xóa vĩnh viễn</button>
+        </>
+    );
+
     return (
         <div className="airport-manager-container">
             <Header />
             <main>
-                <section className="airport-manager">
+                <section className="airport-manager"> {/* Consider renaming class if styles diverge significantly */}
                     <h1>Sân bay đã xóa</h1>
                     <p>Khôi phục hoặc xóa vĩnh viễn sân bay.</p>
                     <div className="actions">
                         <button onClick={() => window.location.href = '/admin/airports'}>Quay lại danh sách</button>
                     </div>
 
-                    <table className="airports-table">
-                        <thead>
-                            <tr>
-                                <th>Mã IATA</th>
-                                <th>Tên sân bay</th>
-                                <th>Thành phố</th>
-                                <th>Quốc gia</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {deletedAirports.length > 0 ? (deletedAirports.map((airport) => (
-                                <tr key={airport._id}>
-                                    <td>{airport.IATACode}</td>
-                                    <td>{airport.name}</td>
-                                    <td>{airport.city}</td>
-                                    <td>{airport.country}</td>
-                                    <td>
-                                        <button onClick={() => handleRestore(airport._id)}>Khôi phục</button>
-                                        <button onClick={() => handleHardDelete(airport._id)} className="danger">Xóa vĩnh viễn</button>
-                                    </td>
-                                </tr>
-                            ))) : (
-                                <tr>
-                                    <td colSpan="6" style={{ textAlign: 'center', padding: '20px', color: '#888' }}>
-                                        Không có sân bay nào trong danh sách.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                    <AirportsTable
+                        airports={deletedAirports}
+                        headers={tableHeaders}
+                        renderActions={renderDeletedAirportActions}
+                        noDataMessage="Không có sân bay nào trong danh sách."
+                    />
                 </section>
             </main>
             <Footer />

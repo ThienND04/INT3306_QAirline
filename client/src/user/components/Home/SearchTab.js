@@ -7,45 +7,57 @@ import { useNavigate } from "react-router-dom";
 function SearchTab() {
     const navigate = useNavigate();
     const [searchForm, setSearchForm] = React.useState({
-		from: "",
-		to: "",
-		date: "",
-		numberTickets: 1
-	});
+        from: "",
+        to: "",
+        date: "",
+        numberTickets: 1
+    });
 
-	const [fromSuggestions, setFromSuggestions] = useState([]);
-	const [toSuggestions, setToSuggestions] = useState([]);
-	const [searchFrom, setSearchFrom] = useState('');
-	const [searchTo, setSearchTo] = useState('');
+    const [fromSuggestions, setFromSuggestions] = useState([]);
+    const [toSuggestions, setToSuggestions] = useState([]);
+    const [searchFrom, setSearchFrom] = useState('');
+    const [searchTo, setSearchTo] = useState('');
+    const [searchDate, setSearchDate] = useState('');
 
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		if (name === 'from') {
-			setSearchFrom(value);
-			airportApiService.searchAirport(value).then(setFromSuggestions);
-		} else if (name === 'to') {
-			setSearchTo(value);
-			airportApiService.searchAirport(value).then(setToSuggestions);
-		} else {
-			setSearchForm(prev => ({ ...prev, [name]: value }));
-		}
-	};
+    const handleInputChange = (e) => {
+        try {
+            const { name, value } = e.target;
+            console.log(`Input changed: ${name} = ${value}`);
+            if (name === 'from') {
+                setSearchFrom(value);
+                airportApiService.searchAirport(value).then(setFromSuggestions);
+            } else if (name === 'to') {
+                setSearchTo(value);
+                airportApiService.searchAirport(value).then(setToSuggestions);
+            } else if (name == 'departureTime') {
+                setSearchDate(value);
+                const date = new Date(value);
+                console.log('Selected date:', date.toISOString());
+                setSearchForm(prev => ({ ...prev, date: date.toISOString() }));
+            }
+            else {
+                setSearchForm(prev => ({ ...prev, [name]: value }));
+            }
+        } catch (error) {
+            console.error("Error handling input change:", error);
+        }
+    };
 
-	const handleFromSelect = (airport) => {
-		setSearchForm(prev => ({ ...prev, from: airport.IATACode }));
-		setSearchFrom(`${airport.name} - ${airport.city}, ${airport.country}`);
-		setFromSuggestions([]);
-	};
+    const handleFromSelect = (airport) => {
+        setSearchForm(prev => ({ ...prev, from: airport.IATACode }));
+        setSearchFrom(`${airport.name} - ${airport.city}, ${airport.country}`);
+        setFromSuggestions([]);
+    };
 
-	const handleToSelect = (airport) => {
-		setSearchForm(prev => ({ ...prev, to: airport.IATACode }));
-		setSearchTo(`${airport.name} - ${airport.city}, ${airport.country}`);
-		setToSuggestions([]);
-	};
+    const handleToSelect = (airport) => {
+        setSearchForm(prev => ({ ...prev, to: airport.IATACode }));
+        setSearchTo(`${airport.name} - ${airport.city}, ${airport.country}`);
+        setToSuggestions([]);
+    };
 
-    const handleSubmit = () => {
-        console.log("Searching for flights with form data:", searchForm);
-        navigate("/search-result", { state: searchForm });
+    const handleSearch = () => {
+        const params = new URLSearchParams(searchForm);
+        navigate(`/search-result?${params.toString()}`);
     }
 
     return (
@@ -96,8 +108,8 @@ function SearchTab() {
                 <Form.Label>Ngày đi</Form.Label>
                 <Form.Control
                     type="date"
-                    name="date"
-                    value={searchForm.date}
+                    name="departureTime"
+                    value={searchDate}
                     onChange={handleInputChange}
                 />
             </Form.Group>
@@ -113,7 +125,7 @@ function SearchTab() {
                 />
             </Form.Group>
 
-            <Button variant="primary" className="mt-4">Tìm chuyến bay</Button>
+            <Button variant="primary" className="mt-4" onClick={handleSearch}>Tìm chuyến bay</Button>
         </Form>
     )
 }
