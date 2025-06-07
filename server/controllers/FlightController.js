@@ -13,7 +13,10 @@ const generateSeats = (aircraft) => {
 
     for (const cls of seatClasses) {
         for (let i = 1; i <= cls.count; i++) {
-            seats.push({ seatNo: `${cls.type}${i}`, isBooked: false });
+            seats.push({ 
+                seatNo: `${cls.type}${i}`, 
+                class: cls.name,
+                isBooked: false });
         }
     }
 
@@ -49,7 +52,7 @@ class FlightController {
     async searchFlights(req, res) {
         try {
             console.log('Searching flights with params:', req.query);
-            const { from, to, date } = req.query;
+            const { from, to, date} = req.query;
 
             const startDate = new Date(date);
             startDate.setUTCHours(0, 0, 0, 0);
@@ -65,8 +68,9 @@ class FlightController {
                     $lt: endDate 
                 }
             });
-            console.log('Found flights:', flights.map(preprocessFlightData));
-            res.status(200).json(flights.map(preprocessFlightData));
+
+            const flightsResult = flights.map(preprocessFlightData);
+            res.status(200).json(flightsResult);
         } catch (error) {
             res.status(500).json({ message: 'Error searching flights', error });
         }
