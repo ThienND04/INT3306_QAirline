@@ -5,6 +5,7 @@ import './FlightsManager.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import FlightsTable from '../../../components/Flight/FlightsTable'; // Import the new component
 
 function FlightsManager() {
     const [flights, setFlights] = useState([]);
@@ -45,6 +46,13 @@ function FlightsManager() {
         }
     };
 
+    const renderFlightActions = (flight) => (
+        <>
+            <button onClick={() => navigate(`edit-flight/${flight._id}`)}>Sửa</button>
+            <button onClick={() => handleDelete(flight._id)} className="danger">Xóa</button>
+        </>
+    );
+
     return (
         <div className="flight-manager-container">
             <Header />
@@ -57,43 +65,12 @@ function FlightsManager() {
                         <button onClick={() => navigate('deleted')}>Thùng rác</button>
                     </div>
 
-                    <table className="flights-table">
-                        <thead>
-                            <tr>
-                                <th>Mã chuyến</th>
-                                <th>Điểm đi</th>
-                                <th>Điểm đến</th>
-                                <th>Khởi hành</th>
-                                <th>Đến nơi</th>
-                                <th>Hãng bay</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {flights.length > 0 ? (
-                                flights.map(flight => (
-                                    <tr key={flight._id}>
-                                        <td>{flight.code}</td>
-                                        <td>{airportMap[flight.from] || flight.from}</td>
-                                        <td>{airportMap[flight.to] || flight.to}</td>
-                                        <td>{new Date(flight.departureTime).toLocaleString()}</td>
-                                        <td>{new Date(flight.arrivalTime).toLocaleString()}</td>
-                                        <td>{flight.airline}</td>
-                                        <td>
-                                            <button onClick={() => navigate(`edit-flight/${flight._id}`)}>Sửa</button>
-                                            <button onClick={() => handleDelete(flight._id)} className="danger">Xóa</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="7" style={{ textAlign: 'center', padding: '20px', color: '#888' }}>
-                                        Không có chuyến bay nào trong danh sách.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                    <FlightsTable
+                        flights={flights}
+                        airportMap={airportMap}
+                        renderActions={renderFlightActions}
+                        noFlightsMessage="Không có chuyến bay nào trong danh sách."
+                    />
                 </section>
             </main>
             <Footer />

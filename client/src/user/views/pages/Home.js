@@ -1,7 +1,9 @@
 import React from "react";
 import "./Home.css";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import SearchTab from "../../components/Home/SearchTab";
 
 function Home() {
 	return (
@@ -77,124 +79,12 @@ function Home() {
 									</div>
 									<div className="w-tab-content">
 										<div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
-											<div className="w-form">
-												<form id="email-form" name="email-form" data-name="Email Form" method="get">
-													<div className="radio-button-group">
-														<label className="radio-button-field w-radio">
-															<input
-																type="radio"
-																name="Radio"
-																id="Radio"
-																data-name="Radio"
-																className="w-form-formradioinput w-radio-input"
-																value="Radio"
-															/>
-															<span className="radio-button-label w-form-label" htmlFor="Radio">
-																Một chiều
-															</span>
-														</label>
-														<label className="radio-button-field w-radio">
-															<input
-																type="radio"
-																name="Radio"
-																id="Radio-3"
-																data-name="Radio 3"
-																className="w-form-formradioinput w-radio-input"
-																value="Radio"
-															/>
-															<span className="radio-button-label w-form-label" htmlFor="Radio-3">
-																Khứ hồi
-															</span>
-														</label>
-														<label className="radio-button-field w-radio">
-															<input
-																type="radio"
-																name="Radio"
-																id="Radio-2"
-																data-name="Radio 2"
-																className="w-form-formradioinput w-radio-input"
-																value="Radio"
-															/>
-															<span className="radio-button-label w-form-label" htmlFor="Radio-2">
-																Đa chặng
-															</span>
-														</label>
-													</div>
-													<div className="form-row">
-														<div className="div-block-7">
-															<div className="div-block-8">
-																<label htmlFor="field" className="field-label">
-																	TỪ
-																</label>
-																<input
-																	className="from-airport w-input"
-																	maxLength="256"
-																	name="field"
-																	data-name="Field"
-																	placeholder="Example Text"
-																	type="text"
-																	id="field"
-																	required
-																/>
-															</div>
-															<div className="div-block-8">
-																<label htmlFor="field-4" className="field-label">
-																	ĐẾN
-																</label>
-																<input
-																	className="to-airport w-input"
-																	maxLength="256"
-																	name="field-4"
-																	data-name="Field 4"
-																	placeholder="Example Text"
-																	type="text"
-																	id="field-4"
-																	required
-																/>
-															</div>
-															<div className="div-block-9 div-block-8">
-																<label htmlFor="field-5" className="field-label">
-																	NGÀY
-																</label>
-																<input
-																	className="depart-date w-input"
-																	maxLength="256"
-																	name="field-4"
-																	data-name="Field 4"
-																	placeholder="Example Text"
-																	type="text"
-																	id="field-4"
-																	required
-																/>
-															</div>
-															<div className="div-block-10 div-block-8">
-																<label htmlFor="field-5" className="field-label">
-																	HÀNH KHÁCH
-																</label>
-																<input
-																	className="depart-date w-input"
-																	maxLength="256"
-																	name="field-4"
-																	data-name="Field 4"
-																	placeholder="Example Text"
-																	type="text"
-																	id="field-4"
-																	required
-																/>
-															</div>
-														</div>
-														<div>
-															<input type="submit" data-wait="Please wait..." className="w-button" value="Submit" />
-														</div>
-													</div>
-												</form>
-												<div className="w-form-done">
-													<div>Thank you! Your submission has been received!</div>
-												</div>
-												<div className="w-form-fail">
-													<div>Oops! Something went wrong while submitting the form.</div>
-												</div>
-											</div>
+										<div className="hero-buttons mb-3">
+							                <Button variant="success" className="me-2">Xem tất cả các chuyến bay</Button>
+							                <Button variant="outline-primary" className="me-2">Một chiều</Button>
+							                <Button variant="outline-secondary">Khứ hồi</Button>
+						                </div>
+						                <SearchTab />	
 										</div>
 										<div data-w-tab="Tab 2" className="w-tab-pane"></div>
 										<div data-w-tab="Tab 3" className="w-tab-pane"></div>

@@ -1,0 +1,3077 @@
+[
+  {
+    "code": "TR283",
+    "aircraft": "VN-A350-004",
+    "from": "PNH",
+    "to": "CXR",
+    "departureTime": "2025-06-25T08:51:00.000+00:00",
+    "arrivalTime": "2025-06-25T11:36:00.000+00:00",
+    "airline": "AirAsia",
+    "economyPrice": 920000,
+    "businessPrice": 1760000,
+    "firstPrice": 4140000,
+    "premiumPrice": 3020000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B9",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F8",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F9",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F10",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "AK635",
+    "aircraft": "SC-737MAX-009",
+    "from": "PQC",
+    "to": "TEST01",
+    "departureTime": "2025-06-15T06:51:00.000+00:00",
+    "arrivalTime": "2025-06-15T08:06:00.000+00:00",
+    "airline": "Vietnam Airlines",
+    "economyPrice": 970000,
+    "businessPrice": 1670000,
+    "firstPrice": 3040000,
+    "premiumPrice": 3380000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B9",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": true
+      }
+    ]
+  },
+  {
+    "code": "TR269",
+    "aircraft": "VN-A320-001",
+    "from": "VTE",
+    "to": "PEN",
+    "departureTime": "2025-06-21T09:51:00.000+00:00",
+    "arrivalTime": "2025-06-21T15:01:00.000+00:00",
+    "airline": "Bamboo Airways",
+    "economyPrice": 1110000,
+    "businessPrice": 2600000,
+    "firstPrice": 4330000,
+    "premiumPrice": 3520000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F8",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F9",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F10",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P8",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P9",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "AK167",
+    "aircraft": "VN-A320-001",
+    "from": "REP",
+    "to": "KUL",
+    "departureTime": "2025-06-22T19:36:00.000+00:00",
+    "arrivalTime": "2025-06-22T23:53:00.000+00:00",
+    "airline": "Garuda Indonesia",
+    "economyPrice": 750000,
+    "businessPrice": 1880000,
+    "firstPrice": 4190000,
+    "premiumPrice": 2580000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E9",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B9",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F8",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F9",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F10",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P8",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P9",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "SQ380",
+    "aircraft": "SC-737MAX-009",
+    "from": "DAD",
+    "to": "LPQ",
+    "departureTime": "2025-06-18T06:53:00.000+00:00",
+    "arrivalTime": "2025-06-18T07:59:00.000+00:00",
+    "airline": "Bamboo Airways",
+    "economyPrice": 790000,
+    "businessPrice": 1690000,
+    "firstPrice": 5210000,
+    "premiumPrice": 2940000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P8",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "VJ216",
+    "aircraft": "SQ-B777-008",
+    "from": "REP",
+    "to": "CNX",
+    "departureTime": "2025-06-18T04:51:00.000+00:00",
+    "arrivalTime": "2025-06-18T05:56:00.000+00:00",
+    "airline": "Singapore Airlines",
+    "economyPrice": 1040000,
+    "businessPrice": 2640000,
+    "firstPrice": 5840000,
+    "premiumPrice": 2180000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B9",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "AK406",
+    "aircraft": "VJ-A321-002",
+    "from": "CXR",
+    "to": "MDL",
+    "departureTime": "2025-06-13T08:25:00.000+00:00",
+    "arrivalTime": "2025-06-13T10:59:00.000+00:00",
+    "airline": "Garuda Indonesia",
+    "economyPrice": 800000,
+    "businessPrice": 2390000,
+    "firstPrice": 5320000,
+    "premiumPrice": 3070000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E9",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F8",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F9",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "AK938",
+    "aircraft": "VN-A320-001",
+    "from": "PEN",
+    "to": "CNX",
+    "departureTime": "2025-06-19T04:58:00.000+00:00",
+    "arrivalTime": "2025-06-19T10:29:00.000+00:00",
+    "airline": "Garuda Indonesia",
+    "economyPrice": 740000,
+    "businessPrice": 2820000,
+    "firstPrice": 3090000,
+    "premiumPrice": 2990000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E9",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E10",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B9",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P8",
+        "class": "Premium",
+        "isBooked": true
+      }
+    ]
+  },
+  {
+    "code": "GA201",
+    "aircraft": "VN-A320-001",
+    "from": "SGN",
+    "to": "PNH",
+    "departureTime": "2025-06-30T13:56:00.000+00:00",
+    "arrivalTime": "2025-06-30T15:46:00.000+00:00",
+    "airline": "VietJet Air",
+    "economyPrice": 820000,
+    "businessPrice": 2610000,
+    "firstPrice": 3380000,
+    "premiumPrice": 2790000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P8",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P9",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P10",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "GA740",
+    "aircraft": "JNCD",
+    "from": "PNH",
+    "to": "DAD",
+    "departureTime": "2025-06-17T06:43:00.000+00:00",
+    "arrivalTime": "2025-06-17T10:26:00.000+00:00",
+    "airline": "Scoot",
+    "economyPrice": 850000,
+    "businessPrice": 2960000,
+    "firstPrice": 3320000,
+    "premiumPrice": 3670000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P8",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P9",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P10",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "TR528",
+    "aircraft": "GA-B787-005",
+    "from": "RGN",
+    "to": "BKK",
+    "departureTime": "2025-06-24T02:40:00.000+00:00",
+    "arrivalTime": "2025-06-24T04:52:00.000+00:00",
+    "airline": "Scoot",
+    "economyPrice": 1200000,
+    "businessPrice": 2250000,
+    "firstPrice": 5410000,
+    "premiumPrice": 2910000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F8",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P8",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P9",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P10",
+        "class": "Premium",
+        "isBooked": true
+      }
+    ]
+  },
+  {
+    "code": "VN824",
+    "aircraft": "SC-737MAX-009",
+    "from": "PNH",
+    "to": "BKK",
+    "departureTime": "2025-06-13T08:34:00.000+00:00",
+    "arrivalTime": "2025-06-13T12:13:00.000+00:00",
+    "airline": "VietJet Air",
+    "economyPrice": 940000,
+    "businessPrice": 2010000,
+    "firstPrice": 5840000,
+    "premiumPrice": 2620000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "VJ844",
+    "aircraft": "VN-A350-004",
+    "from": "DAD",
+    "to": "CNX",
+    "departureTime": "2025-06-29T11:59:00.000+00:00",
+    "arrivalTime": "2025-06-29T13:22:00.000+00:00",
+    "airline": "Singapore Airlines",
+    "economyPrice": 830000,
+    "businessPrice": 1650000,
+    "firstPrice": 4080000,
+    "premiumPrice": 2870000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E9",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E10",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B9",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B10",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "SQ540",
+    "aircraft": "SQ-B777-008",
+    "from": "LPQ",
+    "to": "CXR",
+    "departureTime": "2025-06-19T02:51:00.000+00:00",
+    "arrivalTime": "2025-06-19T08:19:00.000+00:00",
+    "airline": "VietJet Air",
+    "economyPrice": 760000,
+    "businessPrice": 1920000,
+    "firstPrice": 5580000,
+    "premiumPrice": 3890000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": true
+      }
+    ]
+  },
+  {
+    "code": "GA355",
+    "aircraft": "VN-A320-001",
+    "from": "REP",
+    "to": "KUL",
+    "departureTime": "2025-06-21T07:54:00.000+00:00",
+    "arrivalTime": "2025-06-21T11:03:00.000+00:00",
+    "airline": "AirAsia",
+    "economyPrice": 900000,
+    "businessPrice": 2060000,
+    "firstPrice": 5070000,
+    "premiumPrice": 3160000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E9",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E10",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B9",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F8",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "QH627",
+    "aircraft": "MH-A330-006",
+    "from": "SIN",
+    "to": "REP",
+    "departureTime": "2025-06-29T21:07:00.000+00:00",
+    "arrivalTime": "2025-06-29T22:36:00.000+00:00",
+    "airline": "Malaysia Airlines",
+    "economyPrice": 890000,
+    "businessPrice": 1570000,
+    "firstPrice": 5940000,
+    "premiumPrice": 3770000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F8",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "AK900",
+    "aircraft": "VN-A320-001",
+    "from": "SIN",
+    "to": "SGN",
+    "departureTime": "2025-06-29T13:56:00.000+00:00",
+    "arrivalTime": "2025-06-29T17:13:00.000+00:00",
+    "airline": "Malaysia Airlines",
+    "economyPrice": 990000,
+    "businessPrice": 2820000,
+    "firstPrice": 4880000,
+    "premiumPrice": 3440000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B8",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B9",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B10",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "VN744",
+    "aircraft": "VJ-A321-002",
+    "from": "SIN",
+    "to": "PQC",
+    "departureTime": "2025-06-24T02:08:00.000+00:00",
+    "arrivalTime": "2025-06-24T07:55:00.000+00:00",
+    "airline": "Scoot",
+    "economyPrice": 770000,
+    "businessPrice": 1860000,
+    "firstPrice": 5520000,
+    "premiumPrice": 2410000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E9",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E10",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "SQ513",
+    "aircraft": "SQ-B777-008",
+    "from": "RGN",
+    "to": "MNL",
+    "departureTime": "2025-06-23T18:39:00.000+00:00",
+    "arrivalTime": "2025-06-23T23:04:00.000+00:00",
+    "airline": "Bamboo Airways",
+    "economyPrice": 1010000,
+    "businessPrice": 2540000,
+    "firstPrice": 3450000,
+    "premiumPrice": 3050000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E5",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E6",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E7",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E8",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B5",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B6",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B7",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P5",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P6",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P7",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  },
+  {
+    "code": "VJ910",
+    "aircraft": "VN-A320-001",
+    "from": "DAD",
+    "to": "DMK",
+    "departureTime": "2025-06-15T04:08:00.000+00:00",
+    "arrivalTime": "2025-06-15T08:24:00.000+00:00",
+    "airline": "Scoot",
+    "economyPrice": 800000,
+    "businessPrice": 2780000,
+    "firstPrice": 3890000,
+    "premiumPrice": 2480000,
+    "seats": [
+      {
+        "seatNo": "E1",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E2",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E3",
+        "class": "Economy",
+        "isBooked": false
+      },
+      {
+        "seatNo": "E4",
+        "class": "Economy",
+        "isBooked": true
+      },
+      {
+        "seatNo": "B1",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B2",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B3",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "B4",
+        "class": "Business",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F1",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F2",
+        "class": "First",
+        "isBooked": true
+      },
+      {
+        "seatNo": "F3",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F4",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F5",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F6",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F7",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "F8",
+        "class": "First",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P1",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P2",
+        "class": "Premium",
+        "isBooked": false
+      },
+      {
+        "seatNo": "P3",
+        "class": "Premium",
+        "isBooked": true
+      },
+      {
+        "seatNo": "P4",
+        "class": "Premium",
+        "isBooked": false
+      }
+    ]
+  }
+]

@@ -4,6 +4,7 @@ import './AirportManager.css';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import AirportsTable from '../../../components/Airport/AirportsTable'; // Import the new component
 
 function AirportManager() {
     const [airports, setAirports] = useState([]);
@@ -33,6 +34,15 @@ function AirportManager() {
         }
     };
 
+    const tableHeaders = ["Mã IATA", "Tên sân bay", "Thành phố", "Quốc gia", "Hành động"];
+
+    const renderAirportActions = (airport) => (
+        <>
+            <button onClick={() => navigate(`edit-airport/${airport._id}`)}>Sửa</button>
+            <button onClick={() => handleDelete(airport._id)} className="danger">Xóa</button>
+        </>
+    );
+
     return (
         <div className="airport-manager-container">
             <Header />
@@ -45,39 +55,12 @@ function AirportManager() {
                         <button onClick={() => navigate("deleted")}>Thùng rác</button>
                     </div>
 
-                    <table className="airports-table">
-                        <thead>
-                            <tr>
-                                <th>Mã IATA</th>
-                                <th>Tên sân bay</th>
-                                <th>Thành phố</th>
-                                <th>Quốc gia</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {airports.length > 0 ? (
-                                airports.map((airport) => (
-                                    <tr key={airport._id}>
-                                        <td>{airport.IATACode}</td>
-                                        <td>{airport.name}</td>
-                                        <td>{airport.city}</td>
-                                        <td>{airport.country}</td>
-                                        <td>
-                                            <button onClick={() => window.location.href = `edit-airport/${airport._id}`}>Sửa</button>
-                                            <button onClick={() => handleDelete(airport._id)} className="danger">Xóa</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="6" style={{ textAlign: 'center', padding: '20px', color: '#888' }}>
-                                        Không có sân bay nào trong danh sách.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                    <AirportsTable
+                        airports={airports}
+                        headers={tableHeaders}
+                        renderActions={renderAirportActions}
+                        noDataMessage="Không có sân bay nào trong danh sách."
+                    />
                 </section>
             </main>
             <Footer />

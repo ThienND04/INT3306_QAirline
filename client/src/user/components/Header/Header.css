@@ -1,29 +1,42 @@
 .qa-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 32px;
-    background-color: #fff;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-  }
-  
-  .qa-logo {
-    font-weight: bold;
-    font-size: 24px;
-  }
-  
-  .qa-nav a {
-    margin: 0 12px;
-    text-decoration: none;
-    color: #000;
-  }
-  
-  .qa-auth {
-    display: flex;
-    align-items: center;
-  }
-  
-  .qa-btn {
+	background: linear-gradient(to right, #fdf6f9, #e2f0ff);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px 40px;
+	box-shadow: 0 4px 12px rgba(236, 106, 165, 0.1);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	font-family: 'Segoe UI', sans-serif;
+}
+
+.qa-logo {
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: #6a7dec;
+	letter-spacing: 1px;
+}
+
+.qa-nav a {
+	margin: 0 15px;
+	text-decoration: none;
+	color: #333;
+	font-weight: 500;
+	transition: color 0.2s ease;
+}
+
+.qa-nav a:hover {
+	color: #6a77ec;
+}
+
+.qa-auth {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.qa-btn {
     margin-left: 10px;
     padding: 8px 22px;
     border-radius: 12px;
@@ -48,10 +61,12 @@
       filter: brightness(0.97);
       box-shadow: 0 0 0 2px #2962ff33;
   }
-  
-  .qa-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-  }
-  
+
+.qa-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #ec6aa5;
+}
+

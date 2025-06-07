@@ -1,0 +1,119 @@
+.flight-manager-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.flight-manager {
+    padding: 30px;
+}
+
+.flight-manager h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.flight-manager p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.actions {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-right: 10px;
+}
+
+.actions button:hover {
+    background-color: #0056b3;
+}
+
+.flights-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.flights-table th,
+.flights-table td {
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+    font-size: 14px;
+}
+
+.flights-table th {
+    background-color: #f1f1f1;
+    font-weight: 600;
+}
+
+.flights-table td button {
+    margin-right: 8px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.flights-table td button:hover {
+    opacity: 0.9;
+}
+
+.flights-table .danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.flights-table .danger:hover {
+    background-color: #c82333;
+}
+
+.flights-table td button:not(.danger) {
+    background-color: #28a745;
+    color: white;
+}
+
+.flights-table td button:not(.danger):hover {
+    background-color: #218838;
+}
+
+.flight-manager h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin-top: 6px;
+    background-color: #007bff;
+}
+
+.flight-manager-container.trash-mode main {
+    background-color: #fff8f8;
+}
+
+.flight-manager-container.trash-mode .danger {
+    background-color: #6c757d; /* đổi màu để phân biệt "xóa vĩnh viễn" */
+}
+
+.flight-manager-container.trash-mode .danger:hover {
+    background-color: #5a6268;
+}

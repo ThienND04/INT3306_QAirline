@@ -9,6 +9,10 @@ const flightSchema = new mongoose.Schema({
     departureTime: Date,
     arrivalTime: Date,
     airline: { type: String, required: true },
+    economyPrice: { type: Number, required: true },
+    businessPrice: { type: Number, required: true },
+    firstPrice: { type: Number, required: true },
+    premiumPrice: { type: Number, required: true },
     seats: [{
         seatNo: String,
         class: { type: String, enum: ['Economy', 'Business', 'First', 'Premium'], default: 'Economy' },
