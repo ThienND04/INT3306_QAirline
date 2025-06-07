@@ -25,12 +25,28 @@
   
   .qa-btn {
     margin-left: 10px;
-    background: black;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 16px;
+    padding: 8px 22px;
+    border-radius: 12px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 2px solid #2962ff;
+    background: #fff;
+    color: #222;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: none;
+    outline: none;
+  }
+  
+  .qa-btn:last-child {
+    background: #2962ff;
+    color: #fff;
+    border: 2px solid #2962ff;
+  }
+  .qa-btn:hover,
+  .qa-btn:focus {
+      filter: brightness(0.97);
+      box-shadow: 0 0 0 2px #2962ff33;
   }
   
   .qa-avatar {
