@@ -6,7 +6,6 @@ const Otp = require('../models/Otp');
 const sendOtpEmail = require('../utils/sendOtpEmail'); 
 
 class AuthController {
-    // Đăng ký người dùng mới
     // [POST] /auth/register
     async register(req, res) {
         try {
@@ -22,6 +21,7 @@ class AuthController {
                 nationality,
                 language } = req.body;
             const existingUser = await User.find({ email });
+            console.log('Existing user:', existingUser);
             if (existingUser.length > 0) {
                 return res.status(400).json({ message: 'Username already exists' });
             }
@@ -40,8 +40,7 @@ class AuthController {
             });
             await newUser.save();
 
-            // var token = createToken(newUser._id);
-
+            console.log('New user created:', newUser);
             return res.status(201).json({
                 message: 'User registered successfully',
                 user: {
@@ -55,6 +54,7 @@ class AuthController {
                 // token
             });
         } catch (error) {
+            console.error('Error registering user:', error);
             return res.status(500).json({ message: 'Error registering user', error });
         }
     }
