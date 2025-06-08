@@ -80,7 +80,7 @@ class BookingApiService {
             });
             return response.data;
         } catch (error) {
-            console.error('Error booking ticket:', error);
+            console.error('Error booking ticket:', error.message);
             throw error;
         }
     }

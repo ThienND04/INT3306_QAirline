@@ -161,6 +161,7 @@ class BookingController {
     // [POST] /bookings/book
     async bookTickets(req, res) {
         try {
+            console.log("BookingController.bookTickets called with body:", req.body);
             const userId = req.user.id; 
             const {
                 outbound: outboundInput, // Expected: { flightCode, bookingClass }
