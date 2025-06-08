@@ -159,12 +159,6 @@ function Home() {
                                                     >
                                                         Một chiều
                                                     </Button>
-                                                    <Button 
-                                                        variant={searchTabInitialType === "round-trip" ? "secondary" : "outline-secondary"}
-                                                        onClick={() => setSearchTabInitialType("round-trip")}
-                                                    >
-                                                        Khứ hồi
-                                                    </Button>
                                                 </div>
                                                 <SearchTab initialFlightType={searchTabInitialType} />
                                             </div>
