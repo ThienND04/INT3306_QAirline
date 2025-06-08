@@ -12,19 +12,19 @@ router.put("/:id", authorizeRoles("admin"), flightController.updateFlight);
 router.delete("/:id", authorizeRoles("admin"), flightController.deleteFlight);
 router.get("/search_recent_flight", flightController.getRecentFlights);
 router.delete(
-  "/hard-delete/:id",
-  authorizeRoles("admin"),
-  flightController.hardDeleteFlight
+	"/hard-delete/:id",
+	authorizeRoles("admin"),
+	flightController.hardDeleteFlight
 );
 router.get(
-  "/deleted",
-  authorizeRoles("admin"),
-  flightController.getDeletedFlights
+	"/deleted",
+	authorizeRoles("admin"),
+	flightController.getDeletedFlights
 );
 router.patch(
-  "/restore/:id",
-  authorizeRoles("admin"),
-  flightController.restoreFlight
+	"/restore/:id",
+	authorizeRoles("admin"),
+	flightController.restoreFlight
 );
 router.get("/", flightController.getAllFlights);
 router.get("/:id", flightController.getFlightById);
