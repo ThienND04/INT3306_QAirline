@@ -1,7 +1,8 @@
 import React from 'react';
 import userApiService from '../../../services/UserApiService';
-import { useNavigate } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+import { Form, Button, Container } from 'react-bootstrap';
+import './ForgotPasswordForm.css'; 
 
 
 function ForgotPasswordForm() {
@@ -21,39 +22,54 @@ function ForgotPasswordForm() {
         e.preventDefault();
         console.log(form);
 
-        userApiService.forgotPassword(form)
-            .then((response) => {
-                console.log('Email sent successfully:', response.data);
-                alert('Email sent successfully!');
-                navigate('/otp-auth');
-            })
-            .catch((error) => {
-                console.error('Error sending email:', error.response?.data || error.message);
-                alert('Error sending email!');
-            });
+        try {
+            const response = await userApiService.forgotPassword(form);
+            console.log('Email sent successfully:', response.data);
+            alert('Email đã được gửi thành công! Vui lòng kiểm tra hộp thư của bạn.');
+            navigate(`/otp-auth`, { state: { email: form.email } });
+        } catch (error) {
+            console.error('Error sending email:', error.response?.data || error.message);
+            alert('Lỗi gửi email. Vui lòng thử lại.');
+        }
     }
 
     return (
-        <div className="container mt-5" style={{ maxWidth: "400px" }}>
-            <h1 className="mb-4 text-center">Quen mat khau</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input
+        <Container fluid className="login-container d-flex justify-content-center align-items-center">
+            <Form onSubmit={handleSubmit} className="login-form text-center p-5 rounded">
+                <div className="logo mb-3">🔑</div> 
+                <h2 className="mb-1 fw-bold">Quên mật khẩu</h2>
+                <p className="mb-4 text-muted">Nhập email để lấy lại mật khẩu</p>
+
+                <Form.Group className="mb-3">
+                    <Form.Control
                         type="email"
                         name="email"
+                        placeholder="ten@example.com"
                         value={form.email}
-                        className="form-control"
-                        placeholder="Enter your email"
                         onChange={handleChange}
+                        className="rounded-pill py-2 px-3"
                         required
                     />
+                </Form.Group>
+
+                <Button type="submit" className="w-100 btn-dark rounded-pill py-2 fw-bold">
+                    Quên mật khẩu
+                </Button>
+
+                <div className="mt-3">
+                    <a
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate('/login'); 
+                        }}
+                        style={{ fontSize: '0.9rem' }}
+                    >
+                        Quay lại Đăng nhập
+                    </a>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">
-                    Send Reset Link
-                </button>
-            </form>
-        </div>
+            </Form>
+        </Container>
     );
 }
 

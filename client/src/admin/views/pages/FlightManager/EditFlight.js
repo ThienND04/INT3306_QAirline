@@ -23,8 +23,6 @@ const EditFlight = () => {
             try {
                 const flight = await flightApiService.getFlightById(id);
                 
-                // Optionally fetch full airport names for better display in searchFrom/searchTo
-                // This is an enhancement; current FlightForm will use IATA codes if full names aren't provided
                 let fromName = flight.from;
                 let toName = flight.to;
 
