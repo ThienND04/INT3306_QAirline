@@ -42,6 +42,18 @@ class BookingController {
         }
     }
 
+    // [GET] /bookings/my
+    async getMyBookings(req, res) {
+        try {
+            const userId = req.user._id;
+            const bookings = await Booking.find({ userId }).populate('flightInfo userInfo');
+            res.status(200).json(bookings);
+        } catch (error) {
+            res.status(500).json({ message: 'Lỗi lấy danh sách chuyến bay đã đặt', error: error.message });
+        }
+    }   
+
+
     // [PUT] /bookings/:id
     async updateBooking(req, res) {
         try {

@@ -1,14 +1,28 @@
 import React from "react";
 import "./Home.css";
-import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import SearchTab from "../../components/Home/SearchTab";
 
 function Home() {
-	return (
-		<>
+    const [activeTab, setActiveTab] = React.useState("Tab 1");
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    
+    React.useEffect(() => {
+        if (location.state && location.state.scrollToSection) {
+            const section = document.getElementById(location.state.scrollToSection);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [location]);
+    
+    return (
+        <>
 			<Header />
 
 			<header
@@ -23,8 +37,8 @@ function Home() {
 							<img
 								width="1216"
 								height="832"
-								alt="Aircraft in flight"
-								src="https://cdn.prod.website-files.com/682e8903f7dfdbc88bbce3f4/682e99afbf98b8250ae9f9f1_1743d08e-619f-45f7-8bd1-61b82e8af8c4.avif"
+								alt="Plane"
+								src="/plane.jpg"
 								loading="lazy"
 								data-aisg-image-id="ab70756a-4353-4194-9afb-8d8d3a97b8f6"
 								className="cover-image utility-position-absolute ix-parallax-speed--10"
@@ -37,62 +51,58 @@ function Home() {
 						className="container utility-z-index-2 w-node-_566a2587-b706-13cb-859c-c186b302d248-8bbce412"
 					>
 						<div className="utility-margin-bottom-6rem">
-							<h1 className="h1-heading utility-text-align-center">
-								CHÀO MỪNG ĐẾN VỚI QAIRLINE - nơi hành trình của bạn bắt đầu <br />
-							</h1>
+                            <h1 className="h1-heading utility-text-align-center ">
+                                CHÀO MỪNG ĐẾN VỚI <p className="gradient-heading">QAIRLINE</p> nơi hành trình của bạn bắt đầu
+                            </h1>
 							<div className="flight-card">
-								<div
-									data-current="Tab 1"
-									data-easing="ease"
-									data-duration-in="300"
-									data-duration-out="100"
-									className="w-tabs"
-								>
-									<div className="tabs-menu w-tab-menu">
-										<button type="button" data-w-tab="Tab 1" className="tab-link-t-v w-inline-block w-tab-link w--current" style={{ background: "none", border: "none", padding: 0, margin: 0, cursor: "pointer" }}>
-											<div className="div-block-4">
-												<div className="material-icon">flight</div>
-												<div className="text-block-4">Đặt Vé </div>
-											</div>
-										</button>
+								<div>
+									<div className="custom-tabs-menu">
 										<button
-											type="button"
-											data-w-tab="Tab 2"
-											className="tab-link-l-m-th-t-c w-inline-block w-tab-link"
-											style={{ background: "none", border: "none", padding: 0, margin: 0, cursor: "pointer" }}
-										>
-											<div className="div-block-4">
-												<div className="material-icon">airplane_ticket</div>
-												<div className="text-block-4">Làm Thủ Tục</div>
-											</div>
-										</button>
-                                        <Link to="/booking-list" style={{ textDecoration: "none" }}> 
-                                            <button
-                                                type="button"
-                                                data-w-tab="Tab 3"
-                                                className="tab-link-t-ch w-inline-block w-tab-link"
-                                                style={{ background: "none", border: "none", padding: 0, margin: 0, cursor: "pointer" }}
-                                            >
-                                                <div className="div-block-4">
-                                                    <div className="material-icon">airline_seat_recline_extra</div>
-                                                    <div className="text-block-4">Đặt Chỗ Của Tôi</div>
-                                                </div>
-                                            </button>
-                                        </Link>
+                                            className={`custom-tab-link${activeTab === "Tab 1" ? " active" : ""}`}
+                                            onClick={() => setActiveTab("Tab 1")}
+                                            type="button"
+                                        >
+                                            <span className="material-icon">flight</span> Đặt Vé
+                                        </button>
+										<button
+                                            className={`custom-tab-link${activeTab === "Tab 2" ? " active" : ""}`}
+                                            onClick={() => setActiveTab("Tab 2")}
+                                            type="button"
+                                        >   
+                                            <span className="material-icon">airplane_ticket</span> Làm Thủ Tục
+                                        </button>                                  
+                                        <button
+                                            className={`custom-tab-link${activeTab === "Tab 3" ? " active" : ""}`}
+                                            onClick={() => {
+                                                setActiveTab("Tab 3");
+                                                navigate("/booking-list");
+                                            }}
+                                            type="button"
+                                        >
+                                            <span className="material-icon">airline_seat_recline_extra</span> Đặt Chỗ Của Tôi
+                                        </button>                                   
 									</div>
 									<div className="w-tab-content">
-										<div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
-										<div className="hero-buttons mb-3">
-							                <Button variant="success" className="me-2">Xem tất cả các chuyến bay</Button>
-							                <Button variant="outline-primary" className="me-2">Một chiều</Button>
-							                <Button variant="outline-secondary">Khứ hồi</Button>
-						                </div>
-						                <SearchTab />	
-										</div>
-										<div data-w-tab="Tab 2" className="w-tab-pane"></div>
-										<div data-w-tab="Tab 3" className="w-tab-pane">
-                                            <Link to="/booking-list" className="w-inline-block"> </Link>
-                                        </div>
+										{activeTab === "Tab 1" && (
+                                            <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
+                                                <div className="hero-buttons mb-3">
+                                                    <Button variant="success" className="me-2">Xem tất cả các chuyến bay</Button>
+                                                    <Button variant="outline-primary" className="me-2">Một chiều</Button>
+                                                    <Button variant="outline-secondary">Khứ hồi</Button>
+                                                </div>
+                                                <SearchTab />
+                                            </div>
+                                        )}
+                                        {activeTab === "Tab 2" && (
+                                            <div data-w-tab="Tab 2" className="w-tab-pane w--tab-active">
+                                                {/* Nội dung tab 2 */}
+                                            </div>
+                                        )}
+                                        {activeTab === "Tab 3" && (
+                                            <div data-w-tab="Tab 3" className="w-tab-pane w--tab-active">
+                                                {/* Nếu muốn chuyển trang, dùng navigate hoặc <Navigate /> */}
+                                            </div>
+                                        )}
 									</div>
 								</div>
 							</div>
@@ -282,7 +292,7 @@ function Home() {
             </div>
         </div>
     </section>
-    <section className="section">
+    <section className="section" id="events">
         <div className="container">
             <div className="utility-text-align-center utility-margin-bottom-4rem">
                 <h2 className="eyebrow utility-margin-bottom-1rem">khám phá với QAirline</h2>
@@ -357,7 +367,7 @@ function Home() {
                     className="button secondary-button w-button">Xem tất cả</a></div>
         </div>
     </section>
-    <section className="section">
+    <section className="section" id="faq">
         <div className="container small-container">
             <div id="w-node-_185f60f0-8ba0-284e-2436-f639fd271ad8-fd271ad5"
                 className="utility-text-align-center utility-margin-bottom-4rem w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc60-278782d9">
@@ -474,8 +484,14 @@ function Home() {
                     className="w-node-_0848802c-2772-04ad-65db-a28774a808eb-74a808e8">
                     <h2>Chuẩn bị bắt đầu cho một hành trình khó quên</h2>
                     <p className="subheading utility-margin-bottom-0">Hãy cùng khám phá bầu trời với dịch vụ tốt nhất.</p>
-                </div><a id="w-node-a6542d50-0a0c-aae3-187d-ec258ad74e49-8ad74e41" href="/inflight-experience"
-                    className="button w-node-_0848802c-2772-04ad-65db-a28774a808f0-74a808e8 w-button">Bắt đầu hành trình của bạn ngay!</a>
+                </div>
+                <a id="w-node-a6542d50-0a0c-aae3-187d-ec258ad74e49-8ad74e41" 
+                    href="/" 
+                    className="button w-node-_0848802c-2772-04ad-65db-a28774a808f0-74a808e8 w-button" 
+                onClick={(e) => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}>Bắt đầu hành trình của bạn ngay!</a>
             </div>
         </div>
     </section>
