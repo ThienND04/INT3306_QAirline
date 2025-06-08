@@ -100,6 +100,21 @@ class FlightApiService {
         }
     }
 
+    async delayFlight(flightId, delayData) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.put(`${this.API_URL}/delay`, delayData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error delaying flight ${flightId}:`, error.response?.data || error.message);
+            throw error.response?.data || new Error(`Error delaying flight ${flightId}`);
+        }
+    }
+
     async getDeletedFlights() {
         try {
             const token = this.getToken();

@@ -12,12 +12,25 @@ const COLORS = ['#8884d8', '#82ca9d', '#ffc658'];
 
 export default function Statistic() {
     const [data, setData] = useState([]);
+    const [aggregatedClassCountData, setAggregatedClassCountData] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const stats = await bookingApiService.getBookingStatistics();
                 setData(stats);
+
+                if (stats.length > 0) {
+                    const lastFiveMonthsStats = stats.slice(-5);
+                    const aggregatedCounts = lastFiveMonthsStats.reduce((acc, monthData) => {
+                        Object.entries(monthData.classCount).forEach(([className, count]) => {
+                            acc[className] = (acc[className] || 0) + count;
+                        });
+                        return acc;
+                    }, {});
+                    setAggregatedClassCountData(Object.entries(aggregatedCounts).map(([name, value]) => ({ name, value })));
+                }
+
             } catch (err) {
                 console.error('Failed to fetch statistics:', err);
             }
@@ -26,7 +39,6 @@ export default function Statistic() {
     }, []);
 
     const latestMonth = data[data.length - 1];
-    const classCountData = latestMonth ? Object.entries(latestMonth.classCount).map(([name, value]) => ({ name, value })) : [];
 
     return (
         <>
@@ -69,13 +81,13 @@ export default function Statistic() {
                     </ResponsiveContainer>
                 </div>
 
-                {classCountData.length > 0 && (
+                {aggregatedClassCountData.length > 0 && (
                     <div className="chart-box">
-                        <h3>Hạng ghế trong tháng gần nhất ({latestMonth.month})</h3>
+                        <h3>Thống kê hạng ghế </h3>
                         <ResponsiveContainer width="100%" height={300}>
                             <PieChart>
                                 <Pie
-                                    data={classCountData}
+                                    data={aggregatedClassCountData}
                                     dataKey="value"
                                     nameKey="name"
                                     cx="50%"
@@ -83,7 +95,7 @@ export default function Statistic() {
                                     outerRadius={100}
                                     label
                                 >
-                                    {classCountData.map((entry, index) => (
+                                    {aggregatedClassCountData.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
@@ -96,4 +108,4 @@ export default function Statistic() {
             <Footer />
         </>
     );
-} 
+}

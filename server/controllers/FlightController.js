@@ -1,30 +1,34 @@
 const Flight = require('../models/Flight');
 const Aircraft = require('../models/Aircraft');
 const Notification = require('../models/Notification');
+const Booking = require('../models/Booking');
+const User = require('../models/User');
+const { sendFlightDelayNotificationEmail } = require('../utils/sendEmail');
 
 const generateSeats = (aircraft) => {
     const seats = [];
     const seatClasses = [
         { name: 'First', type: 'F', count: aircraft.firstClassSeats },
-        { name: 'Premium' ,type: 'P', count: aircraft.premiumClassSeats },
+        { name: 'Premium', type: 'P', count: aircraft.premiumClassSeats },
         { name: 'Business', type: 'B', count: aircraft.businessClassSeats },
         { name: 'Economy', type: 'E', count: aircraft.economyClassSeats }
     ];
 
     for (const cls of seatClasses) {
         for (let i = 1; i <= cls.count; i++) {
-            seats.push({ 
-                seatNo: `${cls.type}${i}`, 
+            seats.push({
+                seatNo: `${cls.type}${i}`,
                 class: cls.name,
-                isBooked: false });
+                isBooked: false
+            });
         }
     }
 
     return seats;
 }
 
-const preprocessFlightData = (flightDoc) => { 
-    const flight = flightDoc.toObject(); 
+const preprocessFlightData = (flightDoc) => {
+    const flight = flightDoc.toObject();
     console.log('Preprocessing flight data:', flightDoc._id);
     flight.remainingSeats = {
         economy: flight.seats.filter(seat => seat.class === 'Economy' && !seat.isBooked).length,
@@ -32,7 +36,7 @@ const preprocessFlightData = (flightDoc) => {
         business: flight.seats.filter(seat => seat.class === 'Business' && !seat.isBooked).length,
         first: flight.seats.filter(seat => seat.class === 'First' && !seat.isBooked).length
     };
-    delete flight.seats; 
+    delete flight.seats;
     console.log('Processed flight data:', flightDoc._id, flightDoc.remainingSeats);
     return flight;
 }
@@ -52,7 +56,7 @@ class FlightController {
     async searchFlights(req, res) {
         try {
             console.log('Searching flights with params:', req.query);
-            const { from, to, date} = req.query;
+            const { from, to, date } = req.query;
 
             const startDate = new Date(date);
             startDate.setUTCHours(0, 0, 0, 0);
@@ -63,9 +67,9 @@ class FlightController {
             const flights = await Flight.find({
                 from,
                 to,
-                departureTime: { 
+                departureTime: {
                     $gte: startDate,
-                    $lt: endDate 
+                    $lt: endDate
                 }
             });
 
@@ -97,11 +101,11 @@ class FlightController {
         try {
             console.log('Fetching flight by ID:', req.params.id);
             const flightId = req.params.id;
-            const flight = await Flight.findById(flightId); 
+            const flight = await Flight.findById(flightId);
             if (!flight) {
                 return res.status(404).json({ message: 'Không tìm thấy chuyến bay' });
             }
-            
+
             flight.remainingSeats = {
                 economy: flight.seats.filter(seat => seat.class === 'Economy' && !seat.isBooked).length,
                 premium: flight.seats.filter(seat => seat.class === 'Premium' && !seat.isBooked).length,
@@ -110,7 +114,7 @@ class FlightController {
             };
 
             delete flight.seats;
-            
+
             res.status(200).json(flight);
         } catch (error) {
             res.status(500).json({ message: 'Lỗi khi lấy thông tin chuyến bay', error });
@@ -187,31 +191,63 @@ class FlightController {
         }
     }
 
-    // [PUT] /flights/notify-delay
-    async notifyFlightDelay (req, res) {
+    // [PUT] /flights/delay
+    async delayFlight(req, res) {
         try {
-            const { flightId, newDepartureTime, arrivalTime, delayReason } = req.body;
-            const flight = await Flight.findById(flightId);
+            console.log('Notifying flight delay with body:', req.body);
+            const {  code, newDepartureTime, newArrivalTime, delayReason } = req.body; // Renamed arrivalTime to newArrivalTime for clarity
+
+            const flight = await Flight.findOne({code});
             if (!flight) {
                 return res.status(404).json({ message: 'Chuyến bay không tồn tại' });
             }
+
+            const originalDepartureTime = flight.departureTime;
+
             flight.departureTime = new Date(newDepartureTime);
-            flight.arrivalTime = new Date(arrivalTime);
-
-            const notification = new Notification({
-                user: flight.user, 
-                title: 'Chuyến bay bị hoãn',
-                message: `Chuyến bay ${flight.flightNo} từ ${flight.from} đến ${flight.to} đã bị hoãn. Lý do: ${delayReason}. Thời gian khởi hành mới: ${new Date(newDepartureTime).toLocaleString()}.`,
-                isRead: false,
-                createdAt: new Date()
-            });
-
-            await notification.save(); 
+            flight.arrivalTime = new Date(newArrivalTime);
             await flight.save();
-            res.status(200).json({ message: 'Thông báo chuyến bay bị hoãn thành công', flight });
+
+            const affectedBookings = await Booking.find({
+                $or: [
+                    { outboundFlight: code },
+                    { returnFlight: code }
+                ]
+            }).populate('user', 'email');
+
+            console.log(`Found ${affectedBookings.length} affected bookings for flight ${code}`);
+            for (const booking of affectedBookings) {
+                if (booking.user && booking.user.email) {
+                    const emailDetails = {
+                        flightNo: flight.flightNo,
+                        departureCity: flight.from,
+                        arrivalCity: flight.to,
+                        originalDepartureTime: originalDepartureTime,
+                        newDepartureTime: flight.departureTime,
+                        newArrivalTime: flight.arrivalTime,
+                        delayReason: delayReason
+                    };
+                    try {
+                        await sendFlightDelayNotificationEmail(booking.user.email, emailDetails);
+                    } catch (emailError) {
+                        console.error(`Error sending delay email to ${booking.user.email}:`, emailError);
+                    }
+
+                    const userNotification = new Notification({
+                        user: booking.user._id,
+                        title: 'Chuyến bay của bạn bị hoãn',
+                        message: `Chuyến bay ${flight.flightNo} từ ${flight.from} đến ${flight.to} đã bị hoãn. Lý do: ${delayReason}. Thời gian khởi hành mới: ${new Date(flight.departureTime).toLocaleString('vi-VN')}.`,
+                        isRead: false,
+                        createdAt: new Date()
+                    });
+                    await userNotification.save();
+                }
+            }
+
+            res.status(200).json({ message: 'Thông báo chuyến bay bị hoãn và đã gửi email cho hành khách thành công', flight });
         } catch (error) {
             console.error('Error notifying flight delay:', error);
-            res.status(500).json({ message: 'Lỗi khi thông báo chuyến bay bị hoãn', error });
+            res.status(500).json({ message: 'Lỗi khi thông báo chuyến bay bị hoãn', error: error.message });
         }
     }
 }

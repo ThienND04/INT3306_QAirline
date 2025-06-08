@@ -7,6 +7,7 @@ const authorizeRoles = require('../middlewares/auth/authRoles');
 router.use(authenticateToken); 
 
 router.get('/search', flightController.searchFlights);    
+router.put('/delay', authorizeRoles('admin'), flightController.delayFlight);
 router.put('/:id', authorizeRoles('admin'), flightController.updateFlight);
 router.delete('/:id', authorizeRoles('admin'), flightController.deleteFlight); 
 router.delete('/hard-delete/:id', authorizeRoles('admin'), flightController.hardDeleteFlight); 
