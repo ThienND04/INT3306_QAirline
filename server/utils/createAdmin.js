@@ -28,9 +28,9 @@ const createAdmin = async () => {
 		});
 
 		await admin.save();
-		console.log('✅ Admin đã được tạo thành công!');
+		console.log('Admin đã được tạo thành công!');
 	} catch (error) {
-		console.error('❌ Lỗi khi tạo admin:', error);
+		console.error('Lỗi khi tạo admin:', error);
 	}
 };
 
