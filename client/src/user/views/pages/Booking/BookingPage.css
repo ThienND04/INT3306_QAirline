@@ -1,0 +1,83 @@
+.booking-page {
+  max-width: 500px;
+  margin: 36px auto 36px auto;
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 14px #0002;
+  padding: 24px 28px 28px 28px;
+}
+
+.flight-recap {
+  background: #f7fbe7;
+  padding: 12px 14px 8px 14px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  font-size: 1.04rem;
+  color: #28580e;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.booking-form input {
+  padding: 8px 10px;
+  border: 1.3px solid #b8e5b0;
+  border-radius: 5px;
+  font-size: 1.05rem;
+}
+
+.booking-form h3 {
+  margin-top: 13px;
+  margin-bottom: 5px;
+  color: #33802c;
+  font-size: 1.11rem;
+}
+
+.child-info-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.booking-error {
+  color: #b51212;
+  background: #faeaea;
+  border-radius: 6px;
+  padding: 7px 13px;
+  margin: 7px 0;
+}
+
+.booking-success {
+  max-width: 480px;
+  margin: 45px auto 35px auto;
+  background: #f5fff1;
+  border: 2.5px solid #5ecf3d;
+  border-radius: 13px;
+  box-shadow: 0 2px 14px #0001;
+  padding: 32px 28px 28px 28px;
+  text-align: center;
+  color: #195d16;
+}
+.booking-success h2 {
+  color: #33802c;
+  margin-bottom: 15px;
+}
+.booking-success button {
+  background: #33802c;
+  color: #fff;
+  padding: 9px 32px;
+  border-radius: 9px;
+  border: none;
+  font-size: 1.13rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 24px;
+  box-shadow: 0 1px 6px #0002;
+  transition: background 0.14s;
+}
+.booking-success button:hover {
+  background: #195d16;
+}

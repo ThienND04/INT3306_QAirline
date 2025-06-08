@@ -1,0 +1,194 @@
+.day-chart-wrapper {
+    width: 100%;
+    max-width: 1020px;
+    margin: 0 auto 32px auto;
+    background: #fafbfc;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px #0000000d;
+    padding: 28px 16px 16px 16px;
+}
+
+.day-chart-header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 14px;
+    position: relative;
+}
+
+.day-chart-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #143b5a;
+    text-align: center;
+}
+
+.day-chart-toggle {
+    font-size: 1rem;
+    background: #fff;
+    border: 1.5px solid #e0e8f3;
+    border-radius: 12px 12px 0 0;
+    padding: 4px 22px 3px 22px;
+    margin-left: 22px;
+    cursor: pointer;
+    box-shadow: 0 2px 12px #0001;
+}
+
+.day-chart-box {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    min-height: 220px;
+    padding: 0 18px;
+    background: #f7fafd;
+    border-radius: 18px;
+}
+
+.day-chart-list {
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    gap: 18px;
+}
+
+.day-chart-col {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 80px;
+    max-width: 90px;
+    flex: 1 1 0;
+    border-radius: 14px;
+    transition: background 0.15s;
+    margin-bottom: 9px;
+    position: relative;
+}
+
+.day-chart-col.selected {
+    background: #e6f0fa;
+}
+
+.day-chart-bar {
+    width: 100%;
+    border-radius: 14px 14px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    min-height: 28px;
+    transition: background 0.15s;
+    box-shadow: 0 2px 10px #0001;
+    font-size: 1.18rem;
+    font-weight: 700;
+    padding-top: 14px;
+    padding-bottom: 8px;
+}
+
+.day-chart-price {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: inherit;
+    text-align: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.day-chart-vnd {
+    font-size: 1.02rem;
+    font-weight: 500;
+    margin-top: -2px;
+    opacity: 0.95;
+}
+
+.day-chart-date {
+    font-size: 1.14rem;
+    color: #174b82;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 10px;
+    transition: color 0.16s, background 0.16s;
+    background: transparent;
+}
+
+.day-chart-date.selected {
+    color: #144377;
+    background: #d2e6ff;
+    font-weight: 700;
+}
+
+.day-chart-nav {
+    background: #7fc27c;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    padding: 0.6em 0.8em 0.52em 0.8em;
+    font-size: 1.32em;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    box-shadow: 0 2px 8px #0002;
+    transition: background 0.18s;
+}
+
+.day-chart-nav.left {
+    left: -16px;
+}
+
+.day-chart-nav.right {
+    right: -16px;
+}
+
+.day-chart-nav:disabled {
+    opacity: 0.28;
+    cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+    .day-chart-wrapper {
+        max-width: 99vw;
+        padding: 10px 0 4px 0;
+    }
+
+    .day-chart-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .day-chart-title {
+        font-size: 1.08rem;
+    }
+
+    .day-chart-toggle {
+        font-size: 0.92rem;
+        padding: 3px 14px;
+    }
+
+    .day-chart-box {
+        padding: 0 6px;
+    }
+
+    .day-chart-list {
+        gap: 8px;
+    }
+
+    .day-chart-col {
+        min-width: 42px;
+        max-width: 49px;
+    }
+
+    .day-chart-date {
+        font-size: 0.93rem;
+    }
+}
