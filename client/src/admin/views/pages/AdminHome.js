@@ -15,18 +15,23 @@ export default function AdminHome() {
 
 			{/* Features Section */}
 			<section className="admin-features">
-				<div className="feature-card">
-					<div className="icon-placeholder" />
+				<div className="feature-card" onClick={() => window.location.href = '/admin/flights'}>
+					<img src="https://vlink.vn/wp-content/uploads/2024/05/datvemaybayvietnamairlines.jpg" alt="Quản lý chuyen bay" className="icon-placeholder" />
 					<h3>Quản lý chuyến bay</h3>
 					<p>Xem, tạo, chỉnh sửa và xóa các chuyến bay dễ dàng.</p>
 				</div>
-				<div className="feature-card">
-					<div className="icon-placeholder" />
+				<div className="feature-card" onClick = {() => window.location.href = '/admin/airports'}>
+					<img src="https://nextbrand.com.vn/wp-content/uploads/2021/06/danh-sach-san-bay-tai-viet-nam-dang-hoat-dong.jpg.webp" alt="Quản lý san bay" className="icon-placeholder" />
 					<h3>Quản lý sân bay</h3>
 					<p>Thêm, cập nhật hoặc loại bỏ thông tin các sân bay.</p>
 				</div>
-				<div className="feature-card">
-					<div className="icon-placeholder" />
+				<div className="feature-card" onClick={() => window.location.href = '/admin/aircrafts'}>
+					<img src="https://vlink.vn/wp-content/uploads/2024/05/datvemaybayvietnamairlines.jpg" alt="Quản lý chuyen bay" className="icon-placeholder" />
+					<h3>Quản lý máy bay</h3>
+					<p>Quản lý thông tin máy bay, bao gồm loại máy bay và số lượng ghế.</p>
+				</div>
+				<div className="feature-card" onClick={() => window.location.href = '/admin/stats'}>
+					<img src="https://image3.luatvietnam.vn/uploaded/images/original/2024/11/16/da-co-che-do-bao-cao-thong-ke-nganh-thong-ke-tu-ngay-01-01-2025-1_1611195945.jpg" alt="Bao cao thong ke" className="icon-placeholder" />
 					<h3>Báo cáo thống kê</h3>
 					<p>Theo dõi dữ liệu bán vé, tình trạng chuyến bay trực tiếp.</p>
 				</div>
