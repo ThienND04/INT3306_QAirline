@@ -25,7 +25,7 @@ function LoginForm() {
             localStorage.setItem('user', JSON.stringify(response.data.user));
             navigate('/');
         } catch (error) {
-            alert('Đăng nhập thất bại!');
+            alert('Đăng nhập thất bại! Vui lòng kiểm tra lại email hoặc mật khẩu.');
             console.error('Lỗi đăng nhập:', error);
         }
     }
@@ -41,7 +41,7 @@ function LoginForm() {
                     <Form.Control
                         type="email"
                         name="email"
-                        placeholder="name@framer.com"
+                        placeholder="ten@example.com"
                         value={form.email}
                         onChange={handleChange}
                         className="rounded-pill py-2 px-3"
@@ -53,7 +53,7 @@ function LoginForm() {
                     <Form.Control
                         type="password"
                         name="password"
-                        placeholder="password"
+                        placeholder="mật khẩu"
                         value={form.password}
                         onChange={handleChange}
                         className="rounded-pill py-2 px-3"
