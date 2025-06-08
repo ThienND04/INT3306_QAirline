@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -65,17 +66,19 @@ function Home() {
 												<div className="text-block-4">Làm Thủ Tục</div>
 											</div>
 										</button>
-										<button
-											type="button"
-											data-w-tab="Tab 3"
-											className="tab-link-t-ch w-inline-block w-tab-link"
-											style={{ background: "none", border: "none", padding: 0, margin: 0, cursor: "pointer" }}
-										>
-											<div className="div-block-4">
-												<div className="material-icon">airline_seat_recline_extra</div>
-												<div className="text-block-4">Đặt Chỗ Của Tôi</div>
-											</div>
-										</button>
+                                        <Link to="/booking-list" style={{ textDecoration: "none" }}> 
+                                            <button
+                                                type="button"
+                                                data-w-tab="Tab 3"
+                                                className="tab-link-t-ch w-inline-block w-tab-link"
+                                                style={{ background: "none", border: "none", padding: 0, margin: 0, cursor: "pointer" }}
+                                            >
+                                                <div className="div-block-4">
+                                                    <div className="material-icon">airline_seat_recline_extra</div>
+                                                    <div className="text-block-4">Đặt Chỗ Của Tôi</div>
+                                                </div>
+                                            </button>
+                                        </Link>
 									</div>
 									<div className="w-tab-content">
 										<div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
@@ -87,7 +90,9 @@ function Home() {
 						                <SearchTab />	
 										</div>
 										<div data-w-tab="Tab 2" className="w-tab-pane"></div>
-										<div data-w-tab="Tab 3" className="w-tab-pane"></div>
+										<div data-w-tab="Tab 3" className="w-tab-pane">
+                                            <Link to="/booking-list" className="w-inline-block"> </Link>
+                                        </div>
 									</div>
 								</div>
 							</div>
@@ -477,6 +482,6 @@ function Home() {
 			<Footer />
 		</>
 	);
-}
+};
 
 export default Home;
