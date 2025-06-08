@@ -1,0 +1,82 @@
+/* OtpVerificationForm.css */
+
+.otp-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e0e7ff;
+}
+
+.otp-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.otp-icon {
+    width: 100px;
+    margin-bottom: 1rem;
+}
+
+.otp-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.otp-instruction {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.otp-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.otp-box {
+    width: 45px;
+    height: 50px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.otp-box:focus {
+    border-color: #3b82f6;
+}
+
+.otp-submit {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.otp-submit:hover {
+    background-color: #443934;
+}
+
+.otp-resend {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.otp-resend a {
+    color: #3b82f6;
+    cursor: pointer;
+    text-decoration: underline;
+}

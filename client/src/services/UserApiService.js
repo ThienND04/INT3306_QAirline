@@ -1,4 +1,3 @@
-
 import axiosInstance from './AxiosInstance';
 
 class UserApiService {
@@ -40,9 +39,27 @@ class UserApiService {
     }
 
     async forgotPassword(userData) {
+        console.log('Forgot password data:', userData);
         const response = await axiosInstance.post(`${this.baseUrl}/forgot-password`, userData);
         if (response.status !== 200) {
-            throw new Error('Failed to login user');
+            throw new Error('Failed to forgot password');
+        }
+        return response.data;
+    }
+
+    async verifyOtp(otpData) {
+        const response = await axiosInstance.post(`${this.baseUrl}/verify-otp`, otpData);
+        if (response.status !== 200) {
+            throw new Error('Failed to verify OTP');
+        }
+        return response.data;
+    }
+
+    async resetPassword(passwordData) {
+        console.log('Reset password data:', passwordData);
+        const response = await axiosInstance.put(`${this.baseUrl}/reset-password`, passwordData);
+        if (response.status !== 200) {
+            throw new Error('Failed to reset password');
         }
         return response.data;
     }

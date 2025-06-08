@@ -4,8 +4,8 @@ const mongooseDelete = require('mongoose-delete');
 const flightSchema = new mongoose.Schema({
     code: { type: String, required: true, unique: true },
     aircraft: { type: String, required: true },
-    from: { type: String, required: true },
-    to: { type: String, required: true },
+    from: { type: String, required: true },// IATACode of the departure airport
+    to: { type: String, required: true }, // IATACode of the arrival airport
     departureTime: Date,
     arrivalTime: Date,
     airline: { type: String, required: true },

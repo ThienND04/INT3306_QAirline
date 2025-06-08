@@ -29,6 +29,6 @@ otpSchema.plugin(mongooseDelete,
         deletedAt: true,
     });
 
-otpSchema.index({ createdAt: 1 }, { expireAfterSeconds: 600 }); // 10 minutes expiration
+otpSchema.index({ createdAt: 1 }, { expireAfterSeconds: 120 }); // 2 minutes expiration
 
 module.exports = mongoose.model('Otp', otpSchema);

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const createToken = require('../utils/createToken');
 const Otp = require('../models/Otp'); 
-const sendOtpEmail = require('../utils/sendOtpEmail'); 
+const {sendOtpEmail} = require('../utils/sendEmail'); 
 
 class AuthController {
     // [POST] /auth/register
@@ -103,6 +103,8 @@ class AuthController {
                 otpCode: otp,
             });
 
+            console.log('OTP generated:', otp);
+
             // Send OTP to user's email
             sendOtpEmail(email, otp);
             console.log('OTP sent to email');
@@ -147,6 +149,7 @@ class AuthController {
     // [POST] /auth/reset-password
     async resetPassword(req, res) {
         try {
+            console.log('Reset password request body:', req.body);
             const { resetToken, newPassword } = req.body;
             const decoded = jwt.verify(resetToken, process.env.JWT_SECRET);
             const user = await User.findOne({ _id: decoded.id });
