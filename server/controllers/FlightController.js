@@ -92,6 +92,7 @@ class FlightController {
         }
     }
 
+    // [GET] /flights/:id
     async getFlightById(req, res) {
         try {
             console.log('Fetching flight by ID:', req.params.id);

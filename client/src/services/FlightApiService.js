@@ -31,6 +31,7 @@ class FlightApiService {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            console.log('Search results:', response.data);
             return response.data;
         } catch (error) {
             console.error('Error searching flights:', error.response?.data || error.message);

@@ -65,25 +65,26 @@ function BookingList() {
 								<div className={`bookinglist-card${b.status === "Đã hủy" ? " cancelled" : ""}`} key={b._id || idx}>
 									<div className="bookinglist-card-header">
 										<div>
-											<span className="bookinglist-flight">{b.flightCode || b.flight}</span>
-											<span className="bookinglist-route">{b.departure || b.from} → {b.arrival || b.to}</span>
+											<span className="bookinglist-flight">{b.outbound?.flightCode}</span>
+											<span className="bookinglist-route">{b.outbound?.departure} → {b.outbound?.arrival}</span>
 										</div>
 										<div className="bookinglist-rescode">
 											<span>Mã đặt:</span> <b>{b._id || b.id}</b>
 										</div>
 									</div>
 									<div className="bookinglist-card-body">
+										{/* Outbound Flight */}
 										<div className="bookinglist-card-row">
 											<div>
-												<div><b>Khởi hành:</b> {b.departureTime ? new Date(b.departureTime).toLocaleString() : `${b.date} ${b.time}`}</div>
-												<div><b>Đến:</b> {b.arrivalTime ? new Date(b.arrivalTime).toLocaleString() : b.arrive}</div>
-												<div><b>Hành khách:</b> {b.passenger || (b.userInfo && b.userInfo.fullName)}</div>
-												<div><b>eTicket:</b> {b.eticket || ""}</div>
+												<div><b>Khởi hành:</b> {new Date(b.outbound?.departureTime).toLocaleString()}</div>
+												<div><b>Đến:</b> {new Date(b.outbound?.arrivalTime).toLocaleString()}</div>
+												<div><b>Hành khách:</b> {b.userInfo?.middleAndFirstName} {b.userInfo?.lastName}</div>
+												<div><b>Ghế:</b> {b.outbound?.seatNo?.join(", ")}</div>
 											</div>
 											<div>
-												<div><b>Máy bay:</b> {b.aircraft || (b.flightInfo && b.flightInfo.aircraft)}</div>
-												<div><b>Thời gian:</b> {b.duration || ""}</div>
-												<div><b>Hạng:</b> {b.class || b.cabin}</div>
+												<div><b>Máy bay:</b> {b.outboundFlightInfo?.aircraft}</div>
+												<div><b>Hạng:</b> {b.outbound?.bookingClass}</div>
+												<div><b>Giá:</b> {b.outbound?.price.toLocaleString()} VND</div>
 												<div>
 													<b>Trạng thái:</b>{" "}
 													<span className={`bookinglist-status-badge${b.status === "Đã hủy" ? " bookinglist-cancelled-badge" : ""}`}>
@@ -92,6 +93,24 @@ function BookingList() {
 												</div>
 											</div>
 										</div>
+
+										{/* Return Flight (if available) */}
+										{(b.returnFlight && b.returnFlight.flightCode) && (
+											<>
+												<hr />
+												<div className="bookinglist-card-row">
+													<div>
+														<div><b>Khởi hành (khứ hồi):</b> {new Date(b.returnFlight?.departureTime).toLocaleString()}</div>
+														<div><b>Đến:</b> {new Date(b.returnFlight?.arrivalTime).toLocaleString()}</div>
+														<div><b>Ghế:</b> {b.returnFlight?.seatNo?.join(", ")}</div>
+													</div>
+													<div>
+														<div><b>Máy bay:</b> {b.returnFlightInfo?.aircraft}</div>
+														<div><b>Giá:</b> {b.returnFlight?.price.toLocaleString()} VND</div>
+													</div>
+												</div>
+											</>
+										)}
 									</div>
 									<div className="bookinglist-card-footer">
 										{b.status !== "Đã hủy" && (

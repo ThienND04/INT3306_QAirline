@@ -9,17 +9,17 @@ function Header() {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = React.useState(false);
 
-  const handleNavScroll = (e,sectionId) => {
-    e.preventDefault();
-    if (location.pathname === '/') {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      navigate('/', { state: { scrollToSection: sectionId } });
-    }
-  };
+	const handleNavScroll = (e, sectionId) => {
+		e.preventDefault();
+		if (location.pathname === '/') {
+			const section = document.getElementById(sectionId);
+			if (section) {
+				section.scrollIntoView({ behavior: 'smooth' });
+			}
+		} else {
+			navigate('/', { state: { scrollToSection: sectionId } });
+		}
+	};
 
   // Đóng dropdown khi click ra ngoài
   React.useEffect(() => {

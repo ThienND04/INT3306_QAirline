@@ -1,95 +1,77 @@
-.header {
-	background-color: #ffffff;
-	padding: 16px 32px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+.qa-header {
+	background: linear-gradient(to right, #fefcff, #eaf5ff);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 	position: sticky;
 	top: 0;
-	z-index: 100;
+	z-index: 1000;
+	padding: 10px 0;
 }
 
-.header-container {
+.qa-header-container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 40px;
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.logo {
-	font-weight: 700;
-	font-size: 20px;
-	color: #111;
-	text-decoration: none;
-}
-
-.admin-nav {
-	display: flex;
-	gap: 24px;
-	margin-left: 32px;
-}
-
-.nav-item {
-	text-decoration: none;
-	color: #333;
-	font-weight: 500;
-	transition: color 0.2s;
-}
-
-.nav-item:hover {
-	color: #007bff;
-}
-
-.auth-buttons {
-	display: flex;
-	gap: 12px;
-	align-items: center;
-	margin-left: auto;
-}
-
-.login-button {
-	background-color: #000;
-	color: white;
-	padding: 6px 16px;
-	border-radius: 999px;
-	text-decoration: none;
-	font-size: 14px;
-	font-weight: 500;
-}
-
-.login-button:hover {
-	background-color: #333;
-}
-
-.user-info {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	margin-left: auto;
-}
-
-.avatar {
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	object-fit: cover;
-}
-
-.header-container {
-	display: flex;
-	flex: 1;
 	justify-content: space-between;
 	align-items: center;
 }
 
 .header-left {
 	display: flex;
-	flex: 1;
 	align-items: center;
-	gap: 16px;
+	gap: 50px;
+}
+
+.logo {
+	font-size: 22px;
+	font-weight: 700;
+	color: #5f6bff;
+	text-decoration: none;
+}
+
+.admin-nav {
+	display: flex;
+	gap: 30px;
+}
+
+.qa-nav-item {
+	color: #333;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: 500;
+	transition: color 0.2s ease;
+}
+
+.qa-nav-item:hover {
+	color: #5f6bff;
 }
 
 .header-right {
 	display: flex;
-	flex: 1;
-	align-items: right;
-	gap: 24px;
-	margin-left: auto;
+	align-items: center;
+	gap: 20px;
+}
+
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #f47ac3;
+}
+
+.login-button {
+	padding: 6px 12px;
+	background-color: transparent;
+	border: 1px solid #5f6bff;
+	border-radius: 6px;
+	color: #5f6bff;
+	font-size: 14px;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.login-button:hover {
+	background-color: #5f6bff;
+	color: white;
 }

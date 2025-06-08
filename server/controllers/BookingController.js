@@ -4,42 +4,119 @@ const Flight = require('../models/Flight');
 const User = require('../models/User');
 const { sendBookingConfirmationEmail, sendBookingCancellationEmail } = require('../utils/sendEmail');
 
+// Helper function to process a flight leg booking
+async function processFlightLeg(flightInput, passengerCounts, existingFlightModel = null) {
+    const { flightCode, bookingClass } = flightInput;
+    const { adultCount, childCount, infantCount } = passengerCounts;
+    const totalPassengers = adultCount + childCount + infantCount;
+
+    const flight = existingFlightModel || await Flight.findOne({ code: flightCode });
+    if (!flight) {
+        throw new Error(`Không tìm thấy chuyến bay ${flightCode}.`);
+    }
+
+    const priceField = `${bookingClass.toLowerCase()}Price`;
+    if (flight[priceField] == null) { // Check for null or undefined
+        throw new Error(`Không tìm thấy thông tin giá vé cho hạng ${bookingClass} của chuyến bay ${flightCode} hoặc cấu trúc giá không đúng.`);
+    }
+
+    const adultPrice = flight[priceField];
+    const childPrice = adultPrice * 0.75; // Assuming child price is 75% of adult
+    const infantPrice = adultPrice * 0.10; // Assuming infant price is 10% of adult
+    const legTotalPrice = (adultCount * adultPrice) + (childCount * childPrice) + (infantCount * infantPrice);
+
+    const availableSeatsInClass = flight.seats.filter(s => s.class === bookingClass && !s.isBooked);
+    if (availableSeatsInClass.length < totalPassengers) {
+        throw new Error(`Không đủ ghế trống hạng ${bookingClass} cho chuyến bay ${flightCode}. Chỉ còn ${availableSeatsInClass.length} ghế.`);
+    }
+
+    const selectedSeats = availableSeatsInClass.slice(0, totalPassengers);
+    const seatNumbersToBook = [];
+    selectedSeats.forEach(seat => {
+        const flightSeatToUpdate = flight.seats.find(s => s.seatNo === seat.seatNo);
+        if (flightSeatToUpdate) {
+            flightSeatToUpdate.isBooked = true;
+            seatNumbersToBook.push(flightSeatToUpdate.seatNo);
+        }
+    });
+
+    if (seatNumbersToBook.length !== totalPassengers) {
+        // This case should ideally not happen if availableSeatsInClass.length was sufficient
+        throw new Error(`Lỗi hệ thống: Không thể chọn đủ số ghế (${totalPassengers}) cho chuyến bay ${flightCode}. Chỉ chọn được ${seatNumbersToBook.length}.`);
+    }
+
+    return {
+        flightCode: flight.code,
+        seatNo: seatNumbersToBook,
+        class: bookingClass,
+        price: legTotalPrice,
+        departure: flight.from,
+        arrival: flight.to,
+        departureTime: flight.departureTime,
+        arrivalTime: flight.arrivalTime,
+        updatedFlight: flight // Return the modified flight object to be saved later
+    };
+}
+
+// Helper to unbook seats for a flight leg
+async function unbookFlightLegSeats(flightLegBookingDetails, flightInfoModel) {
+    if (flightLegBookingDetails && flightInfoModel && Array.isArray(flightLegBookingDetails.seatNo)) {
+        let seatsUpdated = false;
+        flightLegBookingDetails.seatNo.forEach(bookedSeatNo => {
+            const seatToUnbook = flightInfoModel.seats.find(seat => seat.seatNo === bookedSeatNo);
+            if (seatToUnbook) {
+                if (seatToUnbook.isBooked) {
+                    seatToUnbook.isBooked = false;
+                    seatsUpdated = true;
+                }
+            } else {
+                console.warn(`Seat ${bookedSeatNo} for flight ${flightInfoModel.code} (booking leg) not found in flight details.`);
+            }
+        });
+        if (seatsUpdated) {
+            await flightInfoModel.save();
+        }
+        return seatsUpdated;
+    }
+    return false;
+}
+
+
 class BookingController {
     // [GET] /booking
     async getAllBookings(req, res) {
         try {
-            const tickets = await Booking.find().populate('flightInfo userInfo');
-            res.status(200).json(tickets);
+            const bookings = await Booking.find().populate('userInfo outboundFlightInfo returnFlightInfo');
+            res.status(200).json(bookings);
         } catch (error) {
-            res.status(500).json({ message: 'Error getting tickets', error });
+            res.status(500).json({ message: 'Error getting bookings', error: error.message });
         }
     }
 
     // [GET] /bookings/:id
     async getBookingById(req, res) {
         try {
-            const ticket = await Booking.findById(req.params.id).populate('flightInfo userInfo');
-            if (!ticket) {
-                return res.status(404).json({ message: 'Ticket not found' });
+            const booking = await Booking.findById(req.params.id)
+                .populate('userInfo outboundFlightInfo returnFlightInfo');
+            if (!booking) {
+                return res.status(404).json({ message: 'Booking not found' });
             }
-            res.status(200).json(ticket);
+            res.status(200).json(booking);
         } catch (error) {
-            res.status(500).json({ message: 'Error getting ticket', error: error.message });
+            res.status(500).json({ message: 'Error getting booking', error: error.message });
         }
     }
 
     // [GET] /bookings/user/:userId
     async getBookingsByUserId(req, res) {
         try {
-            console.log('Fetching bookings for user:', req.params.userId);
             const userId = req.params.userId;
-            const ticket = await Booking.find({userId}).populate('flightInfo userInfo');
-            if (!ticket) {
-                return res.status(404).json({ message: 'Ticket not found' });
-            }
-            res.status(200).json(ticket);
+            const bookings = await Booking.find({ userId })
+                .sort({ bookedAt: -1 })
+                .populate('userInfo outboundFlightInfo returnFlightInfo');
+            res.status(200).json(bookings);
         } catch (error) {
-            res.status(500).json({ message: 'Error getting ticket', error: error.message });
+            res.status(500).json({ message: 'Error getting bookings for user', error: error.message });
         }
     }
 
@@ -47,125 +124,135 @@ class BookingController {
     async getBookingsByFlightCode(req, res) {
         try {
             const { flightCode } = req.params;
-            const tickets = await Booking.find({ flightCode: flightCode }).populate('flightInfo userInfo');
+            const bookings = await Booking.find({
+                $or: [
+                    { 'outbound.flightCode': flightCode },
+                    { 'returnFlight.flightCode': flightCode }
+                ]
+            }).populate('userInfo outboundFlightInfo returnFlightInfo');
 
-            if (!tickets || tickets.length === 0) {
-                return res.status(404).json({ message: 'No tickets found for this flight code' });
+            if (!bookings || bookings.length === 0) {
+                return res.status(404).json({ message: 'No bookings found for this flight code' });
             }
-
-            res.status(200).json(tickets);
+            res.status(200).json(bookings);
         } catch (error) {
-            res.status(500).json({ message: 'Error getting tickets by flight code', error: error.message });
+            res.status(500).json({ message: 'Error getting bookings by flight code', error: error.message });
         }
     }
 
     // [PUT] /bookings/:id
     async updateBooking(req, res) {
         try {
-            const ticket = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
-            if (!ticket) {
-                return res.status(404).json({ message: 'Ticket not found' });
+            const bookingId = req.params.id;
+            const updates = req.body;
+
+            const booking = await Booking.findById(bookingId);
+            if (!booking) {
+                return res.status(404).json({ message: 'Booking not found' });
             }
-            res.status(200).json(ticket);
+
+            Object.assign(booking, updates);
+            const updatedBooking = await booking.save();
+            const populatedBooking = await Booking.findById(updatedBooking._id)
+                .populate('userInfo outboundFlightInfo returnFlightInfo');
+
+            res.status(200).json(populatedBooking);
         } catch (error) {
-            res.status(500).json({ message: 'Error updating ticket', error });
+            res.status(500).json({ message: 'Error updating booking', error: error.message });
         }
     }
 
     // [POST] /bookings/book
     async bookTickets(req, res) {
         try {
+            const userId = req.user.id; 
             const {
-                flightCode,
-                userId,
-                bookingClass,
+                outbound: outboundInput, // Expected: { flightCode, bookingClass }
+                returnFlight: returnInput, // Optional: { flightCode, bookingClass }
                 adultCount,
                 childCount,
                 infantCount
             } = req.body;
 
-            if (!flightCode || !userId || !bookingClass ||
+            if (!userId || !outboundInput || !outboundInput.flightCode || !outboundInput.bookingClass ||
                 adultCount == null || childCount == null || infantCount == null) {
-                return res.status(400).json({ message: 'Thiếu thông tin cần thiết để đặt vé.' });
+                return res.status(400).json({ message: 'Thiếu thông tin cần thiết để đặt vé (userId, outbound details, passenger counts).' });
             }
 
             if (adultCount < 0 || childCount < 0 || infantCount < 0) {
                 return res.status(400).json({ message: 'Số lượng hành khách không hợp lệ.' });
             }
-
             const totalPassengers = adultCount + childCount + infantCount;
             if (totalPassengers === 0) {
                 return res.status(400).json({ message: 'Phải có ít nhất một hành khách.' });
             }
+            if (totalPassengers > 9) { // Example limit
+                return res.status(400).json({ message: 'Số lượng hành khách tối đa cho một lần đặt là 9.' });
+            }
+
 
             const user = await User.findById(userId);
             if (!user) {
                 return res.status(404).json({ message: 'Người dùng không tồn tại.' });
             }
 
-            const flight = await Flight.findOne({ code: flightCode });
-            if (!flight) {
-                return res.status(404).json({ message: 'Không tìm thấy chuyến bay.' });
+            const passengerCounts = { adultCount, childCount, infantCount };
+            let outboundBookingLeg, returnBookingLeg;
+            let finalOutboundFlight, finalReturnFlight;
+
+            // Process Outbound Flight
+            try {
+                const outboundResult = await processFlightLeg(outboundInput, passengerCounts);
+                outboundBookingLeg = { ...outboundResult };
+                finalOutboundFlight = outboundResult.updatedFlight;
+                delete outboundBookingLeg.updatedFlight;
+            } catch (error) {
+                return res.status(400).json({ message: `Lỗi xử lý chuyến bay đi: ${error.message}` });
             }
 
-            if (!flight[`${bookingClass.toLowerCase()}Price`]) {
-                return res.status(500).json({ message: `Không tìm thấy thông tin giá vé cho hạng ${bookingClass} của chuyến bay này hoặc cấu trúc giá không đúng.` });
-            }
-
-            // Calculate total price
-            const adultPrice = flight[`${bookingClass.toLowerCase()}Price`];
-            const childPrice = adultPrice * 0.75;
-            const infantPrice = adultPrice * 0.10;
-            const totalPrice = (adultCount * adultPrice) + (childCount * childPrice) + (infantCount * infantPrice);
-
-            console.log('totalPrice:', totalPrice);
-
-            const availableSeatsInClass = flight.seats.filter(s => s.class === bookingClass && !s.isBooked);
-
-            if (availableSeatsInClass.length < totalPassengers) {
-                return res.status(400).json({ message: `Không đủ ghế trống hạng ${bookingClass} cho ${totalPassengers} hành khách. Chỉ còn ${availableSeatsInClass.length} ghế.` });
-            }
-
-            const selectedSeats = availableSeatsInClass.slice(0, totalPassengers);
-            const seatNumbersToBook = [];
-
-            selectedSeats.forEach(seat => {
-                const flightSeatToUpdate = flight.seats.find(s => s.seatNo === seat.seatNo);
-                if (flightSeatToUpdate) {
-                    flightSeatToUpdate.isBooked = true;
-                    seatNumbersToBook.push(flightSeatToUpdate.seatNo);
+            if (returnInput && returnInput.flightCode && returnInput.bookingClass) {
+                if (returnInput.flightCode === outboundInput.flightCode) {
                 }
-            });
-
-            if (seatNumbersToBook.length !== totalPassengers) {
-                console.error("Mismatch in seats booked vs passengers. Rolling back or investigate.");
-                return res.status(500).json({ message: 'Lỗi hệ thống: Không thể chọn đủ số ghế.' });
+                try {
+                    const returnResult = await processFlightLeg(returnInput, passengerCounts);
+                    returnBookingLeg = { ...returnResult };
+                    finalReturnFlight = returnResult.updatedFlight;
+                    delete returnBookingLeg.updatedFlight;
+                } catch (error) {
+                    return res.status(400).json({ message: `Lỗi xử lý chuyến bay về: ${error.message}` });
+                }
             }
 
-            const newBooking = new Booking({
-                flightCode,
+            const newBookingData = {
                 userId,
-                seatNo: seatNumbersToBook,
-                class: bookingClass,
-                price: totalPrice,
-                departure: flight.from,
-                arrival: flight.to,
-                departureTime: flight.departureTime,
-                arrivalTime: flight.arrivalTime,
+                outbound: outboundBookingLeg,
                 adultCount,
                 childCount,
                 infantCount,
-            });
+            };
+            if (returnBookingLeg) {
+                newBookingData.returnFlight = returnBookingLeg;
+            }
 
+            const newBooking = new Booking(newBookingData);
             await newBooking.save();
-            await flight.save();
 
-            sendBookingConfirmationEmail(user.email, newBooking);
+            await finalOutboundFlight.save();
+            if (finalReturnFlight) {
+                await finalReturnFlight.save();
+            }
+            
+            const populatedBooking = await Booking.findById(newBooking._id)
+                .populate('userInfo outboundFlightInfo returnFlightInfo');
+
+            console.log("email", user.email);
+            sendBookingConfirmationEmail(user.email, populatedBooking); 
 
             res.status(201).json({
                 message: 'Đặt vé thành công',
-                ticket: newBooking
+                booking: populatedBooking
             });
+
         } catch (error) {
             console.error('Lỗi đặt vé:', error);
             if (error.name === 'ValidationError') {
@@ -179,49 +266,54 @@ class BookingController {
     async cancelBooking(req, res) {
         try {
             const id = req.params.id;
+            const booking = await Booking.findById(id)
+                .populate('userInfo outboundFlightInfo returnFlightInfo');
 
-            const booking = await Booking.findById(id).populate('flightInfo userInfo');
             if (!booking) {
-                return res.status(404).json({ message: 'Ticket not found.' });
+                return res.status(404).json({ message: 'Booking not found.' });
             }
 
-            if (booking.flightInfo && booking.flightInfo.seats && Array.isArray(booking.seatNo)) {
-                let seatsUpdated = false;
-                booking.seatNo.forEach(bookedSeatNo => {
-                    const seatToUnbook = booking.flightInfo.seats.find(seat => seat.seatNo === bookedSeatNo);
-                    if (seatToUnbook) {
-                        seatToUnbook.isBooked = false;
-                        seatsUpdated = true;
-                    } else {
-                        console.warn(`Seat ${bookedSeatNo} for ticket ${id} not found in flight ${booking.flightInfo.code}.`);
-                    }
-                });
-                if (seatsUpdated) {
-                    await booking.flightInfo.save();
-                    sendBookingCancellationEmail(booking.userInfo.email, booking);
-                }
-            } else {
-                console.warn(`Flight info for ticket ${id} not found, or flight was deleted, or seatNo is not an array. Seat statuses not changed.`);
+            let outboundSeatsFreed = false;
+            let returnSeatsFreed = false;
+
+            // Unbook outbound flight seats
+            if (booking.outbound && booking.outboundFlightInfo) {
+                outboundSeatsFreed = await unbookFlightLegSeats(booking.outbound, booking.outboundFlightInfo);
+            } else if (booking.outbound) {
+                console.warn(`Outbound flight details for booking ${id} found, but flightInfo (Flight document) could not be populated. Outbound seat statuses might not have been changed if flight was deleted.`);
             }
 
-            await Booking.deleteOne({ _id: id }); 
+            // Unbook return flight seats
+            if (booking.returnFlight && booking.returnFlightInfo) {
+                console.log("returnFlightInfo", booking.returnFlightInfo);
+                returnSeatsFreed = await unbookFlightLegSeats(booking.returnFlight, booking.returnFlightInfo);
+            } else if (booking.returnFlight) {
+                console.warn(`Return flight details for booking ${id} found, but flightInfo (Flight document) could not be populated. Return seat statuses might not have been changed if flight was deleted.`);
+            }
+            
+            if (booking.userInfo) {
+                sendBookingCancellationEmail(booking.userInfo.email, booking); // Ensure this email utility is updated
+            }
 
+            await Booking.deleteOne({ _id: id });
 
-            res.status(200).json({ message: 'Ticket cancelled successfully.' });
+            res.status(200).json({ 
+                message: 'Booking cancelled successfully.',
+                outboundSeatsFreed,
+                returnSeatsFreed 
+            });
         } catch (error) {
-            console.error('Error cancelling ticket:', error);
-            res.status(500).json({ message: 'Error cancelling ticket', error: error.message });
+            console.error('Error cancelling booking:', error);
+            res.status(500).json({ message: 'Error cancelling booking', error: error.message });
         }
     }
 
     // [GET] /bookings/statistics
     async getBookingStatistics(req, res) {
         try {
-            console.log('Fetching booking statistics per month...');
-
             const endDate = new Date();
             const startDate = new Date();
-            startDate.setMonth(endDate.getMonth() - 5);
+            startDate.setMonth(endDate.getMonth() - 5); // Last 6 months including current
             startDate.setDate(1);
             startDate.setHours(0, 0, 0, 0);
 
@@ -236,11 +328,10 @@ class BookingController {
 
             const monthlyStatistics = {};
 
-            // init statistics for each month in the range
             let tempDate = new Date(startDate);
             while (tempDate <= endDate) {
                 const year = tempDate.getFullYear();
-                const month = String(tempDate.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+                const month = String(tempDate.getMonth() + 1).padStart(2, '0');
                 const monthYearKey = `${year}-${month}`;
 
                 if (!monthlyStatistics[monthYearKey]) {
@@ -254,17 +345,20 @@ class BookingController {
                             Economy: 0,
                             Business: 0,
                             First: 0,
+                            Premium: 0, // Added Premium
                         },
                     };
                 }
+                // Move to the first day of the next month
                 tempDate.setMonth(tempDate.getMonth() + 1);
+                tempDate.setDate(1);
             }
 
 
             bookings.forEach(booking => {
                 const bookingDate = new Date(booking.createdAt);
                 const year = bookingDate.getFullYear();
-                const month = String(bookingDate.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+                const month = String(bookingDate.getMonth() + 1).padStart(2, '0');
                 const monthYearKey = `${year}-${month}`;
 
                 if (monthlyStatistics[monthYearKey]) {
@@ -274,9 +368,12 @@ class BookingController {
                     stats.totalChildren += booking.childCount || 0;
                     stats.totalInfants += booking.infantCount || 0;
 
-                    if (booking.class === 'Economy') stats.classCount.Economy++;
-                    else if (booking.class === 'Business') stats.classCount.Business++;
-                    else if (booking.class === 'First') stats.classCount.First++;
+                    // Statistics based on outbound flight class
+                    if (booking.outbound && booking.outbound.bookingClass) {
+                        if (stats.classCount.hasOwnProperty(booking.outbound.bookingClass)) {
+                            stats.classCount[booking.outbound.bookingClass]++;
+                        }
+                    }
                 }
             });
 

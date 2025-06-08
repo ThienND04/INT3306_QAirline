@@ -44,6 +44,34 @@ async function sendBookingConfirmationEmail (toEmail, bookingDetails) {
         }
     });
 
+    let flightDetailsText = `
+            CHI TIẾT CHUYẾN BAY ĐI:
+            Mã chuyến bay: ${bookingDetails.outbound.flightCode}
+            Hành trình: Từ ${bookingDetails.outbound.departure} đến ${bookingDetails.outbound.arrival}
+            Thời gian khởi hành: ${new Date(bookingDetails.outbound.departureTime).toLocaleString('vi-VN')}
+            Thời gian đến: ${new Date(bookingDetails.outbound.arrivalTime).toLocaleString('vi-VN')}
+            Số ghế: ${Array.isArray(bookingDetails.outbound.seatNo) ? bookingDetails.outbound.seatNo.join(', ') : bookingDetails.outbound.seatNo}
+            Hạng vé: ${bookingDetails.outbound.bookingClass}
+            Giá vé chiều đi: ${bookingDetails.outbound.price.toLocaleString('vi-VN')} VND
+    `;
+
+    let totalPrice = bookingDetails.outbound.price;
+
+    if (bookingDetails.returnFlight && bookingDetails.returnFlight.flightCode) {
+        flightDetailsText += `
+
+            CHI TIẾT CHUYẾN BAY VỀ:
+            Mã chuyến bay: ${bookingDetails.returnFlight.flightCode}
+            Hành trình: Từ ${bookingDetails.returnFlight.departure} đến ${bookingDetails.returnFlight.arrival}
+            Thời gian khởi hành: ${new Date(bookingDetails.returnFlight.departureTime).toLocaleString('vi-VN')}
+            Thời gian đến: ${new Date(bookingDetails.returnFlight.arrivalTime).toLocaleString('vi-VN')}
+            Số ghế: ${Array.isArray(bookingDetails.returnFlight.seatNo) ? bookingDetails.returnFlight.seatNo.join(', ') : bookingDetails.returnFlight.seatNo}
+            Hạng vé: ${bookingDetails.returnFlight.bookingClass}
+            Giá vé chiều về: ${bookingDetails.returnFlight.price.toLocaleString('vi-VN')} VND
+        `;
+        totalPrice += bookingDetails.returnFlight.price;
+    }
+
     const mailOptions = {
         from: `"Xác nhận đặt vé" <${process.env.EMAIL_USER}>`,
         to: toEmail,
@@ -53,13 +81,9 @@ async function sendBookingConfirmationEmail (toEmail, bookingDetails) {
             Cảm ơn bạn đã đặt vé với QAirline. Dưới đây là chi tiết đặt vé của bạn:
 
             Mã đặt vé: ${bookingDetails._id}
-            Mã chuyến bay: ${bookingDetails.flightCode}
-            Hành trình: Từ ${bookingDetails.departure} đến ${bookingDetails.arrival}
-            Thời gian khởi hành: ${new Date(bookingDetails.departureTime).toLocaleString('vi-VN')}
-            Thời gian đến: ${new Date(bookingDetails.arrivalTime).toLocaleString('vi-VN')}
-            Số ghế: ${Array.isArray(bookingDetails.seatNo) ? bookingDetails.seatNo.join(', ') : bookingDetails.seatNo}
-            Hạng vé: ${bookingDetails.class}
-            Tổng giá: ${bookingDetails.price.toLocaleString('vi-VN')} VND
+            ${flightDetailsText}
+
+            Tổng giá vé: ${totalPrice.toLocaleString('vi-VN')} VND
             Số lượng hành khách:
               - Người lớn: ${bookingDetails.adultCount}
               - Trẻ em: ${bookingDetails.childCount}
@@ -87,19 +111,34 @@ async function sendBookingCancellationEmail (toEmail, bookingDetails) {
         }
     });
 
+    let flightDetailsText = `
+            CHI TIẾT CHUYẾN BAY ĐI ĐÃ HỦY:
+            Mã chuyến bay: ${bookingDetails.outbound.flightCode}
+            Hành trình: Từ ${bookingDetails.outbound.departure} đến ${bookingDetails.outbound.arrival}
+            Thời gian khởi hành: ${new Date(bookingDetails.outbound.departureTime).toLocaleString('vi-VN')}
+    `;
+
+    if (bookingDetails.returnFlight && bookingDetails.returnFlight.flightCode) {
+        flightDetailsText += `
+
+            CHI TIẾT CHUYẾN BAY VỀ ĐÃ HỦY:
+            Mã chuyến bay: ${bookingDetails.returnFlight.flightCode}
+            Hành trình: Từ ${bookingDetails.returnFlight.departure} đến ${bookingDetails.returnFlight.arrival}
+            Thời gian khởi hành: ${new Date(bookingDetails.returnFlight.departureTime).toLocaleString('vi-VN')}
+        `;
+    }
+
     const mailOptions = {
         from: `"Thông báo hủy vé" <${process.env.EMAIL_USER}>`,
         to: toEmail,
         subject: 'Thông báo hủy đặt vé thành công',
         text: `Xin chào,
 
-            Chúng tôi rất tiếc phải thông báo rằng đặt vé của bạn đã được hủy thành công theo yêu cầu.
+            Chúng tôi xác nhận yêu cầu hủy đặt vé của bạn đã được xử lý thành công.
 
             Dưới đây là chi tiết vé đã hủy:
             Mã đặt vé: ${bookingDetails._id}
-            Mã chuyến bay: ${bookingDetails.flightCode}
-            Hành trình: Từ ${bookingDetails.departure} đến ${bookingDetails.arrival}
-            Thời gian khởi hành: ${new Date(bookingDetails.departureTime).toLocaleString('vi-VN')}
+            ${flightDetailsText}
 
             Nếu bạn không thực hiện yêu cầu hủy vé này hoặc có bất kỳ thắc mắc nào, vui lòng liên hệ ngay với bộ phận hỗ trợ của chúng tôi.
 
