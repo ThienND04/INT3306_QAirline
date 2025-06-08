@@ -360,187 +360,383 @@ function Home() {
     </section>
     <section className="section" id="events">
         <div className="container">
-            <div className="utility-text-align-center utility-margin-bottom-4rem">
-                <h2 className="eyebrow utility-margin-bottom-1rem">khám phá với QAirline</h2>
-                <h3 className="h3-heading">Sự kiện &amp; Thông báo sắp tới</h3>
-                <p className="paragraph-lg utility-margin-bottom-0">Luôn cập nhật những tin tức mới nhất từ QAirline.
-                    Từ các đường bay mới đến trải nghiệm độc quyền trên chuyến bay, chúng tôi luôn có những thông tin hấp dẫn dành cho bạn.</p>
+          <div className="utility-text-align-center utility-margin-bottom-4rem">
+            <h2 className="eyebrow utility-margin-bottom-1rem">
+              khám phá với QAirline
+            </h2>
+            <h3 className="h3-heading">Sự kiện &amp; Thông báo sắp tới</h3>
+            <p className="paragraph-lg utility-margin-bottom-0">
+              Luôn cập nhật những tin tức mới nhất từ QAirline. Từ các đường bay
+              mới đến trải nghiệm độc quyền trên chuyến bay, chúng tôi luôn có
+              những thông tin hấp dẫn dành cho bạn.
+            </p>
+          </div>
+          <div className="w-layout-grid grid-layout desktop-3-column tablet-1-column grid-gap-sm">
+            <div
+              id="w-node-ad7e1832-39e3-90e5-6cc9-f687cbdd7d91-bac2655b"
+              className="card-link w-node-_42f59ece-bd50-b85c-48df-53570b109ec5-0b109eb9 w-inline-block"
+            >
+              <div className="utility-aspect-3x2 utility-position-relative flex-horizontal x-right">
+                <img
+                  width="1216"
+                  height="832"
+                  alt=""
+                  src="https://cdn.prod.website-files.com/682e8903f7dfdbc88bbce3f4/682e8ab1a179c3fdd9fa54bf_ca3dd369-89ae-4b7e-b301-1f1eb334d4bb.avif"
+                  loading="lazy"
+                  data-aisg-image-id="ab70756a-4353-4194-9afb-8d8d3a97b8f6"
+                  className="cover-image"
+                />
+              </div>
+              <div className="utility-padding-all-3rem">
+                <div className="tag utility-margin-bottom-1rem">
+                  <div>Tuyến bay mới</div>
+                </div>
+                <h4 className="h3-heading">Bay đến những điểm đến mới</h4>
+                <div className="utility-text-secondary utility-margin-bottom-1rem">
+                  Toàn cầu
+                </div>
+                <p>
+                  Hãy cùng chúng tôi khám phá các tuyến bay mới kết nối bạn đến
+                  nhiều điểm đến hơn. Trải nghiệm thế giới với dịch vụ tuyệt vời
+                  của QAirline.
+                </p>
+                <div className="text-link utility-text-decoration-none">
+                  <div>Khám phá thêm</div>
+                </div>
+              </div>
             </div>
-            <div className="w-layout-grid grid-layout desktop-3-column tablet-1-column grid-gap-sm">
-                <div
-                    id="w-node-ad7e1832-39e3-90e5-6cc9-f687cbdd7d91-bac2655b"
-                    className="card-link w-node-_42f59ece-bd50-b85c-48df-53570b109ec5-0b109eb9 w-inline-block">
-                    <div className="utility-aspect-3x2 utility-position-relative flex-horizontal x-right"><img width="1216"
-                            height="832" alt=""
-                            src="https://cdn.prod.website-files.com/682e8903f7dfdbc88bbce3f4/682e8ab1a179c3fdd9fa54bf_ca3dd369-89ae-4b7e-b301-1f1eb334d4bb.avif"
-                            loading="lazy" data-aisg-image-id="ab70756a-4353-4194-9afb-8d8d3a97b8f6"
-                            className="cover-image" />
-                    </div>
-                    <div className="utility-padding-all-3rem">
-                        <div className="tag utility-margin-bottom-1rem">
-                            <div>Tuyến bay mới</div>
-                        </div>
-                        <h4 className="h3-heading">Bay đến những điểm đến mới</h4>
-                        <div className="utility-text-secondary utility-margin-bottom-1rem">Toàn cầu</div>
-                        <p>Hãy cùng chúng tôi khám phá các tuyến bay mới kết nối bạn đến nhiều điểm đến hơn. Trải nghiệm thế giới với dịch vụ tuyệt vời của QAirline.</p>
-                        <div className="text-link utility-text-decoration-none">
-                            <div>Khám phá thêm</div>
-                        </div>
-                    </div>
+            <div
+              id="w-node-_888cf32c-9ab2-653d-3c0c-1a7839511a48-bac2655b"
+              href="/inflight-experience"
+              className="card-link w-node-_42f59ece-bd50-b85c-48df-53570b109ede-0b109eb9 w-inline-block"
+            >
+              <div className="utility-aspect-3x2 utility-position-relative flex-horizontal x-right">
+                <img
+                  width="1216"
+                  height="832"
+                  alt=""
+                  src="https://cdn.prod.website-files.com/682e8903f7dfdbc88bbce3f4/682e9da58263f4a43945cd43_50acf2db-b064-4da7-bdec-9a80145b499a.avif"
+                  loading="lazy"
+                  data-aisg-image-id="aba62937-a50b-4225-ada5-078e512165f8"
+                  className="cover-image"
+                />
+              </div>
+              <div className="utility-padding-all-3rem">
+                <div className="tag utility-margin-bottom-1rem">
+                  <div>Trải nghiệm trên chuyến bay</div>
                 </div>
-                <div id="w-node-_888cf32c-9ab2-653d-3c0c-1a7839511a48-bac2655b" href="/inflight-experience"
-                    className="card-link w-node-_42f59ece-bd50-b85c-48df-53570b109ede-0b109eb9 w-inline-block">
-                    <div className="utility-aspect-3x2 utility-position-relative flex-horizontal x-right"><img width="1216"
-                            height="832" alt=""
-                            src="https://cdn.prod.website-files.com/682e8903f7dfdbc88bbce3f4/682e9da58263f4a43945cd43_50acf2db-b064-4da7-bdec-9a80145b499a.avif"
-                            loading="lazy" data-aisg-image-id="aba62937-a50b-4225-ada5-078e512165f8"
-                            className="cover-image" />
-                    </div>
-                    <div className="utility-padding-all-3rem">
-                        <div className="tag utility-margin-bottom-1rem">
-                            <div>Trải nghiệm trên chuyến bay</div>
-                        </div>
-                        <h4 className="h3-heading">Nâng tầm hành trình của bạn</h4>
-                        <div className="utility-text-secondary utility-margin-bottom-1rem">Trên máy bay</div>
-                        <p>Khám phá các dịch vụ trên chuyến bay được nâng cấp của chúng tôi, được thiết kế để giúp hành trình của bạn thoải mái và thú vị hơn. Bay cùng chúng tôi và cảm nhận sự khác biệt.</p>
-                        <div className="text-link utility-text-decoration-none">
-                            <div>Tìm hiểu thêm</div>
-                        </div>
-                    </div>
+                <h4 className="h3-heading">Nâng tầm hành trình của bạn</h4>
+                <div className="utility-text-secondary utility-margin-bottom-1rem">
+                  Trên máy bay
                 </div>
-                <div id="w-node-f2b7feac-88a1-b0dd-8f8d-0b26f295558c-bac2655b" href="/inflight-experience"
-                    className="card-link w-node-_42f59ece-bd50-b85c-48df-53570b109ef7-0b109eb9 w-inline-block">
-                    <div className="utility-aspect-3x2 utility-position-relative flex-horizontal x-right"><img width="1216"
-                            height="832" alt=""
-                            src="https://cdn.prod.website-files.com/682e8903f7dfdbc88bbce3f4/682e91013e961282e1711b47_b1a18db2-48ff-4d9f-80ef-477d8ea17e0e.avif"
-                            loading="lazy" data-aisg-image-id="76f231a3-bb0c-4fed-a828-9e906f48e5a3"
-                            className="cover-image" />
-                    </div>
-                    <div className="utility-padding-all-3rem">
-                        <div className="tag utility-margin-bottom-1rem">
-                            <div>Ưu đãi đặc biệt</div>
-                        </div>
-                        <h4 className="h3-heading">Ưu đãi độc quyền</h4>
-                        <div className="utility-text-secondary utility-margin-bottom-1rem">Trực tuyến</div>
-                        <p>Đừng bỏ lỡ các ưu đãi đặc biệt của chúng tôi! Đặt chuyến bay tiếp theo với QAirline và tận hưởng mức giá cùng quyền lợi không thể bỏ qua.</p>
-                        <div className="text-link utility-text-decoration-none">
-                            <div>Nhận ưu đãi</div>
-                        </div>
-                    </div>
+                <p>
+                  Khám phá các dịch vụ trên chuyến bay được nâng cấp của chúng
+                  tôi, được thiết kế để giúp hành trình của bạn thoải mái và thú
+                  vị hơn. Bay cùng chúng tôi và cảm nhận sự khác biệt.
+                </p>
+                <div className="text-link utility-text-decoration-none">
+                  <div>Tìm hiểu thêm</div>
                 </div>
+              </div>
             </div>
-            <div className="button-group align-center utility-margin-top-3rem"><a href="/inflight-experience"
-                    className="button secondary-button w-button">Xem tất cả</a></div>
+            <div
+              id="w-node-f2b7feac-88a1-b0dd-8f8d-0b26f295558c-bac2655b"
+              href="/inflight-experience"
+              className="card-link w-node-_42f59ece-bd50-b85c-48df-53570b109ef7-0b109eb9 w-inline-block"
+            >
+              <div className="utility-aspect-3x2 utility-position-relative flex-horizontal x-right">
+                <img
+                  width="1216"
+                  height="832"
+                  alt=""
+                  src="https://cdn.prod.website-files.com/682e8903f7dfdbc88bbce3f4/682e91013e961282e1711b47_b1a18db2-48ff-4d9f-80ef-477d8ea17e0e.avif"
+                  loading="lazy"
+                  data-aisg-image-id="76f231a3-bb0c-4fed-a828-9e906f48e5a3"
+                  className="cover-image"
+                />
+              </div>
+              <div className="utility-padding-all-3rem">
+                <div className="tag utility-margin-bottom-1rem">
+                  <div>Ưu đãi đặc biệt</div>
+                </div>
+                <h4 className="h3-heading">Ưu đãi độc quyền</h4>
+                <div className="utility-text-secondary utility-margin-bottom-1rem">
+                  Trực tuyến
+                </div>
+                <p>
+                  Đừng bỏ lỡ các ưu đãi đặc biệt của chúng tôi! Đặt chuyến bay
+                  tiếp theo với QAirline và tận hưởng mức giá cùng quyền lợi
+                  không thể bỏ qua.
+                </p>
+                <div className="text-link utility-text-decoration-none">
+                  <div>Nhận ưu đãi</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="button-group align-center utility-margin-top-3rem">
+            <a
+              href="/inflight-experience"
+              className="button secondary-button w-button"
+            >
+              Xem tất cả
+            </a>
+          </div>
         </div>
     </section>
     <section className="section slide-left" id="faq" >
         <div className="container small-container">
-            <div id="w-node-_185f60f0-8ba0-284e-2436-f639fd271ad8-fd271ad5"
-                className="utility-text-align-center utility-margin-bottom-4rem w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc60-278782d9">
-                <div className="eyebrow">Câu hỏi thường gặp ở độ cao 30.000 feet</div>
-                <h2>Các thắc mắc của bạn, được giải đáp - Theo cách của QAirline</h2>
-                <p className="subheading">Bạn có câu hỏi về việc bay cùng chúng tôi? Hãy xem những câu hỏi được hỏi nhiều nhất bên dưới. 
-    Chúng tôi luôn giải đáp rõ ràng và hỗ trợ 24/7.</p>
+          <div
+            id="w-node-_185f60f0-8ba0-284e-2436-f639fd271ad8-fd271ad5"
+            className="utility-text-align-center utility-margin-bottom-4rem w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc60-278782d9"
+          >
+            <div className="eyebrow">
+              Câu hỏi thường gặp ở độ cao 30.000 feet
             </div>
+            <h2>
+              Các thắc mắc của bạn, được giải đáp - Theo cách của QAirline
+            </h2>
+            <p className="subheading">
+              Bạn có câu hỏi về việc bay cùng chúng tôi? Hãy xem những câu hỏi
+              được hỏi nhiều nhất bên dưới. Chúng tôi luôn giải đáp rõ ràng và
+              hỗ trợ 24/7.
+            </p>
+          </div>
         </div>
-        <div id="w-node-_6d181685-830d-fed9-53d4-bd265d6c854d-fd271ad5"
-            className="container w-node-_95a058fb-fe1c-8906-8bdb-f25895fedca3-278782d9">
+        <div
+          id="w-node-_6d181685-830d-fed9-53d4-bd265d6c854d-fd271ad5"
+          className="container w-node-_95a058fb-fe1c-8906-8bdb-f25895fedca3-278782d9"
+        >
+          <div className="w-layout-grid grid-layout desktop-3-column tablet-2-column mobile-landscape-1-column grid-gap-md">
             <div
-                className="w-layout-grid grid-layout desktop-3-column tablet-2-column mobile-landscape-1-column grid-gap-md">
-                <div id="w-node-_185f60f0-8ba0-284e-2436-f639fd271ae0-fd271ad5"
-                    className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc6a-278782d9">
-                    <div className="flex-horizontal x-center utility-margin-bottom-1rem">
-                        <div className="icon icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="100%"
-                                height="100%" viewBox="0 0 24 24" fill="none">
-                                <path
-                                    d="M12.5 18.25C16.2279 18.25 19.25 15.2279 19.25 11.5C19.25 7.77208 16.2279 4.75 12.5 4.75C8.77208 4.75 5.75 7.77208 5.75 11.5C5.75 12.6007 6.01345 13.6398 6.48072 14.5578L5 19L9.71819 17.6519C10.5664 18.0361 11.5082 18.25 12.5 18.25Z"
-                                    stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"></path>
-                            </svg></div>
-                    </div>
-                    <div className="h4-heading">Làm thế nào để đặt chuyến bay?</div>
-                    <p>Chỉ cần nhập điểm đến và điểm đi, chọn chuyến bay, điền những thông tin cơ bản và bạn đã xong!</p>
+              id="w-node-_185f60f0-8ba0-284e-2436-f639fd271ae0-fd271ad5"
+              className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc6a-278782d9"
+            >
+              <div className="flex-horizontal x-center utility-margin-bottom-1rem">
+                <div className="icon icon-container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M12.5 18.25C16.2279 18.25 19.25 15.2279 19.25 11.5C19.25 7.77208 16.2279 4.75 12.5 4.75C8.77208 4.75 5.75 7.77208 5.75 11.5C5.75 12.6007 6.01345 13.6398 6.48072 14.5578L5 19L9.71819 17.6519C10.5664 18.0361 11.5082 18.25 12.5 18.25Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
                 </div>
-                <div id="w-node-_9f3f1ede-167a-23fc-1325-62beb5f80451-fd271ad5"
-                    className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc74-278782d9">
-                    <div className="flex-horizontal x-center utility-margin-bottom-1rem">
-                        <div className="icon icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="100%"
-                                height="100%" viewBox="0 0 24 24" fill="none">
-                                <path d="M5.25 6.75H18.75V17.25H5.25V6.75Z" stroke="currentColor" strokeWidth="1.5"
-                                    strokeLinejoin="round"></path>
-                                <path d="M5.25 6.75L12 12L18.75 6.75" stroke="currentColor" strokeWidth="1.5"
-                                    strokeLinejoin="round"></path>
-                            </svg></div>
-                    </div>
-                    <div className="h4-heading">Vé của tôi bao gồm những gì?</div>
-                    <p>Mỗi vé đều bao gồm ghế ngồi thoải mái, bữa ăn ngon và nụ cười thân thiện từ đội ngũ tiếp viên. Nâng hạng nếu bạn muốn trải nghiệm đẳng cấp hơn</p>
-                </div>
-                <div id="w-node-_84310da2-a5e5-762c-911b-f856ff98de9f-fd271ad5"
-                    className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc7e-278782d9">
-                    <div className="flex-horizontal x-center utility-margin-bottom-1rem">
-                        <div className="icon icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="100%"
-                                height="100%" viewBox="0 0 24 24" fill="none">
-                                <path
-                                    d="M19.25 12C19.25 16.0041 16.0041 19.25 12 19.25C7.99594 19.25 4.75 16.0041 4.75 12C4.75 7.99594 7.99594 4.75 12 4.75C16.0041 4.75 19.25 7.99594 19.25 12Z"
-                                    stroke="currentColor" strokeWidth="1.5"></path>
-                                <path d="M9 12L11 14L15.5 9.5" stroke="currentColor" strokeWidth="1.5"></path>
-                            </svg></div>
-                    </div>
-                    <div className="h4-heading">Tôi có thể thay đổi hoặc hủy đặt chỗ không?</div>
-                    <p>Kế hoạch thay đổi? Đừng lo! Bạn có thể quản lý hoặc hủy đặt chỗ trực tuyến chỉ với vài cú nhấp chuột.</p>
-                </div>
-                <div id="w-node-_7c5bc2d4-b166-5f54-4277-7092ae4d112a-fd271ad5"
-                    className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc8a-278782d9">
-                    <div className="flex-horizontal x-center utility-margin-bottom-1rem">
-                        <div className="icon icon-container"><svg width="100%" height="100%" viewBox="0 0 24 24"
-                                fill="none">
-                                <path
-                                    d="M9.24998 18.7103C6.60958 17.6271 4.75 15.0307 4.75 12C4.75 8.96938 6.60958 6.37304 9.24997 5.28979"
-                                    strokeWidth="1.5" strokeLinejoin="round" stroke="currentColor"></path>
-                                <path
-                                    d="M14.75 5.28979C17.3904 6.37303 19.25 8.96938 19.25 12.0001C19.25 15.0307 17.3904 17.6271 14.75 18.7103"
-                                    strokeWidth="1.5" strokeLinejoin="round" stroke="currentColor"></path>
-                                <path
-                                    d="M4 19.2501L8.99998 19.2501C9.13805 19.2501 9.24998 19.1381 9.24998 19.0001L9.24997 14"
-                                    strokeWidth="1.5" strokeLinejoin="round" stroke="currentColor"></path>
-                                <path d="M20 4.75L15 4.75003C14.8619 4.75003 14.75 4.86196 14.75 5.00003L14.75 10.0001"
-                                    strokeWidth="1.5" strokeLinejoin="round" stroke="currentColor"></path>
-                            </svg></div>
-                    </div>
-                    <div className="h4-heading">Làm thế nào để kiểm tra tình trạng chuyến bay của tôi?</div>
-                    <p>Luôn cập nhật thông tin! Theo dõi chuyến bay của bạn theo thời gian thực trên website của chúng tôi, không lo nhiễu loạn, cập nhật thông tin mới nhất.</p>
-                </div>
-                <div id="w-node-fcd63731-53e5-cad4-ca0c-69f84aad2950-fd271ad5"
-                    className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc97-278782d9">
-                    <div className="flex-horizontal x-center utility-margin-bottom-1rem">
-                        <div className="icon icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="100%"
-                                height="100%" viewBox="0 0 24 24" fill="none">
-                                <path
-                                    d="M19 12C15.134 12 12 15.134 12 19C12 15.134 8.86599 12 5 12C8.86599 12 12 8.86599 12 5C12 8.86599 15.134 12 19 12Z"
-                                    stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"></path>
-                                <path d="M8 16L5.5 18.5" stroke="currentColor" strokeWidth="1.5"></path>
-                                <path d="M8 8L5.5 5.5" stroke="currentColor" strokeWidth="1.5"></path>
-                                <path d="M16 16L18.5 18.5" stroke="currentColor" strokeWidth="1.5"></path>
-                                <path d="M16 8L18.5 5.5" stroke="currentColor" strokeWidth="1.5"></path>
-                            </svg></div>
-                    </div>
-                    <div className="h4-heading">Quy định hành lý là gì?</div>
-                    <p>Thoải mái mang theo! Mỗi vé đều bao gồm 1 kiện hành lý xách tay và 1 kiện ký gửi.
-                    </p>
-                </div>
-                <div id="w-node-_29ade456-17d2-2150-82f2-4fe8f51b15b4-fd271ad5"
-                    className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedca1-278782d9">
-                    <div className="flex-horizontal x-center utility-margin-bottom-1rem">
-                        <div className="icon icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="100%"
-                                height="100%" viewBox="0 0 24 24" fill="none">
-                                <path d="M18.25 13.5L18.25 5.75002L10.5 5.75" stroke="currentColor" strokeWidth="1.5"
-                                    strokeLinejoin="round"></path>
-                                <path d="M18.25 5.75L6.5 17.5" stroke="currentColor" strokeWidth="1.5"></path>
-                            </svg></div>
-                    </div>
-                    <div className="h4-heading">Làm thế nào để liên hệ với bộ phận hỗ trợ khách hàng?</div>
-                    <p>Chúng tôi luôn sẵn sàng 24/7! Liên hệ qua chat, email hoặc điện thoại, đội ngũ của chúng tôi luôn sẵn lòng hỗ trợ bạn.</p>
-                </div>
+              </div>
+              <div className="h4-heading">Làm thế nào để đặt chuyến bay?</div>
+              <p>
+                Chỉ cần nhập điểm đến và điểm đi, chọn chuyến bay, điền những
+                thông tin cơ bản và bạn đã xong!
+              </p>
             </div>
+            <div
+              id="w-node-_9f3f1ede-167a-23fc-1325-62beb5f80451-fd271ad5"
+              className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc74-278782d9"
+            >
+              <div className="flex-horizontal x-center utility-margin-bottom-1rem">
+                <div className="icon icon-container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M5.25 6.75H18.75V17.25H5.25V6.75Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    ></path>
+                    <path
+                      d="M5.25 6.75L12 12L18.75 6.75"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div className="h4-heading">Vé của tôi bao gồm những gì?</div>
+              <p>
+                Mỗi vé đều bao gồm ghế ngồi thoải mái, bữa ăn ngon và nụ cười
+                thân thiện từ đội ngũ tiếp viên. Nâng hạng nếu bạn muốn trải
+                nghiệm đẳng cấp hơn
+              </p>
+            </div>
+            <div
+              id="w-node-_84310da2-a5e5-762c-911b-f856ff98de9f-fd271ad5"
+              className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc7e-278782d9"
+            >
+              <div className="flex-horizontal x-center utility-margin-bottom-1rem">
+                <div className="icon icon-container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M19.25 12C19.25 16.0041 16.0041 19.25 12 19.25C7.99594 19.25 4.75 16.0041 4.75 12C4.75 7.99594 7.99594 4.75 12 4.75C16.0041 4.75 19.25 7.99594 19.25 12Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M9 12L11 14L15.5 9.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div className="h4-heading">
+                Tôi có thể thay đổi hoặc hủy đặt chỗ không?
+              </div>
+              <p>
+                Kế hoạch thay đổi? Đừng lo! Bạn có thể quản lý hoặc hủy đặt chỗ
+                trực tuyến chỉ với vài cú nhấp chuột.
+              </p>
+            </div>
+            <div
+              id="w-node-_7c5bc2d4-b166-5f54-4277-7092ae4d112a-fd271ad5"
+              className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc8a-278782d9"
+            >
+              <div className="flex-horizontal x-center utility-margin-bottom-1rem">
+                <div className="icon icon-container">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M9.24998 18.7103C6.60958 17.6271 4.75 15.0307 4.75 12C4.75 8.96938 6.60958 6.37304 9.24997 5.28979"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                      stroke="currentColor"
+                    ></path>
+                    <path
+                      d="M14.75 5.28979C17.3904 6.37303 19.25 8.96938 19.25 12.0001C19.25 15.0307 17.3904 17.6271 14.75 18.7103"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                      stroke="currentColor"
+                    ></path>
+                    <path
+                      d="M4 19.2501L8.99998 19.2501C9.13805 19.2501 9.24998 19.1381 9.24998 19.0001L9.24997 14"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                      stroke="currentColor"
+                    ></path>
+                    <path
+                      d="M20 4.75L15 4.75003C14.8619 4.75003 14.75 4.86196 14.75 5.00003L14.75 10.0001"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                      stroke="currentColor"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div className="h4-heading">
+                Làm thế nào để kiểm tra tình trạng chuyến bay của tôi?
+              </div>
+              <p>
+                Luôn cập nhật thông tin! Theo dõi chuyến bay của bạn theo thời
+                gian thực trên website của chúng tôi, không lo nhiễu loạn, cập
+                nhật thông tin mới nhất.
+              </p>
+            </div>
+            <div
+              id="w-node-fcd63731-53e5-cad4-ca0c-69f84aad2950-fd271ad5"
+              className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc97-278782d9"
+            >
+              <div className="flex-horizontal x-center utility-margin-bottom-1rem">
+                <div className="icon icon-container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M19 12C15.134 12 12 15.134 12 19C12 15.134 8.86599 12 5 12C8.86599 12 12 8.86599 12 5C12 8.86599 15.134 12 19 12Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    ></path>
+                    <path
+                      d="M8 16L5.5 18.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M8 8L5.5 5.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M16 16L18.5 18.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M16 8L18.5 5.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div className="h4-heading">Quy định hành lý là gì?</div>
+              <p>
+                Thoải mái mang theo! Mỗi vé đều bao gồm 1 kiện hành lý xách tay
+                và 1 kiện ký gửi.
+              </p>
+            </div>
+            <div
+              id="w-node-_29ade456-17d2-2150-82f2-4fe8f51b15b4-fd271ad5"
+              className="utility-text-align-center w-node-_95a058fb-fe1c-8906-8bdb-f25895fedca1-278782d9"
+            >
+              <div className="flex-horizontal x-center utility-margin-bottom-1rem">
+                <div className="icon icon-container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M18.25 13.5L18.25 5.75002L10.5 5.75"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    ></path>
+                    <path
+                      d="M18.25 5.75L6.5 17.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div className="h4-heading">
+                Làm thế nào để liên hệ với bộ phận hỗ trợ khách hàng?
+              </div>
+              <p>
+                Chúng tôi luôn sẵn sàng 24/7! Liên hệ qua chat, email hoặc điện
+                thoại, đội ngũ của chúng tôi luôn sẵn lòng hỗ trợ bạn.
+              </p>
+            </div>
+          </div>
         </div>
     </section>
     <section className="section zoom-in linear-gradient-bg-client">

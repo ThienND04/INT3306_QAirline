@@ -7,6 +7,12 @@
     border-top: 2px solid #f8d7e0;
     color: #444;
     font-family: 'Segoe UI', sans-serif;
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 40%;
+    z-index: 100;
 }
 
 .footer-section {

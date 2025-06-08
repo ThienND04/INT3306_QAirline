@@ -1,0 +1,163 @@
+.fare-select-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 18px auto;
+  max-width: 820px;
+  width: 100%;
+}
+
+.fare-select-title {
+  margin-bottom: 2px;
+  font-size: 1.23rem;
+  font-weight: 600;
+  color: #29590e;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.fare-select-desc {
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.fare-options-row {
+  display: flex;
+  flex-direction: row;
+  gap: 28px;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.fare-option-card {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 12px #0001;
+  border: 2.5px solid #88b784;
+  min-width: 290px;
+  max-width: 350px;
+  flex: 1 1 0;
+  padding: 16px 15px 8px 15px;
+  cursor: pointer;
+  transition: border 0.18s, box-shadow 0.18s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fare-option-card.selected {
+  border: 3px solid #33802c;
+  box-shadow: 0 3px 20px #b4e2c0;
+}
+
+.fare-option-header {
+  text-align: center;
+  margin-bottom: 9px;
+}
+
+.fare-option-price-value {
+  font-size: 2.07rem;
+  font-weight: 800;
+  color: #33802c;
+}
+
+.fare-option-price {
+  font-size: 1.12rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.fare-option-name {
+  font-size: 1.18rem;
+  color: #33802c;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.fare-option-benefits {
+  width: 100%;
+  margin-top: 9px;
+  margin-bottom: 8px;
+}
+
+.fare-option-benefit {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 1.02rem;
+  margin-bottom: 4px;
+}
+
+.benefit-icon {
+  font-size: 1.2em;
+  font-weight: 700;
+  min-width: 19px;
+  display: inline-block;
+  text-align: center;
+}
+
+.benefit-ok {
+  color: #249b3b;
+}
+
+.benefit-no {
+  color: #dd3126;
+}
+
+.benefit-no-text {
+  color: #cc2f24;
+  font-weight: 500;
+}
+
+.fare-option-detail-link {
+  width: 100%;
+  text-align: left;
+  margin-top: 10px;
+  font-size: 1.02rem;
+}
+.fare-option-detail-link a {
+  color: #166b2b;
+  text-decoration: underline dotted;
+  font-size: 1em;
+}
+.fare-select-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+.fare-select-choose {
+  color: #33802c;
+  font-size: 1.09rem;
+  margin-bottom: 12px;
+}
+.fare-select-confirm-btn {
+  background: #33802c;
+  color: #fff;
+  padding: 9px 32px;
+  border-radius: 9px;
+  border: none;
+  font-size: 1.13rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 4px;
+  box-shadow: 0 1px 6px #0002;
+  transition: background 0.14s;
+}
+.fare-select-confirm-btn:hover {
+  background: #195d16;
+}
+
+@media (max-width: 700px) {
+  .fare-options-row {
+    flex-direction: column;
+    gap: 19px;
+    max-width: unset;
+    align-items: center;
+  }
+  .fare-option-card {
+    min-width: 190px;
+    max-width: 99vw;
+  }
+}
