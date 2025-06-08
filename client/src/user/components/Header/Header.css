@@ -1,3 +1,114 @@
+/* @font-face {
+    font-family: MATERIAL ICONS;
+    src: url("https://cdn.prod.website-files.com/682e8903f7dfdbc88bbce3f4/683e60f19b63a6f1f0c08187_MaterialIconsRound-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+} */
+
+.header-material-icon{
+    background-color: transparent;
+    color: #000;
+    text-align: left;
+    letter-spacing: 0;
+    font-family: MATERIAL ICONS, Arial, sans-serif;
+    font-size: 18px;
+    line-height: 0;
+    text-decoration: none;
+    display: block;
+}
+
+.qa-avatar-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.qa-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 52px;
+  min-width: 260px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(58,96,157,0.18), 0 2px 8px 0 rgba(0,0,0,0.08);
+  padding: 16px 0 8px 0;
+  z-index: 999;
+  animation: fadeIn .18s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.qa-dropdown-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px 12px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 8px;
+}
+
+.dropdown-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #657ff3;
+}
+
+.dropdown-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #222;
+}
+
+.dropdown-email {
+  font-size: 0.92rem;
+  color: #888;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.qa-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 22px;
+  color: #222;
+  text-decoration: none;
+  font-size: 1rem;
+  border: none;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.qa-dropdown-item:hover {
+  background: #f5f7fa;
+  color: #2962ff;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 8px 0;
+}
+.qa-dropdown-item.logout {
+  color: #e53935;
+  font-weight: 700;
+}
+.qa-dropdown-item.logout:hover {
+  background: #ffeaea;
+  color: #b71c1c;
+  border-radius: 18px;
+}
+
 .qa-header {
 	background: linear-gradient(to right, #fdf6f9, #e2f0ff);
 	display: flex;
@@ -67,6 +178,6 @@
 	height: 40px;
 	border-radius: 50%;
 	object-fit: cover;
-	border: 2px solid #ec6aa5;
+	border: 2px solid #6a88ec;
 }
 
