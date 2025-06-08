@@ -1,0 +1,117 @@
+.user-profile-container {
+  max-width: 440px;
+  margin: 48px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  font-family: 'Maven Pro', Arial, sans-serif;
+}
+
+.user-profile-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1976d2;
+  letter-spacing: 1px;
+}
+
+.user-profile-form .profile-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  gap: 1rem;
+}
+
+.user-profile-form label {
+  width: 130px;
+  font-weight: 600;
+  color: #222;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.user-profile-form input,
+.user-profile-form select {
+  flex: 1;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 7px;
+  font-size: 1rem;
+  background: #f7fafd;
+  transition: border 0.2s;
+}
+
+.user-profile-form input:focus,
+.user-profile-form select:focus {
+  border: 1.5px solid #1976d2;
+  outline: none;
+  background: #fff;
+}
+
+.user-profile-form input:disabled,
+.user-profile-form select:disabled {
+  background: #f3f3f3;
+  color: #888;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.profile-actions button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 7px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+.profile-actions button[type="button"] {
+  background: #bdbdbd;
+  color: #fff;
+}
+
+.profile-actions button:hover {
+  background: #1251a3;
+}
+
+.profile-actions button[type="button"]:hover {
+  background: #757575;
+}
+
+.profile-msg {
+  margin-bottom: 1.2rem;
+  color: #388e3c;
+  font-weight: 600;
+  text-align: center;
+  background: #e8f5e9;
+  border-radius: 6px;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .user-profile-container {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+  .user-profile-form .profile-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+  }
+  .user-profile-form label {
+    width: 100%;
+    margin-bottom: 0.2rem;
+  }
+}

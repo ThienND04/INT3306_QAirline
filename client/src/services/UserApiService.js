@@ -3,6 +3,7 @@ import axiosInstance from './AxiosInstance';
 class UserApiService {
     constructor() {
         this.baseUrl = '/auth';
+        this.baseUrl2 = '/users';
     }
 
     async getAllUsers() {
@@ -60,6 +61,22 @@ class UserApiService {
         const response = await axiosInstance.put(`${this.baseUrl}/reset-password`, passwordData);
         if (response.status !== 200) {
             throw new Error('Failed to reset password');
+        }
+        return response.data;
+    }
+
+    async updateUser(userData) {
+        const response = await axiosInstance.put(`${this.baseUrl2}/update`, userData);
+        if (response.status !== 200) {
+            throw new Error('Failed to update user');
+        }
+        return response.data;
+    }
+
+        async getCurrentUser() {
+        const response = await axiosInstance.get('/users/me');
+        if (response.status !== 200) {
+            throw new Error('Failed to get current user');
         }
         return response.data;
     }
