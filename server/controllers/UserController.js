@@ -4,7 +4,7 @@ class UserController {
     // [PUT] /users/update
     async updateUser(req, res) {
         try {
-            const { id } = req.user._id;
+            const id  = req.user._id;
             const { email, password, phoneNumber, address, lastName, middleAndFirstName, displayOrder, gender, birthDate, nationality, language , role } = req.body;
             const user = await User.findByIdAndUpdate(id, {
                 email,
