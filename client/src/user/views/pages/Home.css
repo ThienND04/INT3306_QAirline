@@ -1298,13 +1298,14 @@ img {
 }
 
 .flight-card {
+    width: fit-content;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     background-color: #fff;
     border-radius: 13px;
     justify-content: center;
     align-items: stretch;
-    max-width: 1128px;
+    /* max-width: 1128px; */
     margin: auto;
     padding: 0;
     display: block;

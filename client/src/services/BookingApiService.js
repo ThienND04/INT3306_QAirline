@@ -85,6 +85,21 @@ class BookingApiService {
         }
     }
 
+    async fakeBooking(ticketData) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.post(`${API_URL}/fake-booking`, ticketData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error booking ticket:', error);
+            throw error;
+        }
+    }
+
     // Update booking
     async updateBooking(id, ticketData) {
         try {

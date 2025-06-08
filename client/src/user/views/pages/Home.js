@@ -152,7 +152,6 @@ function Home() {
 										{activeTab === "Tab 1" && (
                                             <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
                                                 <div className="hero-buttons mb-3">
-                                                    <Button variant="success" className="me-2">Xem tất cả các chuyến bay</Button>
                                                     <Button 
                                                         variant={searchTabInitialType === "one-way" ? "primary" : "outline-primary"} 
                                                         className="me-2"
