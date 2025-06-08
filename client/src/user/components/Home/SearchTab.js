@@ -151,33 +151,6 @@ function SearchTab({ initialFlightType = "one-way" }) {
   return (
     <div className="flight-search-box">
       <Form className="flight-search-form-custom">
-        {/* Internal Flight Type Selection within SearchTab */}
-        <div className="flight-search-options" style={{ marginBottom: "10px", display: "flex", gap: "20px" }}>
-          <label>
-            <input
-              type="radio"
-              name="searchTabFlightType"
-              value="one-way"
-              checked={flightType === "one-way"}
-              onChange={(e) => {
-                setFlightType(e.target.value);
-                setSearchReturnDate(""); 
-                setSearchForm(prev => ({...prev, returnDate: ""}));
-              }}
-            />
-            Một chiều
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="searchTabFlightType"
-              value="round-trip"
-              checked={flightType === "round-trip"}
-              onChange={(e) => setFlightType(e.target.value)}
-            />
-            Khứ hồi
-          </label>
-        </div>
 
         <div className="flight-search-row">
           {/* From */}
