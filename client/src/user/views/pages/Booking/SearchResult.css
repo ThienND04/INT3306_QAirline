@@ -700,20 +700,170 @@
 		gap: 3px;
 	}
 }
+
 .modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(30, 41, 59, 0.32);
+	/* Đậm hơn một chút */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+	animation: modal-fade-in 0.25s;
 }
+
+@keyframes modal-fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
 .modal-content {
-  background: #fff;
-  padding: 32px 24px;
-  border-radius: 12px;
-  min-width: 320px;
-  max-width: 90vw;
-  box-shadow: 0 4px 32px #0002;
+	background: #fff;
+	padding: 32px 24px 24px 24px;
+	border-radius: 18px;
+	min-width: 320px;
+	max-width: 420px;
+	width: 100%;
+	box-shadow: 0 8px 40px #0004, 0 1.5px 8px #33802c22;
+	animation: modal-pop-in 0.25s cubic-bezier(.4, 1.4, .6, 1);
+	position: relative;
+	transition: box-shadow 0.18s, transform 0.18s;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.modal-flight-detail-list {
+	width: 100%;
+	max-width: 380px;
+	margin: 0 auto 18px auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.modal-flight-detail-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1.08rem;
+	color: #1a3552;
+	padding: 0 0 2px 0;
+	border-bottom: 1px dashed #e0e8f5;
+}
+
+.modal-flight-detail-row:last-child {
+	border-bottom: none;
+}
+
+.modal-flight-detail-label {
+	font-weight: 600;
+	color: #33802c;
+	min-width: 110px;
+}
+
+.modal-flight-detail-value {
+	font-weight: 500;
+	color: #195d16;
+	text-align: right;
+}
+
+.modal-content h3 {
+	font-size: 1.45rem;
+	font-weight: 700;
+	color: #195d16;
+	margin-bottom: 18px;
+	letter-spacing: 0.5px;
+	text-align: center;
+}
+
+.modal-content .modal-btn-group {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 18px;
+	width: 100%;
+}
+
+.fare-detail-close-btn {
+	background: linear-gradient(90deg, #33802c 60%, #4c9846 100%);
+	color: #fff;
+	padding: 9px 32px;
+	border-radius: 8px;
+	border: none;
+	font-size: 1.11rem;
+	font-weight: 700;
+	cursor: pointer;
+	margin-bottom: 0;
+	box-shadow: 0 2px 10px #33802c22;
+	transition: background 0.18s, transform 0.14s, box-shadow 0.18s;
+	outline: none;
+}
+
+.fare-detail-close-btn:hover,
+.fare-detail-close-btn:focus {
+	background: linear-gradient(90deg, #195d16 60%, #33802c 100%);
+	transform: translateY(-2px) scale(1.04);
+	box-shadow: 0 4px 18px #33802c33;
+}
+
+.fare-detail-close-btn:active {
+	background: #195d16;
+	transform: scale(0.98);
+}
+
+.fare-detail-close-btn.cancel {
+	background: linear-gradient(90deg, #888 60%, #bdbdbd 100%);
+	color: #fff;
+}
+
+.fare-detail-close-btn.cancel:hover,
+.fare-detail-close-btn.cancel:focus {
+	background: linear-gradient(90deg, #555 60%, #888 100%);
+}
+
+@media (max-width: 600px) {
+	.modal-content {
+		min-width: 90vw;
+		padding: 18px 7vw 18px 7vw;
+	}
+
+	.modal-content h3 {
+		font-size: 1.1rem;
+	}
+
+	.modal-flight-detail-list {
+		max-width: 98vw;
+		font-size: 0.98rem;
+	}
+}
+
+.modal-content.business-dialog,
+.modal-content.business-dialog .modal-flight-detail-label,
+.modal-content.business-dialog .modal-flight-detail-value {
+	color: #074273 !important;
+}
+
+.modal-content.business-dialog h3 {
+	color: #074273 !important;
+}
+
+.modal-content.business-dialog .fare-detail-close-btn {
+	background: linear-gradient(90deg, #074273 60%, #1976d2 100%);
+	color: #fff;
+}
+
+.modal-content.business-dialog .fare-detail-close-btn:hover,
+.modal-content.business-dialog .fare-detail-close-btn:focus {
+	background: linear-gradient(90deg, #1976d2 60%, #074273 100%);
+	color: #fff;
 }

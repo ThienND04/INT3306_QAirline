@@ -160,47 +160,74 @@ const SearchResult = () => {
 				))}
 			</div>
 			{showFlightDetail && selectedFlight && (
-    <div className="modal-overlay" onClick={() => setShowFlightDetail(false)}>
-        <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <h3>Chi tiết chuyến bay</h3>
-            <p><b>Mã chuyến bay:</b> {selectedFlight.code}</p>
-            <p><b>Điểm đi:</b> {selectedFlight.from}</p>
-            <p><b>Điểm đến:</b> {selectedFlight.to}</p>
-            <p><b>Khởi hành:</b> {formatTime(selectedFlight.departureTime)}</p>
-            <p><b>Giờ đến:</b> {formatTime(selectedFlight.arrivalTime)}</p>
-            <p><b>Thời gian bay:</b> {calcDuration(selectedFlight.departureTime, selectedFlight.arrivalTime)}</p>
-            <p>
-                <b>Loại vé:</b> {selectedFareType === "economy" ? "Economy" : "Business"}
-            </p>
-            <p>
-                <b>Giá vé:</b> {selectedFareType === "economy"
-                    ? formatPrice(selectedFlight.economyPrice)
-                    : formatPrice(selectedFlight.businessPrice)
-                } VND
-            </p>
-            <button
-                className="fare-detail-close-btn"
-                onClick={() => {
-                    // Lưu thông tin chuyến bay và loại vé
-                    localStorage.setItem("selectedFlight", JSON.stringify({
-                        ...selectedFlight,
-                        fareType: selectedFareType
-                    }));
-                    setShowFlightDetail(false);
-                    alert("Đã lưu chuyến bay vào tài khoản!");
-                }}
-            >
-                Xác nhận
-            </button>
-            <button
-                className="fare-detail-close-btn"
-                style={{ background: "#888", marginLeft: 8 }}
-                onClick={() => setShowFlightDetail(false)}
-            >
-                Đóng
-            </button>
+  <div className="modal-overlay" onClick={() => setShowFlightDetail(false)}>
+    <div
+  className={`modal-content${selectedFareType === "business" ? " business-dialog" : ""}`}
+  onClick={e => e.stopPropagation()}
+>
+      <h3>Chi tiết chuyến bay</h3>
+      <div className="modal-flight-detail-list">
+        <div className="modal-flight-detail-row">
+          <span className="modal-flight-detail-label">Mã chuyến bay:</span>
+          <span className="modal-flight-detail-value">{selectedFlight.code}</span>
         </div>
+        <div className="modal-flight-detail-row">
+          <span className="modal-flight-detail-label">Điểm đi:</span>
+          <span className="modal-flight-detail-value">{selectedFlight.from}</span>
+        </div>
+        <div className="modal-flight-detail-row">
+          <span className="modal-flight-detail-label">Điểm đến:</span>
+          <span className="modal-flight-detail-value">{selectedFlight.to}</span>
+        </div>
+        <div className="modal-flight-detail-row">
+          <span className="modal-flight-detail-label">Khởi hành:</span>
+          <span className="modal-flight-detail-value">{formatTime(selectedFlight.departureTime)}</span>
+        </div>
+        <div className="modal-flight-detail-row">
+          <span className="modal-flight-detail-label">Giờ đến:</span>
+          <span className="modal-flight-detail-value">{formatTime(selectedFlight.arrivalTime)}</span>
+        </div>
+        <div className="modal-flight-detail-row">
+          <span className="modal-flight-detail-label">Thời gian bay:</span>
+          <span className="modal-flight-detail-value">{calcDuration(selectedFlight.departureTime, selectedFlight.arrivalTime)}</span>
+        </div>
+        <div className="modal-flight-detail-row">
+          <span className="modal-flight-detail-label">Loại vé:</span>
+          <span className="modal-flight-detail-value">{selectedFareType === "economy" ? "Economy" : "Business"}</span>
+        </div>
+        <div className="modal-flight-detail-row">
+          <span className="modal-flight-detail-label">Giá vé:</span>
+          <span className="modal-flight-detail-value">
+            {selectedFareType === "economy"
+              ? formatPrice(selectedFlight.economyPrice)
+              : formatPrice(selectedFlight.businessPrice)
+            } VND
+          </span>
+        </div>
+      </div>
+      <div className="modal-btn-group">
+        <button
+          className="fare-detail-close-btn"
+          onClick={() => {
+            localStorage.setItem("selectedFlight", JSON.stringify({
+              ...selectedFlight,
+              fareType: selectedFareType
+            }));
+            setShowFlightDetail(false);
+            alert("Đã lưu chuyến bay vào tài khoản!");
+          }}
+        >
+          Xác nhận
+        </button>
+        <button
+          className="fare-detail-close-btn cancel"
+          onClick={() => setShowFlightDetail(false)}
+        >
+          Đóng
+        </button>
+      </div>
     </div>
+  </div>
 )}
 			<Footer />
 		</>
