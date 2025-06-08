@@ -20,7 +20,8 @@ import DeletedFlightsManager from "./admin/views/pages/FlightManager/DeletedFlig
 import DeletedAircraftManager from "./admin/views/pages/AircraftManager/DeletedAircraftManager";
 import NewsManager from "./admin/views/pages/NewsManager/NewsManager";
 // import SearchResult from './user/views/pages/SearchResult';
-import SearchResult from "./user/views/pages/Booking/SearchResult";import BookingList from './user/views/pages/BookingList';
+import SearchResult from "./user/views/pages/Booking/SearchResult";
+import BookingList from './user/views/pages/BookingList';
 import Statistic from './admin/views/pages/Statistic/Statistic';
 import UserProfile from './user/views/pages/UserProfile';
 import OtpVerification from './user/views/pages/OtpVerification';
