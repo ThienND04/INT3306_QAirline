@@ -1,29 +1,40 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./SearchTab.css";
 import airportApiService from "../../../services/AirportApiService";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { FaExchangeAlt, FaTimes, FaPlus, FaMinus } from "react-icons/fa";
 
-function SearchTab() {
+function SearchTab({ initialFlightType = "one-way" }) {
   const navigate = useNavigate();
   const [searchForm, setSearchForm] = React.useState({
     from: "",
     to: "",
     date: "",
+    returnDate: "", // Added for round trip
     adult: 1,
     child: 0,
     infant: 0,
   });
 
+  const [flightType, setFlightType] = useState(initialFlightType); // "one-way" or "round-trip"
   const [fromSuggestions, setFromSuggestions] = useState([]);
   const [toSuggestions, setToSuggestions] = useState([]);
   const [searchFrom, setSearchFrom] = useState("");
   const [searchTo, setSearchTo] = useState("");
   const [searchDate, setSearchDate] = useState("");
+  const [searchReturnDate, setSearchReturnDate] = useState(""); // Added for round trip input
   const [showPaxDropdown, setShowPaxDropdown] = useState(false);
 
   const paxRef = useRef();
+
+  useEffect(() => {
+    setFlightType(initialFlightType);
+    if (initialFlightType === "one-way") {
+      setSearchReturnDate("");
+      setSearchForm((prev) => ({ ...prev, returnDate: "" }));
+    }
+  }, [initialFlightType]);
 
   // Handle click outside to close pax dropdown
   React.useEffect(() => {
@@ -67,6 +78,14 @@ function SearchTab() {
         setSearchDate(value);
         const date = new Date(value);
         setSearchForm((prev) => ({ ...prev, date: date.toISOString() }));
+        if (flightType === "round-trip" && searchReturnDate && new Date(value) > new Date(searchReturnDate)) {
+          setSearchReturnDate("");
+          setSearchForm((prev) => ({ ...prev, returnDate: "" }));
+        }
+      } else if (name === "returnTime") {
+        setSearchReturnDate(value);
+        const date = new Date(value);
+        setSearchForm((prev) => ({ ...prev, returnDate: date.toISOString() }));
       }
     } catch (error) {
       console.error("Error handling input change:", error);
@@ -121,13 +140,45 @@ function SearchTab() {
       adult: searchForm.adult,
       child: searchForm.child,
       infant: searchForm.infant,
+      flightType: flightType,
     });
+    if (flightType === "round-trip" && searchForm.returnDate) {
+      params.append("returnDate", searchForm.returnDate);
+    }
     navigate(`/search-result?${params.toString()}`);
   };
 
   return (
     <div className="flight-search-box">
       <Form className="flight-search-form-custom">
+        {/* Internal Flight Type Selection within SearchTab */}
+        <div className="flight-search-options" style={{ marginBottom: "10px", display: "flex", gap: "20px" }}>
+          <label>
+            <input
+              type="radio"
+              name="searchTabFlightType"
+              value="one-way"
+              checked={flightType === "one-way"}
+              onChange={(e) => {
+                setFlightType(e.target.value);
+                setSearchReturnDate(""); 
+                setSearchForm(prev => ({...prev, returnDate: ""}));
+              }}
+            />
+            Một chiều
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="searchTabFlightType"
+              value="round-trip"
+              checked={flightType === "round-trip"}
+              onChange={(e) => setFlightType(e.target.value)}
+            />
+            Khứ hồi
+          </label>
+        </div>
+
         <div className="flight-search-row">
           {/* From */}
           <div className="flight-search-col from-col">
@@ -218,8 +269,24 @@ function SearchTab() {
               className="date-input"
               value={searchDate}
               onChange={handleInputChange}
+              min={new Date().toISOString().split("T")[0]} 
             />
           </div>
+          {/* Return Date (Conditional) */}
+          {flightType === "round-trip" && (
+            <div className="flight-search-col date-col">
+              <div className="label">NGÀY VỀ</div>
+              <input
+                type="date"
+                name="returnTime"
+                className="date-input"
+                value={searchReturnDate}
+                onChange={handleInputChange}
+                min={searchDate || new Date().toISOString().split("T")[0]}
+                disabled={!searchDate}
+              />
+            </div>
+          )}
           {/* Passengers */}
           <div className="flight-search-col pax-col" ref={paxRef}>
             <div className="label">HÀNH KHÁCH</div>
