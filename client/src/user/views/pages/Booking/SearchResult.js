@@ -22,7 +22,7 @@ function calcDuration(departure, arrival) {
 	const diff = Math.max(0, Math.floor((end - start) / 60000)); // minutes
 	const h = Math.floor(diff / 60);
 	const m = diff % 60;
-	return `${h}h ${m}min`;
+	return `${h}:${m}`;
 }
 
 function formatPrice(price) {
@@ -32,13 +32,16 @@ function formatPrice(price) {
 
 const SearchResult = () => {
 	const [flights, setFlights] = useState([]);
+	const [showFlightDetail, setShowFlightDetail] = useState(false);
+	const [selectedFlight, setSelectedFlight] = useState(null);
+	const [selectedFareType, setSelectedFareType] = useState(null);
 	const [searchParams, setSearchParams] = useState(
 		Object.fromEntries(useSearchParams()[0].entries())
 	);
 	useEffect(() => {
 		fetchFlights();
 		// eslint-disable-next-line
-	}, []);
+	}, [flights]);
 
 	const fetchFlights = async () => {
 		var searchedFlights = await flightApiService.searchFlights(searchParams);
@@ -118,7 +121,13 @@ const SearchResult = () => {
 							</div>
 						</div>
 						<div className="flight-fare-group">
-							<div className="flight-fare economy">
+							<div className="flight-fare economy"
+								onClick={() => {
+									setSelectedFlight(f);
+									setSelectedFareType("economy");
+									setShowFlightDetail(true);	
+								}}
+							style={{ cursor: "pointer" }}>
 								{f.remainingSeats?.economy > 0 && (
 									<div className="fare-seat">
 										{f.remainingSeats.economy} chỗ còn lại
@@ -129,7 +138,13 @@ const SearchResult = () => {
 								<div className="fare-price">{formatPrice(f.economyPrice)}</div>
 								<div className="fare-currency">VND</div>
 							</div>
-							<div className="flight-fare business">
+							<div className="flight-fare business"
+									onClick={() => {
+									setSelectedFlight(f);
+									setSelectedFareType("business");
+									setShowFlightDetail(true);	
+								}}
+								style={{ cursor: "pointer" }}>
 								<div className="fare-type">Business</div>
 								<div className="fare-label">từ</div>
 								<div className="fare-price">{formatPrice(f.businessPrice)}</div>
@@ -144,6 +159,49 @@ const SearchResult = () => {
 					</div>
 				))}
 			</div>
+			{showFlightDetail && selectedFlight && (
+    <div className="modal-overlay" onClick={() => setShowFlightDetail(false)}>
+        <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <h3>Chi tiết chuyến bay</h3>
+            <p><b>Mã chuyến bay:</b> {selectedFlight.code}</p>
+            <p><b>Điểm đi:</b> {selectedFlight.from}</p>
+            <p><b>Điểm đến:</b> {selectedFlight.to}</p>
+            <p><b>Khởi hành:</b> {formatTime(selectedFlight.departureTime)}</p>
+            <p><b>Giờ đến:</b> {formatTime(selectedFlight.arrivalTime)}</p>
+            <p><b>Thời gian bay:</b> {calcDuration(selectedFlight.departureTime, selectedFlight.arrivalTime)}</p>
+            <p>
+                <b>Loại vé:</b> {selectedFareType === "economy" ? "Economy" : "Business"}
+            </p>
+            <p>
+                <b>Giá vé:</b> {selectedFareType === "economy"
+                    ? formatPrice(selectedFlight.economyPrice)
+                    : formatPrice(selectedFlight.businessPrice)
+                } VND
+            </p>
+            <button
+                className="fare-detail-close-btn"
+                onClick={() => {
+                    // Lưu thông tin chuyến bay và loại vé
+                    localStorage.setItem("selectedFlight", JSON.stringify({
+                        ...selectedFlight,
+                        fareType: selectedFareType
+                    }));
+                    setShowFlightDetail(false);
+                    alert("Đã lưu chuyến bay vào tài khoản!");
+                }}
+            >
+                Xác nhận
+            </button>
+            <button
+                className="fare-detail-close-btn"
+                style={{ background: "#888", marginLeft: 8 }}
+                onClick={() => setShowFlightDetail(false)}
+            >
+                Đóng
+            </button>
+        </div>
+    </div>
+)}
 			<Footer />
 		</>
 	);
