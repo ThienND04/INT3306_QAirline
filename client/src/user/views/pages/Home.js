@@ -130,13 +130,13 @@ function Home() {
                                         >
                                             <span className="material-icon">flight</span> Đặt Vé
                                         </button>
-										<button
+										{/* <button
                                             className={`custom-tab-link${activeTab === "Tab 2" ? " active" : ""}`}
                                             onClick={() => setActiveTab("Tab 2")}
                                             type="button"
                                         >   
                                             <span className="material-icon">airplane_ticket</span> Làm Thủ Tục
-                                        </button>                                  
+                                        </button>*/}
                                         <button
                                             className={`custom-tab-link${activeTab === "Tab 3" ? " active" : ""}`}
                                             onClick={() => {
@@ -152,9 +152,8 @@ function Home() {
 										{activeTab === "Tab 1" && (
                                             <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
                                                 <div className="hero-buttons mb-3">
-                                                    <Button variant="success" className="me-2">Xem tất cả các chuyến bay</Button>
-                                                    <Button variant="outline-primary" className="me-2">Một chiều</Button>
-                                                    <Button variant="outline-secondary">Khứ hồi</Button>
+                                                    <Button variant="outline-primary">Một chiều</Button>
+                                                    <Button variant="outline-secondary" >Khứ hồi</Button>
                                                 </div>
                                                 <SearchTab />
                                             </div>
