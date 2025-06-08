@@ -28,7 +28,7 @@ const Header = () => {
 				{userRole === 'admin' ? (
 					<div className="qa-user-info">
 						<img
-							src="/admin-avatar.png"
+							src="https://anhdep.edu.vn/upload/720x1280/2024/05/avatar-wibu-720x1280.webp"
 							alt="Admin avatar"
 							className="qa-avatar"
 						/>
