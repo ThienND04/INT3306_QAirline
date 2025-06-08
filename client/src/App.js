@@ -20,7 +20,9 @@ import DeletedFlightsManager from './admin/views/pages/FlightManager/DeletedFlig
 import DeletedAircraftManager from './admin/views/pages/AircraftManager/DeletedAircraftManager';
 import NewsManager from './admin/views/pages/NewsManager/NewsManager';
 import SearchResult from './user/views/pages/SearchResult';
+import BookingList from './user/views/pages/BookingList';
 import Statistic from './admin/views/pages/Statistic/Statistic';
+
 
 
 function App() {
@@ -34,6 +36,7 @@ function App() {
 				<Route path="/register" element={<Register />} />
 				<Route path="/forgot-password" element={<ForgotPassword />} />
 				<Route path="/search-result" element={<SearchResult />} />
+				<Route path="/booking-list" element={<BookingList />} />
 
 				{/* Routes for admin */}
 				<Route path="/admin" element={<AdminHome />} />

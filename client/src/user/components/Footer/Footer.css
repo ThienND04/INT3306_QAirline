@@ -1,5 +1,5 @@
 .qa-footer {
-    background: linear-gradient(to right, #ffeef5, #e6f4ff);
+    background: linear-gradient(to right, #c6e1f7, #e6f4ff);
     padding: 40px 60px;
     display: flex;
     flex-wrap: wrap;
@@ -16,9 +16,9 @@
 
 .footer-section h5 {
     font-size: 1.1rem;
-    color: #ec6aa5;
+    color: #6a77ec;
     margin-bottom: 12px;
-    border-bottom: 1px solid #ec6aa5;
+    border-bottom: 1px solid #6a77ec;
     padding-bottom: 4px;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .footer-section ul li:hover {
-    color: #ec6aa5;
+    color: #6a77ec;
     text-decoration: underline;
 }
 

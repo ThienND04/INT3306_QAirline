@@ -1,10 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 function Header() {
   const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavScroll = (e,sectionId) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/', { state: { scrollToSection: sectionId } });
+    }
+  };
 
   return (
     <header className="qa-header">
@@ -12,7 +26,8 @@ function Header() {
       <nav className="qa-nav">
         <Link to="/">Trang chủ</Link>
         <Link to="/booking">Đặt vé</Link>
-        <Link to="/promotions">Khuyến mãi</Link>
+        <a href="#events" onClick={e => handleNavScroll(e,'events')}>Khuyến mãi</a>
+        <a href="#faq" onClick={e => handleNavScroll(e,'faq')}>Hỗ trợ</a>
       </nav>
       <div className="qa-auth">
         {!user || !token ? (

@@ -55,6 +55,20 @@ class BookingApiService {
         }
     }
 
+    // Get bookings for the authenticated user
+    async getMyBookings() {
+        try {
+        const token = this.getToken();
+        const response = await axiosInstance.get(`${API_URL}/my`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data;
+        } catch (error) {
+            console.error('Error getting my bookings:', error);
+            throw error;
+        }
+    }
+
     // Book a new ticket
     async bookTicket(ticketData) {
         try {
