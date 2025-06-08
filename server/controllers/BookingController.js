@@ -1,10 +1,8 @@
-// controllers/TicketController.js
 const Booking = require('../models/Booking');
 const Flight = require('../models/Flight');
 const User = require('../models/User');
 const { sendBookingConfirmationEmail, sendBookingCancellationEmail } = require('../utils/sendEmail');
 
-// Helper function to process a flight leg booking
 async function processFlightLeg(flightInput, passengerCounts, existingFlightModel = null) {
     const { flightCode, bookingClass } = flightInput;
     const { adultCount, childCount, infantCount } = passengerCounts;
@@ -16,7 +14,7 @@ async function processFlightLeg(flightInput, passengerCounts, existingFlightMode
     }
 
     const priceField = `${bookingClass.toLowerCase()}Price`;
-    if (flight[priceField] == null) { // Check for null or undefined
+    if (flight[priceField] == null) { 
         throw new Error(`Không tìm thấy thông tin giá vé cho hạng ${bookingClass} của chuyến bay ${flightCode} hoặc cấu trúc giá không đúng.`);
     }
 
@@ -41,7 +39,6 @@ async function processFlightLeg(flightInput, passengerCounts, existingFlightMode
     });
 
     if (seatNumbersToBook.length !== totalPassengers) {
-        // This case should ideally not happen if availableSeatsInClass.length was sufficient
         throw new Error(`Lỗi hệ thống: Không thể chọn đủ số ghế (${totalPassengers}) cho chuyến bay ${flightCode}. Chỉ chọn được ${seatNumbersToBook.length}.`);
     }
 
@@ -54,11 +51,10 @@ async function processFlightLeg(flightInput, passengerCounts, existingFlightMode
         arrival: flight.to,
         departureTime: flight.departureTime,
         arrivalTime: flight.arrivalTime,
-        updatedFlight: flight // Return the modified flight object to be saved later
+        updatedFlight: flight 
     };
 }
 
-// Helper to unbook seats for a flight leg
 async function unbookFlightLegSeats(flightLegBookingDetails, flightInfoModel) {
     if (flightLegBookingDetails && flightInfoModel && Array.isArray(flightLegBookingDetails.seatNo)) {
         let seatsUpdated = false;
