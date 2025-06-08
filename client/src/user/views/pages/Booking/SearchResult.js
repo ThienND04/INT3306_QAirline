@@ -6,6 +6,7 @@ import Footer from "../../../components/Footer/Footer";
 import flightApiService from "../../../../services/FlightApiService";
 import FlightRecap from "../../../components/FlightRecap/FlighRecap";
 import DayPriceChart from "../../../components/DayPriceChart/DayPriceChart";
+import bookingApiService from "../../../../services/BookingApiService";
 
 function formatTime(isoString) {
 	const date = new Date(isoString);
@@ -41,7 +42,7 @@ const SearchResult = () => {
 	useEffect(() => {
 		fetchFlights();
 		// eslint-disable-next-line
-	}, [flights]);
+	}, []);
 
 	const fetchFlights = async () => {
 		var searchedFlights = await flightApiService.searchFlights(searchParams);
@@ -53,8 +54,23 @@ const SearchResult = () => {
 			...prev,
 			date: newDate,
 		}));
-		// Không cần fetchFlights ở đây, effect phía trên sẽ tự chạy khi searchParams đổi
 	}, []);
+
+	const handleBooking = async () => {
+		console.log("searchParams", searchParams);
+
+		const bookingData = {
+			outbound: {
+				flightCode: selectedFlight.code,
+				bookingClass: selectedFareType,
+			},
+			adultCount: searchParams.adult ? Number(searchParams.adult) : 1,
+			childCount: searchParams.child ? Number(searchParams.child) : 0,
+			infantCount: searchParams.infant ? Number(searchParams.infant) : 0,
+		}
+		const res = await bookingApiService.bookTicket(bookingData);
+		console.log("Booking response:", res);
+	}
 
 	return (
 		<>
@@ -124,7 +140,7 @@ const SearchResult = () => {
 							<div className="flight-fare economy"
 								onClick={() => {
 									setSelectedFlight(f);
-									setSelectedFareType("economy");
+									setSelectedFareType("Economy");
 									setShowFlightDetail(true);	
 								}}
 							style={{ cursor: "pointer" }}>
@@ -141,7 +157,7 @@ const SearchResult = () => {
 							<div className="flight-fare business"
 									onClick={() => {
 									setSelectedFlight(f);
-									setSelectedFareType("business");
+									setSelectedFareType("Business");
 									setShowFlightDetail(true);	
 								}}
 								style={{ cursor: "pointer" }}>
@@ -193,12 +209,12 @@ const SearchResult = () => {
         </div>
         <div className="modal-flight-detail-row">
           <span className="modal-flight-detail-label">Loại vé:</span>
-          <span className="modal-flight-detail-value">{selectedFareType === "economy" ? "Economy" : "Business"}</span>
+          <span className="modal-flight-detail-value">{selectedFareType === "Economy" ? "Economy" : "Business"}</span>
         </div>
         <div className="modal-flight-detail-row">
           <span className="modal-flight-detail-label">Giá vé:</span>
           <span className="modal-flight-detail-value">
-            {selectedFareType === "economy"
+            {selectedFareType === "Economy"
               ? formatPrice(selectedFlight.economyPrice)
               : formatPrice(selectedFlight.businessPrice)
             } VND
@@ -213,6 +229,7 @@ const SearchResult = () => {
               ...selectedFlight,
               fareType: selectedFareType
             }));
+			handleBooking();
             setShowFlightDetail(false);
             alert("Đã lưu chuyến bay vào tài khoản!");
           }}
