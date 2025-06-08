@@ -28,6 +28,21 @@ class BookingController {
         }
     }
 
+    // [GET] /bookings/user/:userId
+    async getBookingsByUserId(req, res) {
+        try {
+            console.log('Fetching bookings for user:', req.params.userId);
+            const userId = req.params.userId;
+            const ticket = await Booking.find({userId}).populate('flightInfo userInfo');
+            if (!ticket) {
+                return res.status(404).json({ message: 'Ticket not found' });
+            }
+            res.status(200).json(ticket);
+        } catch (error) {
+            res.status(500).json({ message: 'Error getting ticket', error: error.message });
+        }
+    }
+
     // [GET] /bookings/flight/:flightCode
     async getBookingsByFlightCode(req, res) {
         try {
@@ -43,18 +58,6 @@ class BookingController {
             res.status(500).json({ message: 'Error getting tickets by flight code', error: error.message });
         }
     }
-
-    // [GET] /bookings/my
-    async getMyBookings(req, res) {
-        try {
-            const userId = req.user._id;
-            const bookings = await Booking.find({ userId }).populate('flightInfo userInfo');
-            res.status(200).json(bookings);
-        } catch (error) {
-            res.status(500).json({ message: 'Lỗi lấy danh sách chuyến bay đã đặt', error: error.message });
-        }
-    }   
-
 
     // [PUT] /bookings/:id
     async updateBooking(req, res) {
@@ -157,7 +160,7 @@ class BookingController {
             await newBooking.save();
             await flight.save();
 
-            await sendBookingConfirmationEmail(user.email, newBooking);
+            sendBookingConfirmationEmail(user.email, newBooking);
 
             res.status(201).json({
                 message: 'Đặt vé thành công',
@@ -195,14 +198,13 @@ class BookingController {
                 });
                 if (seatsUpdated) {
                     await booking.flightInfo.save();
-                    await sendBookingCancellationEmail(booking.userInfo.email, booking);
+                    sendBookingCancellationEmail(booking.userInfo.email, booking);
                 }
             } else {
                 console.warn(`Flight info for ticket ${id} not found, or flight was deleted, or seatNo is not an array. Seat statuses not changed.`);
             }
 
-            // await ticket.delete(); // If using mongoose-delete, this will soft delete
-            await Booking.deleteOne({ _id: id }); // Or use deleteOne for hard delete
+            await Booking.deleteOne({ _id: id }); 
 
 
             res.status(200).json({ message: 'Ticket cancelled successfully.' });
@@ -221,7 +223,7 @@ class BookingController {
             const startDate = new Date();
             startDate.setMonth(endDate.getMonth() - 5);
             startDate.setDate(1);
-            startDate.setHours(0, 0, 0, 0); 
+            startDate.setHours(0, 0, 0, 0);
 
             endDate.setHours(23, 59, 59, 999);
 

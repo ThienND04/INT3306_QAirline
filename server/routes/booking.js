@@ -9,6 +9,7 @@ router.use(authenticateToken);
 
 router.get('/statistics', bookingController.getBookingStatistics);
 router.get('/:id', authorizeTicketOwner, bookingController.getBookingById);
+router.get('/user/:userId', bookingController.getBookingsByUserId);
 router.get('/flight/:flightCode', bookingController.getBookingsByFlightCode);
 router.post('/book', bookingController.bookTickets);
 router.put('/:id', authorizeTicketOwner, bookingController.updateBooking);

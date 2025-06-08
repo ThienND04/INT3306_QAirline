@@ -76,6 +76,7 @@ class AuthController {
             return res.status(200).json({
                 message: 'Login successful', user,
                 user: {
+                    id: user._id,
                     email: user.email,
                     fullName: (user.displayOrder === 1) ? user.lastName + ' ' + user.middleAndFirstName : user.middleAndFirstName + ' ' + user.lastName,
                     role: user.role,
