@@ -122,9 +122,6 @@ class AirportController {
         try {
             const { query: keyword } = req.query;
             console.log(`Search query: ${keyword}`);
-            if (!keyword) {
-                return res.json([]);
-            }
             
             const airports = await Airport.aggregate([
                 {

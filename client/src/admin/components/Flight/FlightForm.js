@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './FlightForm.css';
-import airportApiService from '../../../services/AirportApiService'; 
+import airportApiService from '../../../services/AirportApiService';
+import aircraftApiService from '../../../services/AircraftApiService';
 import { Alert } from 'react-bootstrap';
-import {toDateInputFormat} from '../../../utils/utils'; 
+import { toDateInputFormat } from '../../../utils/utils';
 
 const FlightForm = ({
     subTitle = "SubTitle",
-    onFormSubmit, 
+    onFormSubmit,
     initialData,
     isCodeEditable = true,
     submitButtonText = "Submit",
-    alertSuccess, 
-    alertError,   
+    alertSuccess,
+    alertError,
 }) => {
     const [formData, setFormData] = useState({
         code: '',
@@ -27,14 +28,16 @@ const FlightForm = ({
         premiumPrice: '',
     });
 
+    const [aircraftOptions, setAircraftOptions] = useState([]);
+
     const [fromSuggestions, setFromSuggestions] = useState([]);
     const [toSuggestions, setToSuggestions] = useState([]);
 
     const [searchFrom, setSearchFrom] = useState('');
     const [searchTo, setSearchTo] = useState('');
 
-    const [departureTimeValue, setDepartureTimeValue] = useState(''); 
-    const [arrivalTimeValue, setArrivalTimeValue] = useState('');   
+    const [departureTimeValue, setDepartureTimeValue] = useState('');
+    const [arrivalTimeValue, setArrivalTimeValue] = useState('');
 
     useEffect(() => {
         if (initialData) {
@@ -51,8 +54,8 @@ const FlightForm = ({
                 firstPrice: initialData.firstPrice || '',
                 premiumPrice: initialData.premiumPrice || '',
             });
-            setSearchFrom(initialData.fromName || initialData.from || ''); 
-            setSearchTo(initialData.toName || initialData.to || '');       
+            setSearchFrom(initialData.fromName || initialData.from || '');
+            setSearchTo(initialData.toName || initialData.to || '');
             setDepartureTimeValue(initialData.departureTime ? toDateInputFormat(initialData.departureTime) : '');
             setArrivalTimeValue(initialData.arrivalTime ? toDateInputFormat(initialData.arrivalTime) : '');
         } else {
@@ -62,6 +65,7 @@ const FlightForm = ({
             setDepartureTimeValue('');
             setArrivalTimeValue('');
         }
+        aircraftApiService.getAllAircrafts().then(data => setAircraftOptions(data)).catch(console.error);
     }, [initialData]);
 
 
@@ -84,12 +88,12 @@ const FlightForm = ({
                 setFormData(prev => ({ ...prev, to: '' }));
             }
         } else if (name === 'departureTime') {
-            setDepartureTimeValue(value); 
+            setDepartureTimeValue(value);
             const date = new Date(value);
             // console.log('Selected departure time:', date.toISOString());
             setFormData(prev => ({ ...prev, departureTime: date.toISOString() }));
         } else if (name === 'arrivalTime') {
-            setArrivalTimeValue(value); 
+            setArrivalTimeValue(value);
             const date = new Date(value);
             setFormData(prev => ({ ...prev, arrivalTime: date.toISOString() }));
         }
@@ -141,15 +145,21 @@ const FlightForm = ({
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label">Mã máy bay</label>
-                        <input
-                            type="text"
+                        <label className="form-label">Máy bay</label>
+                        <select
                             name="aircraft"
                             className="form-control"
                             value={formData.aircraft}
                             onChange={handleInputChange}
                             required
-                        />
+                        >
+                            <option value="">-- Chọn máy bay --</option>
+                            {aircraftOptions.map(ac => (
+                                <option key={ac._id} value={ac.aircraftID}>
+                                    {ac.aircraftID} - {ac.model}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className="mb-3">

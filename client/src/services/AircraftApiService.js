@@ -10,7 +10,7 @@ const getAuthHeaders = () => {
     return {};
 };
 
-const AircraftApiService = {
+const aircraftApiService = {
     async getAllAircrafts() {
         try {
             const response = await axiosInstance.get(API_URL, { headers: getAuthHeaders() });
@@ -93,4 +93,4 @@ const AircraftApiService = {
     }
 };
 
-export default AircraftApiService;
+export default aircraftApiService;
