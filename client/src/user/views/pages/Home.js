@@ -20,13 +20,79 @@ function Home() {
             }
         }
     }, [location]);
+    React.useEffect(() => {
+        const cards = document.querySelectorAll('.card-tilt');
     
+        const handleMouseMove = (e) => {
+            const card = e.currentTarget;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * 1; 
+            const rotateY = ((x - centerX) / centerX) * -1;
+            card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+            card.classList.add('is-hovered');
+        };
+        const handleMouseLeave = (e) => {
+            const card = e.currentTarget;
+            card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
+            card.classList.remove('is-hovered');
+        };
+        cards.forEach(card => {
+            card.addEventListener('mousemove', handleMouseMove);
+            card.addEventListener('mouseleave', handleMouseLeave);
+        });
+        return () => {
+            cards.forEach(card => {
+                card.removeEventListener('mousemove', handleMouseMove);
+                card.removeEventListener('mouseleave', handleMouseLeave);
+            });
+        };
+    }, []);
+    React.useEffect(() => {
+        const sections = document.querySelectorAll('.section');
+        const observer = new window.IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                    entry.target.classList.add('section-visible');
+                    }
+                });
+            },
+            { threshold: 0.15 }
+        );
+        sections.forEach(section => observer.observe(section));
+        return () => {
+            sections.forEach(section => observer.unobserve(section));
+        };
+    }, []);
+    React.useEffect(() => {
+        const cards = document.querySelectorAll('.review-card');
+        const observer = new window.IntersectionObserver(
+            (entries) => {
+            entries.forEach((entry, idx) => {
+                if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('review-card-visible');
+                }, idx * 120); // hiệu ứng xuất hiện lần lượt
+                }
+            });
+            },
+            { threshold: 0.15 }
+        );
+        cards.forEach(card => observer.observe(card));
+        return () => {
+            cards.forEach(card => observer.unobserve(card));
+        };
+    }, []);    
     return (
         <>
 			<Header />
 
 			<header
-				className="section utility-padding-all-0 utility-overflow-hidden utility-text-on-overlay"
+				className="section zoom-in utility-padding-all-0 utility-overflow-hidden utility-text-on-overlay"
 			>
 				<div className="w-layout-grid grid-layout">
 					<div
@@ -120,7 +186,7 @@ function Home() {
             </div>
             <div className="w-layout-grid grid-layout desktop-3-column tablet-1-column grid-gap-sm">
                 <div id="w-node-_39abaecf-1dc2-886a-5c1d-6d90e390de50-4f0d0a8d"
-                    className="card w-node-_0571ce03-38b2-36ad-466d-57ddf78e1462-be40c5b3">
+                    className="card card-tilt w-node-_0571ce03-38b2-36ad-466d-57ddf78e1462-be40c5b3">
                     <div className="card-body">
                         <div className="icon utility-margin-bottom-1rem"><svg xmlns="http://www.w3.org/2000/svg"
                                 width="100%" height="100%" viewBox="0 0 24 24" fill="none">
@@ -136,7 +202,7 @@ function Home() {
                             bạn bay cùng chúng tôi.</p>
                     </div>
                 </div>
-                <div className="card">
+                <div className="card card-tilt">
                     <div className="card-body">
                         <div id="w-node-_39abaecf-1dc2-886a-5c1d-6d90e390de60-4f0d0a8d"
                             className="w-node-_0571ce03-38b2-36ad-466d-57ddf78e146a-be40c5b3">
@@ -154,7 +220,7 @@ function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="card">
+                <div className="card card-tilt">
                     <div className="card-body">
                         <div id="w-node-_39abaecf-1dc2-886a-5c1d-6d90e390de6c-4f0d0a8d"
                             className="w-node-_0571ce03-38b2-36ad-466d-57ddf78e1475-be40c5b3">
@@ -174,7 +240,7 @@ function Home() {
                     </div>
                 </div>
                 <div id="w-node-_39abaecf-1dc2-886a-5c1d-6d90e390de75-4f0d0a8d"
-                    className="card w-node-_0571ce03-38b2-36ad-466d-57ddf78e1484-be40c5b3">
+                    className="card card-tilt w-node-_0571ce03-38b2-36ad-466d-57ddf78e1484-be40c5b3">
                     <div className="card-body">
                         <div className="icon utility-margin-bottom-1rem"><svg xmlns="http://www.w3.org/2000/svg"
                                 width="100%" height="100%" viewBox="0 0 24 24" fill="none">
@@ -196,7 +262,7 @@ function Home() {
             </div>
         </div>
     </section>
-    <section className="section">
+    <section className="section slide-left">
         <div className="container">
             <div className="w-layout-grid grid-layout tablet-1-column grid-gap-xxl">
                 <div id="w-node-_0dc7589f-614c-e2cf-7555-5eed0be05d1f-0be05d1c"
@@ -220,7 +286,7 @@ function Home() {
                 </div>
                 <div className="w-layout-grid grid-layout mobile-landscape-1-column grid-gap-sm">
                     <div id="w-node-d6288141-3e37-a760-1f1f-3f87c261e1bc-0be05d1c"
-                        className="card w-node-_37c5b3fd-9a45-154d-5b97-f8f01d18f363-60726cee">
+                        className="card review-card w-node-_37c5b3fd-9a45-154d-5b97-f8f01d18f363-60726cee">
                         <div className="utility-padding-all-1rem">
                             <div className="flex-horizontal y-center flex-gap-xs utility-margin-bottom-1rem">
                                 <div className="avatar"><img className="cover-image"
@@ -239,7 +305,7 @@ function Home() {
                                 khi đến nơi. Đây là lựa chọn số một của tôi cho các chuyến đi công tác và gia đình.</p>
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="card review-card">
                         <div className="utility-padding-all-1rem">
                             <div className="flex-horizontal y-center flex-gap-xs utility-margin-bottom-1rem">
                                 <div className="avatar"><img width="" height="48" alt=""
@@ -256,7 +322,7 @@ function Home() {
                         </div>
                     </div>
                     <div id="w-node-_57b0b48d-fc7d-2a70-7d13-21713b2c2f03-0be05d1c"
-                        className="card w-node-_37c5b3fd-9a45-154d-5b97-f8f01d18f37d-60726cee">
+                        className="card review-card w-node-_37c5b3fd-9a45-154d-5b97-f8f01d18f37d-60726cee">
                         <div className="utility-padding-all-1rem">
                             <div className="flex-horizontal y-center flex-gap-xs utility-margin-bottom-1rem">
                                 <div className="avatar"><img width="" height="48" alt=""
@@ -272,7 +338,7 @@ function Home() {
                                 chuyến bay em ru giúp tôi làm việc hiệu quả ngay cả khi đang ở trên mây. Năm sao!</p>
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="card review-card">
                         <div className="utility-padding-all-1rem">
                             <div className="flex-horizontal y-center flex-gap-xs utility-margin-bottom-1rem">
                                 <div className="avatar"><img width="" height="48" alt=""
@@ -367,7 +433,7 @@ function Home() {
                     className="button secondary-button w-button">Xem tất cả</a></div>
         </div>
     </section>
-    <section className="section" id="faq">
+    <section className="section slide-left" id="faq" >
         <div className="container small-container">
             <div id="w-node-_185f60f0-8ba0-284e-2436-f639fd271ad8-fd271ad5"
                 className="utility-text-align-center utility-margin-bottom-4rem w-node-_95a058fb-fe1c-8906-8bdb-f25895fedc60-278782d9">
@@ -477,7 +543,7 @@ function Home() {
             </div>
         </div>
     </section>
-    <section className="section linear-gradient-bg-client">
+    <section className="section zoom-in linear-gradient-bg-client">
         <div className="container">
             <div className="w-layout-grid grid-layout tablet-1-column grid-gap-md">
                 <div id="w-node-a6542d50-0a0c-aae3-187d-ec258ad74e44-8ad74e41"
@@ -498,6 +564,7 @@ function Home() {
 			<Footer />
 		</>
 	);
+    
 };
 
 export default Home;

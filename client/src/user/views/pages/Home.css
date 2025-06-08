@@ -1144,13 +1144,6 @@ label {
     transform: translateY(0);
 }
 
-.card-link:hover {
-    box-shadow: 0 0 0 1px var(--ai-gen-82921b10-4b39-48f0-b346-808cf4903d29-1747880198344---core-color-tint--neutral-inverse-a20);
-    opacity: .6;
-    color: var(--ai-gen-82921b10-4b39-48f0-b346-808cf4903d29-1747880198344---card--card-primary-text);
-    background-color: #0000;
-    transform: translateY(0);
-}
 
 .utility-z-index-2 {
     z-index: 2;
@@ -1943,7 +1936,7 @@ img {
     top: 100%;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 9;
     background: white;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -2061,3 +2054,79 @@ img {
   100% { background-position: 100% 50%; }
 }
 
+.card-tilt {
+  transition: transform 0.2s cubic-bezier(.23,1.01,.32,1), box-shadow 0.2s;
+  will-change: transform;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+}
+.card-tilt.is-hovered {
+  box-shadow: 0 12px 32px 0 rgba(58,96,157,0.18), 0 2px 8px 0 rgba(0,0,0,0.08);
+  z-index: 2;
+}
+
+#events .card-link {
+  transition: 
+    box-shadow 0.25s cubic-bezier(.4,2,.6,1), 
+    transform 0.25s cubic-bezier(.4,2,.6,1);
+  box-shadow: 0 2px 12px rgba(58,96,157,0.08);
+  transform: translateY(0) scale(1);
+  z-index: 1;
+  position: relative;
+}
+
+#events .card-link:hover {
+  box-shadow: 0 12px 32px 0 rgba(58,96,157,0.18), 0 4px 16px 0 rgba(0,0,0,0.10);
+  transform: translateY(-8px) scale(1.04);
+  z-index: 2;
+}
+
+.section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.4,2,.6,1), transform 0.7s cubic-bezier(.4,2,.6,1);
+}
+
+.section.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Slide từ trái */
+.section.slide-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.7s, transform 0.7s;
+}
+.section.slide-left.section-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Fade in */
+.section.fade-in {
+  opacity: 0;
+  transition: opacity 0.7s;
+}
+.section.fade-in.section-visible {
+  opacity: 1;
+}
+
+/* Zoom in */
+.section.zoom-in {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.7s, transform 0.7s;
+}
+.section.zoom-in.section-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.review-card {
+  opacity: 0 !important;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.7s cubic-bezier(.4,2,.6,1), transform 2s cubic-bezier(.4,2,.6,1);
+}
+.review-card.review-card-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1);
+}
