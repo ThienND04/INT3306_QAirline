@@ -42,7 +42,7 @@ const SearchResult = () => {
 	useEffect(() => {
 		fetchFlights();
 		// eslint-disable-next-line
-	}, []);
+	}, [flights]);
 
 	const fetchFlights = async () => {
 		var searchedFlights = await flightApiService.searchFlights(searchParams);
