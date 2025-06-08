@@ -35,6 +35,11 @@ export default function AdminHome() {
 					<h3>Báo cáo thống kê</h3>
 					<p>Theo dõi dữ liệu bán vé, tình trạng chuyến bay trực tiếp.</p>
 				</div>
+				<div className="feature-card" onClick={() => window.location.href = '/admin/news'}>
+					<img src="https://image.talentnetwork.vn/cdytedongnai///news/2023/03/08/1678270264_news-dice.jpg" alt="Tin tuc" className="icon-placeholder" />
+					<h3>Tin tức</h3>
+					<p>Cập nhật các tin tức mới nhất về ngành hàng không và QAirline.</p>
+				</div>
 			</section>
 
 			{/* Call-to-Action Section */}

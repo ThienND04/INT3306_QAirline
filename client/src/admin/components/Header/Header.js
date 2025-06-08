@@ -23,6 +23,7 @@ const Header = () => {
 				<Link to="/admin/airports" className="qa-nav-item">Quản lý sân bay</Link>
 				<Link to="/admin/aircrafts" className="qa-nav-item">Quản lý máy bay</Link>
 				<Link to="/admin/stats" className="qa-nav-item">Thống kê</Link>
+				<Link to="/admin/news" className="qa-nav-item">Tin tuc</Link>
 			</nav>
 			<div className="qa-auth">
 				{userRole === 'admin' ? (
