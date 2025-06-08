@@ -91,7 +91,7 @@ class BookingApiService {
     async cancelBooking(id) {
         try {
             const token = this.getToken();
-            const response = await axiosInstance.delete(`${API_URL}/${id}`, {
+            const response = await axiosInstance.delete(`${API_URL}/cancel/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
