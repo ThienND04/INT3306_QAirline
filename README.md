@@ -3,7 +3,7 @@
 ## Thành Viên
 * Nguyễn Đức Thiện 22021164
 * Nguyễn Kiên Trung 2202****
-* Lê Thái Sơn 2202****
+* Lê Thái Sơn 22021185
 
 ## Chức năng
 
