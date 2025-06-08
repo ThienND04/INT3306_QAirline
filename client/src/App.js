@@ -20,6 +20,7 @@ import DeletedFlightsManager from './admin/views/pages/FlightManager/DeletedFlig
 import DeletedAircraftManager from './admin/views/pages/AircraftManager/DeletedAircraftManager';
 import NewsManager from './admin/views/pages/NewsManager/NewsManager';
 import SearchResult from './user/views/pages/SearchResult';
+import Statistic from './admin/views/pages/Statistic/Statistic';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
 				<Route path="/admin/aircrafts/deleted" element={< DeletedAircraftManager />} />
 
 				<Route path="/admin/news" element={< NewsManager />} />
+				<Route path="/admin/stats" element={< Statistic />} />
 			</Routes>
 		</Router>
 	);

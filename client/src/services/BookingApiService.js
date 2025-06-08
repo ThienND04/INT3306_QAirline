@@ -1,14 +1,14 @@
 import axiosInstance from "./AxiosInstance";
 
-const API_URL = '/tickets';
+const API_URL = '/bookings';
 
-class TicketApiService {
+class BookingApiService {
     getToken = () => {
         return localStorage.getItem('token');
     };
 
     // Get all tickets (Admin)
-    async getAllTickets() {
+    async getAllBookings() {
         try {
             const token = this.getToken();
             const response = await axiosInstance.get(API_URL, {
@@ -24,7 +24,7 @@ class TicketApiService {
     }
 
     // Get ticket by ID
-    async getTicketById(id) {
+    async getBookingById(id) {
         try {
             const token = this.getToken();
             const response = await axiosInstance.get(`${API_URL}/${id}`, {
@@ -34,7 +34,23 @@ class TicketApiService {
             });
             return response.data;
         } catch (error) {
-            console.error(`Error getting ticket with ID ${id}:`, error);
+            console.error(`Error getting booking with ID ${id}:`, error);
+            throw error;
+        }
+    }
+
+    // Get tickets by Flight Code
+    async getBookingsByFlightCode(flightCode) {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.get(`${API_URL}/flight/${flightCode}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error getting tickets for flight code ${flightCode}:`, error);
             throw error;
         }
     }
@@ -55,8 +71,8 @@ class TicketApiService {
         }
     }
 
-    // Update ticket
-    async updateTicket(id, ticketData) {
+    // Update booking
+    async updateBooking(id, ticketData) {
         try {
             const token = this.getToken();
             const response = await axiosInstance.put(`${API_URL}/${id}`, ticketData, {
@@ -72,10 +88,10 @@ class TicketApiService {
     }
 
     // Cancel ticket
-    async cancelTicket(id) {
+    async cancelBooking(id) {
         try {
             const token = this.getToken();
-            const response = await axiosInstance.delete(`${API_URL}/cancel/${id}`, {
+            const response = await axiosInstance.delete(`${API_URL}/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -86,7 +102,22 @@ class TicketApiService {
             throw error;
         }
     }
+
+    async getBookingStatistics() {
+        try {
+            const token = this.getToken();
+            const response = await axiosInstance.get(`${API_URL}/statistics`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error getting booking statistics:', error);
+            throw error;
+        }
+    }
 }
 
-const ticketApiService = new TicketApiService();
-export default ticketApiService;
+const bookingApiService = new BookingApiService();
+export default bookingApiService;
