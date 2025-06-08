@@ -7,6 +7,7 @@ const authorizeTicketOwner = require('../middlewares/ownership/authorizeTicketOw
 
 router.use(authenticateToken);
 
+router.post('/fake-booking', bookingController.fakeBooking); 
 router.get('/statistics', bookingController.getBookingStatistics);
 router.get('/:id', authorizeTicketOwner, bookingController.getBookingById);
 router.get('/user/:userId', bookingController.getBookingsByUserId);

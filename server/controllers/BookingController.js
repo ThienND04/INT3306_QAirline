@@ -1,10 +1,8 @@
-// controllers/TicketController.js
 const Booking = require('../models/Booking');
 const Flight = require('../models/Flight');
 const User = require('../models/User');
 const { sendBookingConfirmationEmail, sendBookingCancellationEmail } = require('../utils/sendEmail');
 
-// Helper function to process a flight leg booking
 async function processFlightLeg(flightInput, passengerCounts, existingFlightModel = null) {
     const { flightCode, bookingClass } = flightInput;
     const { adultCount, childCount, infantCount } = passengerCounts;
@@ -16,7 +14,7 @@ async function processFlightLeg(flightInput, passengerCounts, existingFlightMode
     }
 
     const priceField = `${bookingClass.toLowerCase()}Price`;
-    if (flight[priceField] == null) { // Check for null or undefined
+    if (flight[priceField] == null) { 
         throw new Error(`Không tìm thấy thông tin giá vé cho hạng ${bookingClass} của chuyến bay ${flightCode} hoặc cấu trúc giá không đúng.`);
     }
 
@@ -41,7 +39,6 @@ async function processFlightLeg(flightInput, passengerCounts, existingFlightMode
     });
 
     if (seatNumbersToBook.length !== totalPassengers) {
-        // This case should ideally not happen if availableSeatsInClass.length was sufficient
         throw new Error(`Lỗi hệ thống: Không thể chọn đủ số ghế (${totalPassengers}) cho chuyến bay ${flightCode}. Chỉ chọn được ${seatNumbersToBook.length}.`);
     }
 
@@ -54,11 +51,10 @@ async function processFlightLeg(flightInput, passengerCounts, existingFlightMode
         arrival: flight.to,
         departureTime: flight.departureTime,
         arrivalTime: flight.arrivalTime,
-        updatedFlight: flight // Return the modified flight object to be saved later
+        updatedFlight: flight 
     };
 }
 
-// Helper to unbook seats for a flight leg
 async function unbookFlightLegSeats(flightLegBookingDetails, flightInfoModel) {
     if (flightLegBookingDetails && flightInfoModel && Array.isArray(flightLegBookingDetails.seatNo)) {
         let seatsUpdated = false;
@@ -251,6 +247,94 @@ class BookingController {
             res.status(201).json({
                 message: 'Đặt vé thành công',
                 booking: populatedBooking
+            });
+
+        } catch (error) {
+            console.error('Lỗi đặt vé:', error);
+            if (error.name === 'ValidationError') {
+                return res.status(400).json({ message: 'Lỗi xác thực dữ liệu đặt vé.', error: error.message });
+            }
+            res.status(500).json({ message: 'Lỗi hệ thống khi đặt vé', error: error.message });
+        }
+    }
+
+    // [POST] /bookings/fake-booking
+    async fakeBooking(req, res) {
+        try {
+            const userId = req.user.id; 
+            const {
+                outbound: outboundInput, // Expected: { flightCode, bookingClass }
+                returnFlight: returnInput, // Optional: { flightCode, bookingClass }
+                adultCount,
+                childCount,
+                infantCount
+            } = req.body;
+
+            if (!userId || !outboundInput || !outboundInput.flightCode || !outboundInput.bookingClass ||
+                adultCount == null || childCount == null || infantCount == null) {
+                return res.status(400).json({ message: 'Thiếu thông tin cần thiết để đặt vé (userId, outbound details, passenger counts).' });
+            }
+
+            if (adultCount < 0 || childCount < 0 || infantCount < 0) {
+                return res.status(400).json({ message: 'Số lượng hành khách không hợp lệ.' });
+            }
+            const totalPassengers = adultCount + childCount + infantCount;
+            if (totalPassengers === 0) {
+                return res.status(400).json({ message: 'Phải có ít nhất một hành khách.' });
+            }
+            if (totalPassengers > 9) { // Example limit
+                return res.status(400).json({ message: 'Số lượng hành khách tối đa cho một lần đặt là 9.' });
+            }
+
+
+            const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).json({ message: 'Người dùng không tồn tại.' });
+            }
+
+            const passengerCounts = { adultCount, childCount, infantCount };
+            let outboundBookingLeg, returnBookingLeg;
+            let finalOutboundFlight, finalReturnFlight;
+
+            try {
+                const outboundResult = await processFlightLeg(outboundInput, passengerCounts);
+                outboundBookingLeg = { ...outboundResult };
+                finalOutboundFlight = outboundResult.updatedFlight;
+                delete outboundBookingLeg.updatedFlight;
+            } catch (error) {
+                return res.status(400).json({ message: `Lỗi xử lý chuyến bay đi: ${error.message}` });
+            }
+
+            if (returnInput && returnInput.flightCode && returnInput.bookingClass) {
+                if (returnInput.flightCode === outboundInput.flightCode) {
+                }
+                try {
+                    const returnResult = await processFlightLeg(returnInput, passengerCounts);
+                    returnBookingLeg = { ...returnResult };
+                    finalReturnFlight = returnResult.updatedFlight;
+                    delete returnBookingLeg.updatedFlight;
+                } catch (error) {
+                    return res.status(400).json({ message: `Lỗi xử lý chuyến bay về: ${error.message}` });
+                }
+            }
+
+            const newBookingData = {
+                userId,
+                outbound: outboundBookingLeg,
+                adultCount,
+                childCount,
+                infantCount,
+            };
+            if (returnBookingLeg) {
+                newBookingData.returnFlight = returnBookingLeg;
+            }
+
+            const newBooking = new Booking(newBookingData);
+            // console.log("newBooking", newBooking);
+
+            res.status(201).json({
+                message: 'Đặt vé thành công',
+                booking: newBooking
             });
 
         } catch (error) {

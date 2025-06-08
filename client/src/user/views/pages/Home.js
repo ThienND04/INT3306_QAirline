@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Home.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
@@ -8,9 +8,9 @@ import SearchTab from "../../components/Home/SearchTab";
 
 function Home() {
     const [activeTab, setActiveTab] = React.useState("Tab 1");
+    const [searchTabInitialType, setSearchTabInitialType] = useState("one-way"); // State for SearchTab initial type
     const navigate = useNavigate();
     const location = useLocation();
-
     
     React.useEffect(() => {
         if (location.state && location.state.scrollToSection) {
@@ -152,10 +152,21 @@ function Home() {
 										{activeTab === "Tab 1" && (
                                             <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
                                                 <div className="hero-buttons mb-3">
-                                                    <Button variant="outline-primary">Một chiều</Button>
-                                                    <Button variant="outline-secondary" >Khứ hồi</Button>
+                                                    <Button 
+                                                        variant={searchTabInitialType === "one-way" ? "primary" : "outline-primary"} 
+                                                        className="me-2"
+                                                        onClick={() => setSearchTabInitialType("one-way")}
+                                                    >
+                                                        Một chiều
+                                                    </Button>
+                                                    <Button 
+                                                        variant={searchTabInitialType === "round-trip" ? "secondary" : "outline-secondary"}
+                                                        onClick={() => setSearchTabInitialType("round-trip")}
+                                                    >
+                                                        Khứ hồi
+                                                    </Button>
                                                 </div>
-                                                <SearchTab />
+                                                <SearchTab initialFlightType={searchTabInitialType} />
                                             </div>
                                         )}
                                         {activeTab === "Tab 2" && (
