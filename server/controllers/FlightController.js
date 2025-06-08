@@ -92,17 +92,15 @@ class FlightController {
         }
     }
 
-    // [GET] /flights/:id
     async getFlightById(req, res) {
         try {
+            console.log('Fetching flight by ID:', req.params.id);
             const flightId = req.params.id;
-            // Use .lean() to get a plain JavaScript object, making it easier to modify
-            const flight = await Flight.findById(flightId).lean(); 
+            const flight = await Flight.findById(flightId); 
             if (!flight) {
                 return res.status(404).json({ message: 'Không tìm thấy chuyến bay' });
             }
             
-            // Calculate remaining seats based on seat.class
             flight.remainingSeats = {
                 economy: flight.seats.filter(seat => seat.class === 'Economy' && !seat.isBooked).length,
                 premium: flight.seats.filter(seat => seat.class === 'Premium' && !seat.isBooked).length,
@@ -110,7 +108,6 @@ class FlightController {
                 first: flight.seats.filter(seat => seat.class === 'First' && !seat.isBooked).length
             };
 
-            // Remove the seats array from the response object
             delete flight.seats;
             
             res.status(200).json(flight);

@@ -23,6 +23,9 @@ import SearchResult from './user/views/pages/SearchResult';
 import BookingList from './user/views/pages/BookingList';
 import Statistic from './admin/views/pages/Statistic/Statistic';
 import UserProfile from './user/views/pages/UserProfile';
+import OtpVerification from './user/views/pages/OtpVerification';
+import ResetPasswordForm from './user/components/ForgotPasswordForm/ResetPasswordForm';
+
 
 
 
@@ -36,6 +39,8 @@ function App() {
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/forgot-password" element={<ForgotPassword />} />
+				<Route path="/otp-auth" element={<OtpVerification />} />
+				<Route path="/reset-password" element={<ResetPasswordForm />} />
 				<Route path="/search-result" element={<SearchResult />} />
 				<Route path="/booking-list" element={<BookingList />} />
 				<Route path="/profile" element={<UserProfile />} />

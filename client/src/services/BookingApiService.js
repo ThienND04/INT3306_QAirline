@@ -59,7 +59,7 @@ class BookingApiService {
     async getMyBookings() {
         try {
         const token = this.getToken();
-        const response = await axiosInstance.get(`${API_URL}/my`, {
+        const response = await axiosInstance.get(`${API_URL}/user/${JSON.parse(localStorage.getItem('user')).id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;
@@ -105,7 +105,7 @@ class BookingApiService {
     async cancelBooking(id) {
         try {
             const token = this.getToken();
-            const response = await axiosInstance.delete(`${API_URL}/${id}`, {
+            const response = await axiosInstance.delete(`${API_URL}/cancel/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

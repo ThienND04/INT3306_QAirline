@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const createToken = require('../utils/createToken');
 const Otp = require('../models/Otp'); 
-const sendOtpEmail = require('../utils/sendOtpEmail'); 
+const {sendOtpEmail} = require('../utils/sendEmail'); 
 
 class AuthController {
     // [POST] /auth/register
@@ -76,6 +76,7 @@ class AuthController {
             return res.status(200).json({
                 message: 'Login successful', user,
                 user: {
+                    id: user._id,
                     email: user.email,
                     fullName: (user.displayOrder === 1) ? user.lastName + ' ' + user.middleAndFirstName : user.middleAndFirstName + ' ' + user.lastName,
                     role: user.role,
@@ -102,6 +103,8 @@ class AuthController {
                 userId: user._id,
                 otpCode: otp,
             });
+
+            console.log('OTP generated:', otp);
 
             // Send OTP to user's email
             sendOtpEmail(email, otp);
@@ -147,6 +150,7 @@ class AuthController {
     // [POST] /auth/reset-password
     async resetPassword(req, res) {
         try {
+            console.log('Reset password request body:', req.body);
             const { resetToken, newPassword } = req.body;
             const decoded = jwt.verify(resetToken, process.env.JWT_SECRET);
             const user = await User.findOne({ _id: decoded.id });
