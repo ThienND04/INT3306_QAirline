@@ -1,10 +1,10 @@
 const nodemailer = require('nodemailer');
 
-async function sendOtpEmail (toEmail, otp) {
+async function sendOtpEmail(toEmail, otp) {
     const transporter = nodemailer.createTransport({
         host: 'smtp.zoho.com',
         port: 465,
-        secure: true, 
+        secure: true,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
@@ -27,17 +27,17 @@ async function sendOtpEmail (toEmail, otp) {
             
             Trân trọng,
             Đội ngũ hỗ trợ`,
-      };
-      
+    };
+
 
     await transporter.sendMail(mailOptions);
 };
 
-async function sendBookingConfirmationEmail (toEmail, bookingDetails) {
+async function sendBookingConfirmationEmail(toEmail, bookingDetails) {
     const transporter = nodemailer.createTransport({
         host: 'smtp.zoho.com',
         port: 465,
-        secure: true, 
+        secure: true,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
@@ -100,7 +100,7 @@ async function sendBookingConfirmationEmail (toEmail, bookingDetails) {
     await transporter.sendMail(mailOptions);
 };
 
-async function sendBookingCancellationEmail (toEmail, bookingDetails) {
+async function sendBookingCancellationEmail(toEmail, bookingDetails) {
     const transporter = nodemailer.createTransport({
         host: 'smtp.zoho.com',
         port: 465,
@@ -149,4 +149,40 @@ async function sendBookingCancellationEmail (toEmail, bookingDetails) {
     await transporter.sendMail(mailOptions);
 };
 
-module.exports = {sendOtpEmail, sendBookingConfirmationEmail, sendBookingCancellationEmail};
+async function sendFlightDelayNotificationEmail(toEmail, delayDetails) {
+    console.log('Sending flight delay notification email to:', toEmail);
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.zoho.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: `"Thông báo thay đổi lịch bay" <${process.env.EMAIL_USER}>`,
+        to: toEmail,
+        subject: `Thông báo về việc thay đổi lịch bay cho chuyến bay ${delayDetails.flightNo}`,
+        text: `Xin chào,
+
+Chúng tôi rất tiếc phải thông báo về sự thay đổi lịch trình của chuyến bay ${delayDetails.flightNo} từ ${delayDetails.departureCity} đến ${delayDetails.arrivalCity}.
+
+Chi tiết thay đổi như sau:
+- Thời gian khởi hành dự kiến ban đầu: ${new Date(delayDetails.originalDepartureTime).toLocaleString('vi-VN')}
+- Thời gian khởi hành mới: ${new Date(delayDetails.newDepartureTime).toLocaleString('vi-VN')}
+- Thời gian đến dự kiến mới: ${new Date(delayDetails.newArrivalTime).toLocaleString('vi-VN')}
+- Lý do thay đổi: ${delayDetails.delayReason}
+
+Chúng tôi thành thật xin lỗi vì sự bất tiện này và mong nhận được sự thông cảm của quý khách.
+Vui lòng kiểm tra email thường xuyên để cập nhật thông tin mới nhất hoặc liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi nào.
+
+Trân trọng,
+Đội ngũ QAirline`,
+    };
+
+    await transporter.sendMail(mailOptions);
+}
+
+module.exports = { sendOtpEmail, sendBookingConfirmationEmail, sendBookingCancellationEmail, sendFlightDelayNotificationEmail };
