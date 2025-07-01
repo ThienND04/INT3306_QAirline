@@ -10,13 +10,12 @@ const aircraftSchema = new mongoose.Schema({
     firstClassSeats: { type: Number, default: 0 },
     premiumClassSeats: { type: Number, default: 0 },
     rangeInKm: Number,
-    description: String
+    description: String,
 });
 
-aircraftSchema.plugin(mongooseDelete, 
-    { 
-        overrideMethods: 'all',
-        deletedAt: true,
-    });
+aircraftSchema.plugin(mongooseDelete, {
+    overrideMethods: 'all',
+    deletedAt: true,
+});
 
 module.exports = mongoose.model('Aircraft', aircraftSchema);

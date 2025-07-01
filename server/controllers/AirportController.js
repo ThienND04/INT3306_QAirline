@@ -39,7 +39,9 @@ class AirportController {
     // [PUT] /airports/:id
     async updateAirport(req, res) {
         try {
-            const airport = await Airport.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            const airport = await Airport.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+            });
             if (!airport) {
                 return res.status(404).json({ message: 'Airport not found' });
             }
@@ -95,7 +97,10 @@ class AirportController {
             const deletedAirports = await Airport.findWithDeleted({ deleted: true });
             res.status(200).json(deletedAirports);
         } catch (error) {
-            res.status(500).json({ message: 'Error getting deleted airports', error: error.message });
+            res.status(500).json({
+                message: 'Error getting deleted airports',
+                error: error.message,
+            });
         }
     }
 
@@ -104,14 +109,22 @@ class AirportController {
         try {
             console.log(`Attempting to restore airport with ID: ${req.params.id}`);
             const result = await Airport.restore({ _id: req.params.id });
-            if (result.restored === 0 || (result.modifiedCount === 0 && result.matchedCount === 0)) {
+            if (
+                result.restored === 0 ||
+                (result.modifiedCount === 0 && result.matchedCount === 0)
+            ) {
                 return res.status(404).json({ message: 'Airport not found or not deleted' });
             }
             const restoredAirport = await Airport.findById(req.params.id);
             if (!restoredAirport) {
-                return res.status(404).json({ message: 'Airport not found after attempting restore.' });
+                return res
+                    .status(404)
+                    .json({ message: 'Airport not found after attempting restore.' });
             }
-            res.status(200).json({ message: 'Airport restored successfully', airport: restoredAirport });
+            res.status(200).json({
+                message: 'Airport restored successfully',
+                airport: restoredAirport,
+            });
         } catch (error) {
             res.status(500).json({ message: 'Error restoring airport', error: error.message });
         }
@@ -126,20 +139,20 @@ class AirportController {
             if (!keyword) {
                 return res.status(200).json([]);
             }
-            
+
             const airports = await Airport.aggregate([
                 {
                     $search: {
-                        index: "default",
+                        index: 'default',
                         text: {
-                            query: keyword, 
-                            path: ["name", "city", "country", "IATACode"], 
+                            query: keyword,
+                            path: ['name', 'city', 'country', 'IATACode'],
                             fuzzy: {
-                                maxEdits: 1
-                            }
-                        }
+                                maxEdits: 1,
+                            },
+                        },
                     },
-                }
+                },
             ]);
             res.status(200).json(airports);
         } catch (error) {

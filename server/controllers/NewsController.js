@@ -4,7 +4,7 @@ class NewsController {
     // [POST] /news/create
     async createNews(req, res) {
         try {
-            const { title, content} = req.body;
+            const { title, content } = req.body;
             const imageUrl = req.file ? req.file.path : null;
             const news = new News({ title, content, imageUrl });
             await news.save();
@@ -24,7 +24,7 @@ class NewsController {
             const updatedNews = await News.findByIdAndUpdate(
                 id,
                 { title, content, imageUrl },
-                { new: true }
+                { new: true },
             );
 
             if (!updatedNews) {
@@ -78,7 +78,7 @@ class NewsController {
             res.status(500).json({ message: 'Lỗi hệ thống khi xóa tin tức' });
         }
     }
-};
+}
 
 const newsController = new NewsController();
 module.exports = newsController;

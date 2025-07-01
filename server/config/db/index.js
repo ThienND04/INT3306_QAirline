@@ -8,10 +8,9 @@ async function connect() {
             authSource: 'admin',
         });
         console.log('Database connected successfully');
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Database connection error:', error);
     }
 }
 
-module.exports = {connect};
+module.exports = { connect };

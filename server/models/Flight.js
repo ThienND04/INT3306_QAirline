@@ -4,7 +4,7 @@ const mongooseDelete = require('mongoose-delete');
 const flightSchema = new mongoose.Schema({
     code: { type: String, required: true, unique: true },
     aircraft: { type: String, required: true },
-    from: { type: String, required: true },// IATACode of the departure airport
+    from: { type: String, required: true }, // IATACode of the departure airport
     to: { type: String, required: true }, // IATACode of the arrival airport
     departureTime: Date,
     arrivalTime: Date,
@@ -13,11 +13,17 @@ const flightSchema = new mongoose.Schema({
     businessPrice: { type: Number, required: true },
     firstPrice: { type: Number, required: true },
     premiumPrice: { type: Number, required: true },
-    seats: [{
-        seatNo: String,
-        class: { type: String, enum: ['Economy', 'Business', 'First', 'Premium'], default: 'Economy' },
-        isBooked: { type: Boolean, default: false }
-    }]
+    seats: [
+        {
+            seatNo: String,
+            class: {
+                type: String,
+                enum: ['Economy', 'Business', 'First', 'Premium'],
+                default: 'Economy',
+            },
+            isBooked: { type: Boolean, default: false },
+        },
+    ],
 });
 
 // Virtual populate: aircraft -> Aircraft.aircraftID
@@ -25,7 +31,7 @@ flightSchema.virtual('aircraftInfo', {
     ref: 'Aircraft',
     localField: 'aircraft',
     foreignField: 'aircraftID',
-    justOne: true
+    justOne: true,
 });
 
 // Virtual populate:  from -> Airport.IATACode
@@ -33,7 +39,7 @@ flightSchema.virtual('fromAirport', {
     ref: 'Airport',
     localField: 'from',
     foreignField: 'IATACode',
-    justOne: true
+    justOne: true,
 });
 
 // Virtual populate:  to -> Airport.IATACode
@@ -41,13 +47,12 @@ flightSchema.virtual('toAirport', {
     ref: 'Airport',
     localField: 'to',
     foreignField: 'IATACode',
-    justOne: true
+    justOne: true,
 });
 
-flightSchema.plugin(mongooseDelete,
-    {
-        overrideMethods: 'all',
-        deletedAt: true,
-    });
+flightSchema.plugin(mongooseDelete, {
+    overrideMethods: 'all',
+    deletedAt: true,
+});
 
 module.exports = mongoose.model('Flight', flightSchema);

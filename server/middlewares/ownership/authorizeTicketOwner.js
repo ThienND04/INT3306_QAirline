@@ -1,4 +1,4 @@
-const Ticket = require('../../models/Booking'); 
+const Ticket = require('../../models/Booking');
 
 const authorizeTicketOwner = async (req, res, next) => {
     try {
@@ -11,15 +11,16 @@ const authorizeTicketOwner = async (req, res, next) => {
         }
 
         if (req.user.role !== 'admin' && ticket.userId.toString() !== userId) {
-            return res.status(403).json({ message: 'You do not have permission to access this ticket' });
+            return res
+                .status(403)
+                .json({ message: 'You do not have permission to access this ticket' });
         }
 
         next();
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Error authorizing ticket owner:', error.message);
         return res.status(500).json({ message: 'Internal server error' });
     }
-}
+};
 
 module.exports = authorizeTicketOwner;
