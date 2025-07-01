@@ -1,11 +1,13 @@
-const Notification = require('../models/Notification'); 
+const Notification = require('../models/Notification');
 
 class NotificationController {
     // [GET] /notifications/:userId
     async getNotificationsByUser(req, res) {
         try {
             const { userId } = req.params;
-            const notifications = await Notification.find({ user: userId }).sort({ createdAt: -1 });
+            const notifications = await Notification.find({ user: userId }).sort({
+                createdAt: -1,
+            });
             res.status(200).json(notifications);
         } catch (error) {
             console.error('Error fetching notifications:', error);
@@ -33,9 +35,10 @@ class NotificationController {
             const notification = await Notification.findByIdAndUpdate(
                 id,
                 { isRead: true },
-                { new: true }
+                { new: true },
             );
-            if (!notification) return res.status(404).json({ message: 'Không tìm thấy thông báo.' });
+            if (!notification)
+                return res.status(404).json({ message: 'Không tìm thấy thông báo.' });
             res.status(200).json(notification);
         } catch (error) {
             console.error('Error marking notification as read:', error);

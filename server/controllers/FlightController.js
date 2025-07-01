@@ -11,7 +11,7 @@ const generateSeats = (aircraft) => {
         { name: 'First', type: 'F', count: aircraft.firstClassSeats },
         { name: 'Premium', type: 'P', count: aircraft.premiumClassSeats },
         { name: 'Business', type: 'B', count: aircraft.businessClassSeats },
-        { name: 'Economy', type: 'E', count: aircraft.economyClassSeats }
+        { name: 'Economy', type: 'E', count: aircraft.economyClassSeats },
     ];
 
     for (const cls of seatClasses) {
@@ -19,7 +19,7 @@ const generateSeats = (aircraft) => {
             seats.push({
                 seatNo: `${cls.type}${i}`,
                 class: cls.name,
-                isBooked: false
+                isBooked: false,
             });
         }
     }
@@ -31,24 +31,24 @@ const preprocessFlightData = (flightDoc) => {
     const flight = flightDoc.toObject();
     console.log('Preprocessing flight data:', flightDoc._id);
     flight.remainingSeats = {
-        economy: flight.seats.filter(seat => seat.class === 'Economy' && !seat.isBooked).length,
-        premium: flight.seats.filter(seat => seat.class === 'Premium' && !seat.isBooked).length,
-        business: flight.seats.filter(seat => seat.class === 'Business' && !seat.isBooked).length,
-        first: flight.seats.filter(seat => seat.class === 'First' && !seat.isBooked).length
+        economy: flight.seats.filter((seat) => seat.class === 'Economy' && !seat.isBooked).length,
+        premium: flight.seats.filter((seat) => seat.class === 'Premium' && !seat.isBooked).length,
+        business: flight.seats.filter((seat) => seat.class === 'Business' && !seat.isBooked).length,
+        first: flight.seats.filter((seat) => seat.class === 'First' && !seat.isBooked).length,
     };
     delete flight.seats;
     console.log('Processed flight data:', flightDoc._id, flightDoc.remainingSeats);
     return flight;
-}
+};
 
 class FlightController {
     async getAllFlights(req, res) {
         try {
-            console.log("Fetching all flights");
+            console.log('Fetching all flights');
             const flights = await Flight.find();
             res.status(200).json(flights);
         } catch (error) {
-            res.status(500).json({ message: "Error fetching flights", error });
+            res.status(500).json({ message: 'Error fetching flights', error });
         }
     }
 
@@ -69,14 +69,14 @@ class FlightController {
                 to,
                 departureTime: {
                     $gte: startDate,
-                    $lt: endDate
-                }
+                    $lt: endDate,
+                },
             });
 
             const flightsResult = flights.map(preprocessFlightData);
             res.status(200).json(flightsResult);
         } catch (error) {
-            res.status(500).json({ message: "Error searching flights", error });
+            res.status(500).json({ message: 'Error searching flights', error });
         }
     }
     async getRecentFlights(req, res) {
@@ -84,7 +84,7 @@ class FlightController {
             const { from, to, date } = req.query;
 
             if (!from || !to || !date) {
-                return res.status(400).json({ message: "Missing from, to or date" });
+                return res.status(400).json({ message: 'Missing from, to or date' });
             }
 
             // Tính khoảng thời gian 1 tuần trước và 1 tuần sau
@@ -113,10 +113,10 @@ class FlightController {
                     // Nhóm theo ngày (bỏ giờ phút giây)
                     $group: {
                         _id: {
-                            $dateToString: { format: "%Y-%m-%d", date: "$departureTime" },
+                            $dateToString: { format: '%Y-%m-%d', date: '$departureTime' },
                         },
-                        minEconomyPrice: { $min: "$economyPrice" },
-                        sampleFlight: { $first: "$$ROOT" },
+                        minEconomyPrice: { $min: '$economyPrice' },
+                        sampleFlight: { $first: '$$ROOT' },
                     },
                 },
                 {
@@ -135,7 +135,7 @@ class FlightController {
 
             res.status(200).json(result);
         } catch (error) {
-            res.status(500).json({ message: "Error getting recent flights", error });
+            res.status(500).json({ message: 'Error getting recent flights', error });
         }
     }
 
@@ -145,15 +145,13 @@ class FlightController {
             const flight = new Flight(req.body);
             const aircraft = await Aircraft.findOne({ aircraftID: flight.aircraft });
             if (!aircraft) {
-                return res.status(404).json({ message: "Aircraft not found" });
+                return res.status(404).json({ message: 'Aircraft not found' });
             }
             flight.seats = generateSeats(aircraft);
             await flight.save();
             res.status(201).json(flight);
         } catch (error) {
-            res
-                .status(500)
-                .json({ message: "Error creating flight", error: error.message });
+            res.status(500).json({ message: 'Error creating flight', error: error.message });
         }
     }
 
@@ -168,10 +166,14 @@ class FlightController {
             }
 
             flight.remainingSeats = {
-                economy: flight.seats.filter(seat => seat.class === 'Economy' && !seat.isBooked).length,
-                premium: flight.seats.filter(seat => seat.class === 'Premium' && !seat.isBooked).length,
-                business: flight.seats.filter(seat => seat.class === 'Business' && !seat.isBooked).length,
-                first: flight.seats.filter(seat => seat.class === 'First' && !seat.isBooked).length
+                economy: flight.seats.filter((seat) => seat.class === 'Economy' && !seat.isBooked)
+                    .length,
+                premium: flight.seats.filter((seat) => seat.class === 'Premium' && !seat.isBooked)
+                    .length,
+                business: flight.seats.filter((seat) => seat.class === 'Business' && !seat.isBooked)
+                    .length,
+                first: flight.seats.filter((seat) => seat.class === 'First' && !seat.isBooked)
+                    .length,
             };
 
             delete flight.seats;
@@ -190,11 +192,11 @@ class FlightController {
                 new: true,
             });
             if (!updatedFlight) {
-                return res.status(404).json({ message: "Không tìm thấy chuyến bay" });
+                return res.status(404).json({ message: 'Không tìm thấy chuyến bay' });
             }
             res.status(200).json(updatedFlight);
         } catch (error) {
-            res.status(500).json({ message: "Lỗi khi cập nhật chuyến bay", error });
+            res.status(500).json({ message: 'Lỗi khi cập nhật chuyến bay', error });
         }
     }
 
@@ -204,17 +206,15 @@ class FlightController {
             const flightId = req.params.id;
             const deletedFlight = await Flight.findById(flightId);
             if (!deletedFlight) {
-                return res
-                    .status(404)
-                    .json({ message: "Không tìm thấy chuyến bay để xóa" });
+                return res.status(404).json({ message: 'Không tìm thấy chuyến bay để xóa' });
             }
             deletedFlight.delete();
             res.status(200).json({
-                message: "Đã xóa chuyến bay thành công",
+                message: 'Đã xóa chuyến bay thành công',
                 flight: deletedFlight,
             });
         } catch (error) {
-            res.status(500).json({ message: "Lỗi khi xóa chuyến bay", error });
+            res.status(500).json({ message: 'Lỗi khi xóa chuyến bay', error });
         }
     }
 
@@ -225,7 +225,7 @@ class FlightController {
             res.status(200).json(deletedFlights);
         } catch (error) {
             res.status(500).json({
-                message: "Error getting deleted flights",
+                message: 'Error getting deleted flights',
                 error: error.message,
             });
         }
@@ -239,24 +239,20 @@ class FlightController {
                 result.restored === 0 ||
                 (result.modifiedCount === 0 && result.matchedCount === 0)
             ) {
-                return res
-                    .status(404)
-                    .json({ message: "Flight not found or not deleted" });
+                return res.status(404).json({ message: 'Flight not found or not deleted' });
             }
             const restoredFlight = await Flight.findById(req.params.id);
             if (!restoredFlight) {
                 return res
                     .status(404)
-                    .json({ message: "Flight not found after attempting restore." });
+                    .json({ message: 'Flight not found after attempting restore.' });
             }
             res.status(200).json({
-                message: "Flight restored successfully",
+                message: 'Flight restored successfully',
                 flight: restoredFlight,
             });
         } catch (error) {
-            res
-                .status(500)
-                .json({ message: "Error restoring flight", error: error.message });
+            res.status(500).json({ message: 'Error restoring flight', error: error.message });
         }
     }
 
@@ -268,15 +264,11 @@ class FlightController {
             if (result.deletedCount === 0) {
                 return res
                     .status(404)
-                    .json({ message: "Không tìm thấy chuyến bay để xóa vĩnh viễn" });
+                    .json({ message: 'Không tìm thấy chuyến bay để xóa vĩnh viễn' });
             }
-            res
-                .status(200)
-                .json({ message: "Đã xóa vĩnh viễn chuyến bay thành công" });
+            res.status(200).json({ message: 'Đã xóa vĩnh viễn chuyến bay thành công' });
         } catch (error) {
-            res
-                .status(500)
-                .json({ message: "Lỗi khi xóa vĩnh viễn chuyến bay", error });
+            res.status(500).json({ message: 'Lỗi khi xóa vĩnh viễn chuyến bay', error });
         }
     }
 
@@ -298,10 +290,7 @@ class FlightController {
             await flight.save();
 
             const affectedBookings = await Booking.find({
-                $or: [
-                    { outboundFlight: code },
-                    { returnFlight: code }
-                ]
+                $or: [{ outboundFlight: code }, { returnFlight: code }],
             }).populate('user', 'email');
 
             console.log(`Found ${affectedBookings.length} affected bookings for flight ${code}`);
@@ -314,12 +303,15 @@ class FlightController {
                         originalDepartureTime: originalDepartureTime,
                         newDepartureTime: flight.departureTime,
                         newArrivalTime: flight.arrivalTime,
-                        delayReason: delayReason
+                        delayReason: delayReason,
                     };
                     try {
                         await sendFlightDelayNotificationEmail(booking.user.email, emailDetails);
                     } catch (emailError) {
-                        console.error(`Error sending delay email to ${booking.user.email}:`, emailError);
+                        console.error(
+                            `Error sending delay email to ${booking.user.email}:`,
+                            emailError,
+                        );
                     }
 
                     const userNotification = new Notification({
@@ -327,16 +319,22 @@ class FlightController {
                         title: 'Chuyến bay của bạn bị hoãn',
                         message: `Chuyến bay ${flight.flightNo} từ ${flight.from} đến ${flight.to} đã bị hoãn. Lý do: ${delayReason}. Thời gian khởi hành mới: ${new Date(flight.departureTime).toLocaleString('vi-VN')}.`,
                         isRead: false,
-                        createdAt: new Date()
+                        createdAt: new Date(),
                     });
                     await userNotification.save();
                 }
             }
 
-            res.status(200).json({ message: 'Thông báo chuyến bay bị hoãn và đã gửi email cho hành khách thành công', flight });
+            res.status(200).json({
+                message: 'Thông báo chuyến bay bị hoãn và đã gửi email cho hành khách thành công',
+                flight,
+            });
         } catch (error) {
             console.error('Error notifying flight delay:', error);
-            res.status(500).json({ message: 'Lỗi khi thông báo chuyến bay bị hoãn', error: error.message });
+            res.status(500).json({
+                message: 'Lỗi khi thông báo chuyến bay bị hoãn',
+                error: error.message,
+            });
         }
     }
 }

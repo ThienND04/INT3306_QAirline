@@ -9,7 +9,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./docs/swagger');
 const createAdmin = require('./utils/createAdmin');
 
-createAdmin(); 
+createAdmin();
 
 const app = express();
 db.connect();

@@ -8,12 +8,11 @@ const airportSchema = new mongoose.Schema({
     country: { type: String, required: true },
 });
 
-airportSchema.plugin(mongooseDelete,
-    {
-        overrideMethods: 'all',
-        deletedAt: true,
-        deleted: true
-    });
+airportSchema.plugin(mongooseDelete, {
+    overrideMethods: 'all',
+    deletedAt: true,
+    deleted: true,
+});
 
 airportSchema.pre(['aggregate', 'aggregateDeleted', 'aggregateWithDeleted'], function () {
     this.pipeline().reverse();

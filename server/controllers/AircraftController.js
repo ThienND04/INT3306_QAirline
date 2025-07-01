@@ -2,10 +2,9 @@
 const Aircraft = require('../models/Aircraft');
 
 class AircraftController {
-    
     // [GET] /aircrafts/
     async getAllAircrafts(req, res) {
-        try {
+    try {
             const aircrafts = await Aircraft.find();
             res.status(200).json(aircrafts);
         } catch (error) {
@@ -40,7 +39,9 @@ class AircraftController {
     // [PUT] /aircrafts/:id
     async updateAircraft(req, res) {
         try {
-            const aircraft = await Aircraft.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            const aircraft = await Aircraft.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+            });
             if (!aircraft) {
                 return res.status(404).json({ message: 'Aircraft not found' });
             }
@@ -57,7 +58,7 @@ class AircraftController {
             if (!aircraft) {
                 return res.status(404).json({ message: 'Aircraft not found' });
             }
-            await aircraft.delete(); 
+            await aircraft.delete();
             res.status(200).json({ message: 'Aircraft deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Error deleting aircraft', error: error.message });
@@ -73,18 +74,26 @@ class AircraftController {
             }
             res.status(200).json({ message: 'Aircraft hard deleted successfully' });
         } catch (error) {
-            res.status(500).json({ message: 'Error hard deleting aircraft', error: error.message });
+            res.status(500).json({
+                message: 'Error hard deleting aircraft',
+                error: error.message,
+            });
         }
     }
 
     // [GET] /aircrafts/deleted
     async getDeletedAircrafts(req, res) {
         try {
-            const deletedAircrafts = await Aircraft.findWithDeleted({deleted:true});
+            const deletedAircrafts = await Aircraft.findWithDeleted({
+                deleted: true,
+            });
             console.log('Deleted aircrafts:', deletedAircrafts);
             res.status(200).json(deletedAircrafts);
         } catch (error) {
-            res.status(500).json({ message: 'Error getting deleted aircrafts', error: error.message });
+            res.status(500).json({
+                message: 'Error getting deleted aircrafts',
+                error: error.message,
+            });
         }
     }
 
@@ -92,15 +101,24 @@ class AircraftController {
     async restoreAircraft(req, res) {
         try {
             const result = await Aircraft.restore({ _id: req.params.id });
-            if (result.restored === 0 || (result.modifiedCount === 0 && result.matchedCount === 0)) { // mongoose-delete v1.x uses result.restored, newer might use updateWriteOpResult like modifiedCount
+            if (
+                result.restored === 0 ||
+                (result.modifiedCount === 0 && result.matchedCount === 0)
+            ) {
+                // mongoose-delete v1.x uses result.restored, newer might use updateWriteOpResult like modifiedCount
                 return res.status(404).json({ message: 'Aircraft not found or not deleted' });
             }
 
             const restoredAircraft = await Aircraft.findById(req.params.id);
             if (!restoredAircraft) {
-                 return res.status(404).json({ message: 'Aircraft not found after attempting restore.' });
+                return res
+                    .status(404)
+                    .json({ message: 'Aircraft not found after attempting restore.' });
             }
-            res.status(200).json({ message: 'Aircraft restored successfully', aircraft: restoredAircraft });
+            res.status(200).json({
+                message: 'Aircraft restored successfully',
+                aircraft: restoredAircraft,
+            });
         } catch (error) {
             res.status(500).json({ message: 'Error restoring aircraft', error: error.message });
         }

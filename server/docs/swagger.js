@@ -8,25 +8,23 @@ const options = {
             version: '1.0.0',
             description: 'API tài liệu cho hệ thống đặt vé máy bay',
         },
-        servers: [
-            { url: 'http://localhost:5000/api/v1' }
-        ],
+        servers: [{ url: 'http://localhost:5000/api/v1' }],
         components: {
             securitySchemes: {
                 bearerAuth: {
                     type: 'http',
                     scheme: 'bearer',
-                    bearerFormat: 'JWT', 
+                    bearerFormat: 'JWT',
                 },
             },
         },
         security: [
             {
-                bearerAuth: []
-            }
+                bearerAuth: [],
+            },
         ],
     },
-    apis: ['./routes/*.js'], 
+    apis: ['./routes/*.js'],
 };
 
 const specs = swaggerJsdoc(options);

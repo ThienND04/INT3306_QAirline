@@ -7,8 +7,8 @@ async function sendOtpEmail(toEmail, otp) {
         secure: true,
         auth: {
             user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
+            pass: process.env.EMAIL_PASS,
+        },
     });
 
     const mailOptions = {
@@ -29,9 +29,8 @@ async function sendOtpEmail(toEmail, otp) {
             Đội ngũ hỗ trợ`,
     };
 
-
     await transporter.sendMail(mailOptions);
-};
+}
 
 async function sendBookingConfirmationEmail(toEmail, bookingDetails) {
     const transporter = nodemailer.createTransport({
@@ -40,8 +39,8 @@ async function sendBookingConfirmationEmail(toEmail, bookingDetails) {
         secure: true,
         auth: {
             user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
+            pass: process.env.EMAIL_PASS,
+        },
     });
 
     let flightDetailsText = `
@@ -98,7 +97,7 @@ async function sendBookingConfirmationEmail(toEmail, bookingDetails) {
     };
 
     await transporter.sendMail(mailOptions);
-};
+}
 
 async function sendBookingCancellationEmail(toEmail, bookingDetails) {
     const transporter = nodemailer.createTransport({
@@ -107,8 +106,8 @@ async function sendBookingCancellationEmail(toEmail, bookingDetails) {
         secure: true,
         auth: {
             user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
+            pass: process.env.EMAIL_PASS,
+        },
     });
 
     let flightDetailsText = `
@@ -147,7 +146,7 @@ async function sendBookingCancellationEmail(toEmail, bookingDetails) {
     };
 
     await transporter.sendMail(mailOptions);
-};
+}
 
 async function sendFlightDelayNotificationEmail(toEmail, delayDetails) {
     console.log('Sending flight delay notification email to:', toEmail);
@@ -157,8 +156,8 @@ async function sendFlightDelayNotificationEmail(toEmail, delayDetails) {
         secure: true,
         auth: {
             user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
+            pass: process.env.EMAIL_PASS,
+        },
     });
 
     const mailOptions = {
@@ -185,4 +184,9 @@ Trân trọng,
     await transporter.sendMail(mailOptions);
 }
 
-module.exports = { sendOtpEmail, sendBookingConfirmationEmail, sendBookingCancellationEmail, sendFlightDelayNotificationEmail };
+module.exports = {
+    sendOtpEmail,
+    sendBookingConfirmationEmail,
+    sendBookingCancellationEmail,
+    sendFlightDelayNotificationEmail,
+};

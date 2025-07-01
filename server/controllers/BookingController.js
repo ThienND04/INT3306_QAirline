@@ -1,37 +1,47 @@
 const Booking = require('../models/Booking');
 const Flight = require('../models/Flight');
 const User = require('../models/User');
-const { sendBookingConfirmationEmail, sendBookingCancellationEmail } = require('../utils/sendEmail');
+const {
+    sendBookingConfirmationEmail,
+    sendBookingCancellationEmail,
+} = require('../utils/sendEmail');
 
 async function processFlightLeg(flightInput, passengerCounts, existingFlightModel = null) {
     const { flightCode, bookingClass } = flightInput;
     const { adultCount, childCount, infantCount } = passengerCounts;
     const totalPassengers = adultCount + childCount + infantCount;
 
-    const flight = existingFlightModel || await Flight.findOne({ code: flightCode });
+    const flight = existingFlightModel || (await Flight.findOne({ code: flightCode }));
     if (!flight) {
         throw new Error(`Không tìm thấy chuyến bay ${flightCode}.`);
     }
 
     const priceField = `${bookingClass.toLowerCase()}Price`;
-    if (flight[priceField] == null) { 
-        throw new Error(`Không tìm thấy thông tin giá vé cho hạng ${bookingClass} của chuyến bay ${flightCode} hoặc cấu trúc giá không đúng.`);
+    if (flight[priceField] == null) {
+        throw new Error(
+            `Không tìm thấy thông tin giá vé cho hạng ${bookingClass} của chuyến bay ${flightCode} hoặc cấu trúc giá không đúng.`,
+        );
     }
 
     const adultPrice = flight[priceField];
     const childPrice = adultPrice * 0.75; // Assuming child price is 75% of adult
-    const infantPrice = adultPrice * 0.10; // Assuming infant price is 10% of adult
-    const legTotalPrice = (adultCount * adultPrice) + (childCount * childPrice) + (infantCount * infantPrice);
+    const infantPrice = adultPrice * 0.1; // Assuming infant price is 10% of adult
+    const legTotalPrice =
+        adultCount * adultPrice + childCount * childPrice + infantCount * infantPrice;
 
-    const availableSeatsInClass = flight.seats.filter(s => s.class === bookingClass && !s.isBooked);
+    const availableSeatsInClass = flight.seats.filter(
+        (s) => s.class === bookingClass && !s.isBooked,
+    );
     if (availableSeatsInClass.length < totalPassengers) {
-        throw new Error(`Không đủ ghế trống hạng ${bookingClass} cho chuyến bay ${flightCode}. Chỉ còn ${availableSeatsInClass.length} ghế.`);
+        throw new Error(
+            `Không đủ ghế trống hạng ${bookingClass} cho chuyến bay ${flightCode}. Chỉ còn ${availableSeatsInClass.length} ghế.`,
+        );
     }
 
     const selectedSeats = availableSeatsInClass.slice(0, totalPassengers);
     const seatNumbersToBook = [];
-    selectedSeats.forEach(seat => {
-        const flightSeatToUpdate = flight.seats.find(s => s.seatNo === seat.seatNo);
+    selectedSeats.forEach((seat) => {
+        const flightSeatToUpdate = flight.seats.find((s) => s.seatNo === seat.seatNo);
         if (flightSeatToUpdate) {
             flightSeatToUpdate.isBooked = true;
             seatNumbersToBook.push(flightSeatToUpdate.seatNo);
@@ -39,7 +49,9 @@ async function processFlightLeg(flightInput, passengerCounts, existingFlightMode
     });
 
     if (seatNumbersToBook.length !== totalPassengers) {
-        throw new Error(`Lỗi hệ thống: Không thể chọn đủ số ghế (${totalPassengers}) cho chuyến bay ${flightCode}. Chỉ chọn được ${seatNumbersToBook.length}.`);
+        throw new Error(
+            `Lỗi hệ thống: Không thể chọn đủ số ghế (${totalPassengers}) cho chuyến bay ${flightCode}. Chỉ chọn được ${seatNumbersToBook.length}.`,
+        );
     }
 
     return {
@@ -51,22 +63,28 @@ async function processFlightLeg(flightInput, passengerCounts, existingFlightMode
         arrival: flight.to,
         departureTime: flight.departureTime,
         arrivalTime: flight.arrivalTime,
-        updatedFlight: flight 
+        updatedFlight: flight,
     };
 }
 
 async function unbookFlightLegSeats(flightLegBookingDetails, flightInfoModel) {
-    if (flightLegBookingDetails && flightInfoModel && Array.isArray(flightLegBookingDetails.seatNo)) {
+    if (
+        flightLegBookingDetails &&
+        flightInfoModel &&
+        Array.isArray(flightLegBookingDetails.seatNo)
+    ) {
         let seatsUpdated = false;
-        flightLegBookingDetails.seatNo.forEach(bookedSeatNo => {
-            const seatToUnbook = flightInfoModel.seats.find(seat => seat.seatNo === bookedSeatNo);
+        flightLegBookingDetails.seatNo.forEach((bookedSeatNo) => {
+            const seatToUnbook = flightInfoModel.seats.find((seat) => seat.seatNo === bookedSeatNo);
             if (seatToUnbook) {
                 if (seatToUnbook.isBooked) {
                     seatToUnbook.isBooked = false;
                     seatsUpdated = true;
                 }
             } else {
-                console.warn(`Seat ${bookedSeatNo} for flight ${flightInfoModel.code} (booking leg) not found in flight details.`);
+                console.warn(
+                    `Seat ${bookedSeatNo} for flight ${flightInfoModel.code} (booking leg) not found in flight details.`,
+                );
             }
         });
         if (seatsUpdated) {
@@ -77,12 +95,13 @@ async function unbookFlightLegSeats(flightLegBookingDetails, flightInfoModel) {
     return false;
 }
 
-
 class BookingController {
     // [GET] /booking
     async getAllBookings(req, res) {
         try {
-            const bookings = await Booking.find().populate('userInfo outboundFlightInfo returnFlightInfo');
+            const bookings = await Booking.find().populate(
+                'userInfo outboundFlightInfo returnFlightInfo',
+            );
             res.status(200).json(bookings);
         } catch (error) {
             res.status(500).json({ message: 'Error getting bookings', error: error.message });
@@ -92,8 +111,9 @@ class BookingController {
     // [GET] /bookings/:id
     async getBookingById(req, res) {
         try {
-            const booking = await Booking.findById(req.params.id)
-                .populate('userInfo outboundFlightInfo returnFlightInfo');
+            const booking = await Booking.findById(req.params.id).populate(
+                'userInfo outboundFlightInfo returnFlightInfo',
+            );
             if (!booking) {
                 return res.status(404).json({ message: 'Booking not found' });
             }
@@ -112,7 +132,10 @@ class BookingController {
                 .populate('userInfo outboundFlightInfo returnFlightInfo');
             res.status(200).json(bookings);
         } catch (error) {
-            res.status(500).json({ message: 'Error getting bookings for user', error: error.message });
+            res.status(500).json({
+                message: 'Error getting bookings for user',
+                error: error.message,
+            });
         }
     }
 
@@ -123,8 +146,8 @@ class BookingController {
             const bookings = await Booking.find({
                 $or: [
                     { 'outbound.flightCode': flightCode },
-                    { 'returnFlight.flightCode': flightCode }
-                ]
+                    { 'returnFlight.flightCode': flightCode },
+                ],
             }).populate('userInfo outboundFlightInfo returnFlightInfo');
 
             if (!bookings || bookings.length === 0) {
@@ -132,7 +155,10 @@ class BookingController {
             }
             res.status(200).json(bookings);
         } catch (error) {
-            res.status(500).json({ message: 'Error getting bookings by flight code', error: error.message });
+            res.status(500).json({
+                message: 'Error getting bookings by flight code',
+                error: error.message,
+            });
         }
     }
 
@@ -149,8 +175,9 @@ class BookingController {
 
             Object.assign(booking, updates);
             const updatedBooking = await booking.save();
-            const populatedBooking = await Booking.findById(updatedBooking._id)
-                .populate('userInfo outboundFlightInfo returnFlightInfo');
+            const populatedBooking = await Booking.findById(updatedBooking._id).populate(
+                'userInfo outboundFlightInfo returnFlightInfo',
+            );
 
             res.status(200).json(populatedBooking);
         } catch (error) {
@@ -161,19 +188,29 @@ class BookingController {
     // [POST] /bookings/book
     async bookTickets(req, res) {
         try {
-            console.log("BookingController.bookTickets called with body:", req.body);
-            const userId = req.user.id; 
+            console.log('BookingController.bookTickets called with body:', req.body);
+            const userId = req.user.id;
             const {
                 outbound: outboundInput, // Expected: { flightCode, bookingClass }
                 returnFlight: returnInput, // Optional: { flightCode, bookingClass }
                 adultCount,
                 childCount,
-                infantCount
+                infantCount,
             } = req.body;
 
-            if (!userId || !outboundInput || !outboundInput.flightCode || !outboundInput.bookingClass ||
-                adultCount == null || childCount == null || infantCount == null) {
-                return res.status(400).json({ message: 'Thiếu thông tin cần thiết để đặt vé (userId, outbound details, passenger counts).' });
+            if (
+                !userId ||
+                !outboundInput ||
+                !outboundInput.flightCode ||
+                !outboundInput.bookingClass ||
+                adultCount == null ||
+                childCount == null ||
+                infantCount == null
+            ) {
+                return res.status(400).json({
+                    message:
+                        'Thiếu thông tin cần thiết để đặt vé (userId, outbound details, passenger counts).',
+                });
             }
 
             if (adultCount < 0 || childCount < 0 || infantCount < 0) {
@@ -183,10 +220,12 @@ class BookingController {
             if (totalPassengers === 0) {
                 return res.status(400).json({ message: 'Phải có ít nhất một hành khách.' });
             }
-            if (totalPassengers > 9) { // Example limit
-                return res.status(400).json({ message: 'Số lượng hành khách tối đa cho một lần đặt là 9.' });
+            if (totalPassengers > 9) {
+                // Example limit
+                return res.status(400).json({
+                    message: 'Số lượng hành khách tối đa cho một lần đặt là 9.',
+                });
             }
-
 
             const user = await User.findById(userId);
             if (!user) {
@@ -204,7 +243,9 @@ class BookingController {
                 finalOutboundFlight = outboundResult.updatedFlight;
                 delete outboundBookingLeg.updatedFlight;
             } catch (error) {
-                return res.status(400).json({ message: `Lỗi xử lý chuyến bay đi: ${error.message}` });
+                return res
+                    .status(400)
+                    .json({ message: `Lỗi xử lý chuyến bay đi: ${error.message}` });
             }
 
             if (returnInput && returnInput.flightCode && returnInput.bookingClass) {
@@ -216,7 +257,9 @@ class BookingController {
                     finalReturnFlight = returnResult.updatedFlight;
                     delete returnBookingLeg.updatedFlight;
                 } catch (error) {
-                    return res.status(400).json({ message: `Lỗi xử lý chuyến bay về: ${error.message}` });
+                    return res
+                        .status(400)
+                        .json({ message: `Lỗi xử lý chuyến bay về: ${error.message}` });
                 }
             }
 
@@ -238,22 +281,25 @@ class BookingController {
             if (finalReturnFlight) {
                 await finalReturnFlight.save();
             }
-            
-            const populatedBooking = await Booking.findById(newBooking._id)
-                .populate('userInfo outboundFlightInfo returnFlightInfo');
 
-            console.log("email", user.email);
-            sendBookingConfirmationEmail(user.email, populatedBooking); 
+            const populatedBooking = await Booking.findById(newBooking._id).populate(
+                'userInfo outboundFlightInfo returnFlightInfo',
+            );
+
+            console.log('email', user.email);
+            sendBookingConfirmationEmail(user.email, populatedBooking);
 
             res.status(201).json({
                 message: 'Đặt vé thành công',
-                booking: populatedBooking
+                booking: populatedBooking,
             });
-
         } catch (error) {
             console.error('Lỗi đặt vé:', error);
             if (error.name === 'ValidationError') {
-                return res.status(400).json({ message: 'Lỗi xác thực dữ liệu đặt vé.', error: error.message });
+                return res.status(400).json({
+                    message: 'Lỗi xác thực dữ liệu đặt vé.',
+                    error: error.message,
+                });
             }
             res.status(500).json({ message: 'Lỗi hệ thống khi đặt vé', error: error.message });
         }
@@ -262,18 +308,28 @@ class BookingController {
     // [POST] /bookings/fake-booking
     async fakeBooking(req, res) {
         try {
-            const userId = req.user.id; 
+            const userId = req.user.id;
             const {
                 outbound: outboundInput, // Expected: { flightCode, bookingClass }
                 returnFlight: returnInput, // Optional: { flightCode, bookingClass }
                 adultCount,
                 childCount,
-                infantCount
+                infantCount,
             } = req.body;
 
-            if (!userId || !outboundInput || !outboundInput.flightCode || !outboundInput.bookingClass ||
-                adultCount == null || childCount == null || infantCount == null) {
-                return res.status(400).json({ message: 'Thiếu thông tin cần thiết để đặt vé (userId, outbound details, passenger counts).' });
+            if (
+                !userId ||
+                !outboundInput ||
+                !outboundInput.flightCode ||
+                !outboundInput.bookingClass ||
+                adultCount == null ||
+                childCount == null ||
+                infantCount == null
+            ) {
+                return res.status(400).json({
+                    message:
+                        'Thiếu thông tin cần thiết để đặt vé (userId, outbound details, passenger counts).',
+                });
             }
 
             if (adultCount < 0 || childCount < 0 || infantCount < 0) {
@@ -283,10 +339,12 @@ class BookingController {
             if (totalPassengers === 0) {
                 return res.status(400).json({ message: 'Phải có ít nhất một hành khách.' });
             }
-            if (totalPassengers > 9) { // Example limit
-                return res.status(400).json({ message: 'Số lượng hành khách tối đa cho một lần đặt là 9.' });
+            if (totalPassengers > 9) {
+                // Example limit
+                return res.status(400).json({
+                    message: 'Số lượng hành khách tối đa cho một lần đặt là 9.',
+                });
             }
-
 
             const user = await User.findById(userId);
             if (!user) {
@@ -303,7 +361,9 @@ class BookingController {
                 finalOutboundFlight = outboundResult.updatedFlight;
                 delete outboundBookingLeg.updatedFlight;
             } catch (error) {
-                return res.status(400).json({ message: `Lỗi xử lý chuyến bay đi: ${error.message}` });
+                return res
+                    .status(400)
+                    .json({ message: `Lỗi xử lý chuyến bay đi: ${error.message}` });
             }
 
             if (returnInput && returnInput.flightCode && returnInput.bookingClass) {
@@ -315,7 +375,9 @@ class BookingController {
                     finalReturnFlight = returnResult.updatedFlight;
                     delete returnBookingLeg.updatedFlight;
                 } catch (error) {
-                    return res.status(400).json({ message: `Lỗi xử lý chuyến bay về: ${error.message}` });
+                    return res
+                        .status(400)
+                        .json({ message: `Lỗi xử lý chuyến bay về: ${error.message}` });
                 }
             }
 
@@ -335,13 +397,15 @@ class BookingController {
 
             res.status(201).json({
                 message: 'Đặt vé thành công',
-                booking: newBooking
+                booking: newBooking,
             });
-
         } catch (error) {
             console.error('Lỗi đặt vé:', error);
             if (error.name === 'ValidationError') {
-                return res.status(400).json({ message: 'Lỗi xác thực dữ liệu đặt vé.', error: error.message });
+                return res.status(400).json({
+                    message: 'Lỗi xác thực dữ liệu đặt vé.',
+                    error: error.message,
+                });
             }
             res.status(500).json({ message: 'Lỗi hệ thống khi đặt vé', error: error.message });
         }
@@ -351,8 +415,9 @@ class BookingController {
     async cancelBooking(req, res) {
         try {
             const id = req.params.id;
-            const booking = await Booking.findById(id)
-                .populate('userInfo outboundFlightInfo returnFlightInfo');
+            const booking = await Booking.findById(id).populate(
+                'userInfo outboundFlightInfo returnFlightInfo',
+            );
 
             if (!booking) {
                 return res.status(404).json({ message: 'Booking not found.' });
@@ -363,29 +428,39 @@ class BookingController {
 
             // Unbook outbound flight seats
             if (booking.outbound && booking.outboundFlightInfo) {
-                outboundSeatsFreed = await unbookFlightLegSeats(booking.outbound, booking.outboundFlightInfo);
+                outboundSeatsFreed = await unbookFlightLegSeats(
+                    booking.outbound,
+                    booking.outboundFlightInfo,
+                );
             } else if (booking.outbound) {
-                console.warn(`Outbound flight details for booking ${id} found, but flightInfo (Flight document) could not be populated. Outbound seat statuses might not have been changed if flight was deleted.`);
+                console.warn(
+                    `Outbound flight details for booking ${id} found, but flightInfo (Flight document) could not be populated. Outbound seat statuses might not have been changed if flight was deleted.`,
+                );
             }
 
             // Unbook return flight seats
             if (booking.returnFlight && booking.returnFlightInfo) {
-                console.log("returnFlightInfo", booking.returnFlightInfo);
-                returnSeatsFreed = await unbookFlightLegSeats(booking.returnFlight, booking.returnFlightInfo);
+                console.log('returnFlightInfo', booking.returnFlightInfo);
+                returnSeatsFreed = await unbookFlightLegSeats(
+                    booking.returnFlight,
+                    booking.returnFlightInfo,
+                );
             } else if (booking.returnFlight) {
-                console.warn(`Return flight details for booking ${id} found, but flightInfo (Flight document) could not be populated. Return seat statuses might not have been changed if flight was deleted.`);
+                console.warn(
+                    `Return flight details for booking ${id} found, but flightInfo (Flight document) could not be populated. Return seat statuses might not have been changed if flight was deleted.`,
+                );
             }
-            
+
             if (booking.userInfo) {
                 sendBookingCancellationEmail(booking.userInfo.email, booking); // Ensure this email utility is updated
             }
 
             await Booking.deleteOne({ _id: id });
 
-            res.status(200).json({ 
+            res.status(200).json({
                 message: 'Booking cancelled successfully.',
                 outboundSeatsFreed,
-                returnSeatsFreed 
+                returnSeatsFreed,
             });
         } catch (error) {
             console.error('Error cancelling booking:', error);
@@ -439,8 +514,7 @@ class BookingController {
                 tempDate.setDate(1);
             }
 
-
-            bookings.forEach(booking => {
+            bookings.forEach((booking) => {
                 const bookingDate = new Date(booking.createdAt);
                 const year = bookingDate.getFullYear();
                 const month = String(bookingDate.getMonth() + 1).padStart(2, '0');

@@ -1,4 +1,4 @@
-require('dotenv').config({ 'path': '.env.test' });
+require('dotenv').config({ path: '.env.test' });
 const chai = require('chai');
 const request = require('supertest');
 const sinon = require('sinon');
@@ -21,7 +21,7 @@ describe('User Controller Test', function () {
         gender: 'Nam',
         birthDate: { day: 1, month: 1, year: 1990 },
         nationality: 'Vietnam',
-        language: 'Vietnamese'
+        language: 'Vietnamese',
     };
 
     describe('POST /api/v1/users/register', function () {
@@ -40,10 +40,7 @@ describe('User Controller Test', function () {
         });
 
         it('should not register with existing email', function (done) {
-            request(app)
-                .post('/api/v1/users/register')
-                .send(testUser)
-                .expect(400, done);
+            request(app).post('/api/v1/users/register').send(testUser).expect(400, done);
         });
     });
 
@@ -84,9 +81,7 @@ describe('User Controller Test', function () {
         });
 
         it('should not get profile without token', function (done) {
-            request(app)
-                .get('/api/v1/users/me')
-                .expect(401, done);
+            request(app).get('/api/v1/users/me').expect(401, done);
         });
     });
 

@@ -1,42 +1,43 @@
 {
-    "name": "server",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "nodemon --inspect --env-file=.env app.js",
-        "test": "mocha --file test/setup.js \"test/**/*.test.js\""
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "type": "commonjs",
-    "dependencies": {
-        "bcryptjs": "^3.0.2",
-        "body-parser": "^2.2.0",
-        "cloudinary": "^1.41.3",
-        "cors": "^2.8.5",
-        "cron": "^4.3.0",
-        "dotenv": "^16.5.0",
-        "express": "^5.1.0",
-        "jsonwebtoken": "^9.0.2",
-        "mongoose": "^8.14.1",
-        "mongoose-delete": "^1.0.2",
-        "mongoose-slug-generator": "^1.0.4",
-        "multer": "^2.0.1",
-        "multer-storage-cloudinary": "^4.0.0",
-        "nodemailer": "^7.0.3",
-        "swagger-jsdoc": "^6.2.8",
-        "swagger-ui-express": "^5.0.1",
-        "uuidv4": "^6.2.13"
-    },
-    "devDependencies": {
-        "chai": "^5.2.0",
-        "mocha": "^11.2.2",
-        "mongodb-memory-server": "^10.1.4",
-        "morgan": "^1.10.0",
-        "nodemon": "^3.1.10",
-        "sinon": "^20.0.0",
-        "supertest": "^7.1.1"
-    }
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect --env-file=.env app.js",
+    "test": "mocha --file test/setup.js \"test/**/*.test.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "cloudinary": "^1.41.3",
+    "cors": "^2.8.5",
+    "cron": "^4.3.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.1",
+    "mongoose-delete": "^1.0.2",
+    "mongoose-slug-generator": "^1.0.4",
+    "multer": "^2.0.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemailer": "^7.0.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuidv4": "^6.2.13"
+  },
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.2.2",
+    "mongodb-memory-server": "^10.1.4",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "sinon": "^20.0.0",
+    "supertest": "^7.1.1"
+  }
 }

@@ -2,14 +2,15 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const createToken = require('../utils/createToken');
-const Otp = require('../models/Otp'); 
-const {sendOtpEmail} = require('../utils/sendEmail'); 
+const Otp = require('../models/Otp');
+const { sendOtpEmail } = require('../utils/sendEmail');
 
 class AuthController {
     // [POST] /auth/register
     async register(req, res) {
         try {
-            const { email,
+            const {
+                email,
                 password,
                 phoneNumber,
                 address,
@@ -19,7 +20,8 @@ class AuthController {
                 gender,
                 birthDate,
                 nationality,
-                language } = req.body;
+                language,
+            } = req.body;
             const existingUser = await User.find({ email });
             console.log('Existing user:', existingUser);
             if (existingUser.length > 0) {
@@ -36,7 +38,7 @@ class AuthController {
                 gender,
                 birthDate,
                 nationality,
-                language
+                language,
             });
             await newUser.save();
 
@@ -74,14 +76,18 @@ class AuthController {
             }
             const token = createToken(user._id, user.role);
             return res.status(200).json({
-                message: 'Login successful', user,
+                message: 'Login successful',
+                user,
                 user: {
                     id: user._id,
                     email: user.email,
-                    fullName: (user.displayOrder === 1) ? user.lastName + ' ' + user.middleAndFirstName : user.middleAndFirstName + ' ' + user.lastName,
+                    fullName:
+                        user.displayOrder === 1
+                            ? user.lastName + ' ' + user.middleAndFirstName
+                            : user.middleAndFirstName + ' ' + user.lastName,
                     role: user.role,
                 },
-                token
+                token,
             });
         } catch (error) {
             res.status(500).json({ message: 'Error logging in', error: error.message });
@@ -123,7 +129,10 @@ class AuthController {
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            const otpDoc = await Otp.findOne({ userId: user._id, isUsed: false }).sort({ createdAt: -1 });
+            const otpDoc = await Otp.findOne({
+                userId: user._id,
+                isUsed: false,
+            }).sort({ createdAt: -1 });
             if (!otpDoc) {
                 return res.status(400).json({ message: 'OTP not found or expired' });
             }
@@ -133,21 +142,22 @@ class AuthController {
                 return res.status(400).json({ message: 'Invalid OTP' });
             }
 
-            var resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '10m' });
+            var resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+                expiresIn: '10m',
+            });
             otpDoc.isUsed = true;
             await otpDoc.save();
 
             res.status(200).json({
                 message: 'OTP verified successfully',
-                resetToken
+                resetToken,
             });
-        }
-        catch (error) {
+        } catch (error) {
             return res.status(500).json({ message: 'Error verifying OTP', error: error.message });
         }
     }
 
-    // [POST] /auth/reset-password
+    // [PUT] /auth/reset-password
     async resetPassword(req, res) {
         try {
             console.log('Reset password request body:', req.body);
@@ -163,7 +173,9 @@ class AuthController {
 
             return res.status(200).json({ message: 'Password reset successfully' });
         } catch (error) {
-            return res.status(500).json({ message: 'Error resetting password', error: error.message });
+            return res
+                .status(500)
+                .json({ message: 'Error resetting password', error: error.message });
         }
     }
 }
