@@ -31,6 +31,7 @@ import ResetPasswordForm from './user/components/ForgotPasswordForm/ResetPasswor
 
 
 function App() {
+  console.log(process.env.REACT_APP_API);
   return (
     <Router>
       <Routes>
